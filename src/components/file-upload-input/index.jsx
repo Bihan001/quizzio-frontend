@@ -1,7 +1,13 @@
 import React from 'react';
-import { TextField, Typography, Button } from '@mui/material';
+import { TextField, Typography, Button, InputAdornment, IconButton } from '@mui/material';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { styled } from '@mui/system';
 
-const TextInputField = ({
+const Input = styled('input')({
+  display: 'none',
+});
+
+const FileUploadField = ({
   label,
   placeholder,
   disabled = false,
@@ -25,13 +31,7 @@ const TextInputField = ({
 }) => {
   return (
     <div>
-      <Typography
-        align='left'
-        variant='p'
-        style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }}
-        className={labelClassName}
-        sx={{}}
-      >
+      <Typography align='left' variant='p' style={{ ...labelStyle }} className={labelClassName}>
         {label}
         {required ? <span style={{ color: 'red' }}>*</span> : null}
       </Typography>
@@ -53,6 +53,18 @@ const TextInputField = ({
           value={value}
           style={{ marginRight: '1rem', ...style }}
           className={className}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position='end'>
+                <label>
+                  <Input accept='image/*' type='file' />
+                  <IconButton color='primary' component='span' style={{ marginRight: -11 }}>
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+              </InputAdornment>
+            ),
+          }}
         />
         {showActionBtn && (
           <Button variant='contained' onClick={(e) => actionOnClick(e)}>
@@ -64,4 +76,4 @@ const TextInputField = ({
   );
 };
 
-export default TextInputField;
+export default FileUploadField;
