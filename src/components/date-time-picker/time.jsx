@@ -11,14 +11,6 @@ const styles = (theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
-  textField: {
-    width: 192,
-  },
-
-  cssLabel: {
-    color: 'red',
-  },
-
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
       borderColor: '#1AB273 !important',
@@ -32,12 +24,6 @@ const styles = (theme) => ({
     borderColor: 'rgba(0, 0, 0, 0.15) !important',
     color: 'black',
     // backgroundColor:'white'
-  },
-  resize: {
-    fontSize: 12,
-    height: 1,
-    // color: "rgba(0, 0, 0, 0.15)",
-    color: 'black',
   },
   disable: {
     color: '#D9D7D7',

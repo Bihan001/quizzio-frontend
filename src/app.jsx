@@ -35,7 +35,7 @@ const App = () => {
       }
         : {
           primary: {
-            main: '#00dbe2',
+            main: '#0a9396',
             contrastText: '#000',
           },
           divider: '#00dbe2',

@@ -5,8 +5,9 @@
   background: #ecf0f3;
   box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
 }
+
 .container {
-  height: 89vh;
+  height: 92vh;
   position: relative;
   width: 350px;
   padding: 30px;
@@ -25,6 +26,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .img-area .inner-area {
   display: flex;
 
@@ -32,47 +34,21 @@
   width: calc(100% - 25px);
   border-radius: 50%;
 }
+
 .inner-area img {
   height: 100%;
   width: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
-.container .name {
-  font-size: 23px;
-  font-weight: 500;
-  color: #31344b;
-  margin: 10px 0 5px 0;
-}
-.container .about {
-  color: #44476a;
-  font-weight: 400;
-  font-size: 16px;
-}
-.presonal-inform ul {
-  margin-top: 10%;
-  list-style-type: none;
-}
-.presonal-inform li b {
-  width: 108px;
-  display: inline-block;
-  text-transform: capitalize;
-  color: #1f2124;
-  font-size: 15px;
-  font-weight: 500;
-  color: #00bcd2;
-}
-.presonal-inform li {
-  line-height: 30px;
-  font-size: 14px;
-  font-weight: 400;
-}
-.edit {
-  font-size: 15px;
-}
+
 .form-input {
   font-weight: 500;
   color: #888;
   font-size: 10px;
   line-height: 4.5;
+}
+
+.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 8.5px 14px !important;
 }

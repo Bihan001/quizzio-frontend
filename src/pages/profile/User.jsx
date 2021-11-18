@@ -5,7 +5,13 @@ import user from 'assets/icons/user.png';
 import { Grid, Typography, Button, Box, TextField, Modal } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SimpleModal from './SimpleModal';
+import TextInputField from 'components/text-input-field';
 import { makeStyles, useTheme } from '@mui/styles';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
 import './user.css';
 
 const style = {
@@ -17,18 +23,18 @@ const style = {
   bgcolor: 'background.paper',
   border: 'none',
   boxShadow: 24,
-  p: 4,
+  p: 3,
 };
 
 const useStyles = makeStyles((theme) => ({
   name: {
     fontSize: "23px",
-    fontWeight: 500,
-    color: "#31344b",
+    fontWeight: 600,
+    color: theme.palette.primary.main,
     margin: "10px 0 5px 0",
   },
   title: {
-    color: "#44476a",
+    color: theme.palette.primary.main,
     fontWeight: "400",
     fontSize: "16px",
   },
@@ -41,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   subTitleValue: {
     fontSize: "1.5rem",
     fontWeight: 500,
+    width: "100%",
   },
 
 }));
@@ -58,23 +65,24 @@ const User = () => {
   const [image, setImage] = useState(null);
   const types = ['image/png', 'image/jpeg', 'image/jpg'];
   const [fileselect, setfileselect] = useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   const handleChange = (e) => {
-    let selectedFile = e.target.files[0];
-    setfileselect(URL.createObjectURL(selectedFile));
-    if (selectedFile) {
-      console.log('a');
-      if (types.includes(selectedFile.type)) {
-        setImage(selectedFile);
-      } else {
-        console.log('b');
-        setImage(null);
-      }
-    }
+    // let selectedFile = e.target.files[0];
+    // setfileselect(URL.createObjectURL(selectedFile));
+    // if (selectedFile) {
+    //   console.log('a');
+    //   if (types.includes(selectedFile.type)) {
+    //     setImage(selectedFile);
+    //   } else {
+    //     console.log('b');
+    //     setImage(null);
+    //   }
+    // }
   };
 
   useEffect(() => {
@@ -82,6 +90,10 @@ const User = () => {
     else setTest(!test);
   }, [fileselect]);
 
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
 
   return (
@@ -157,6 +169,18 @@ const User = () => {
               <Grid item md={12} lg={12} xs={12}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }} >
                   <div style={{ width: '100%', }}>
+                    <Typography className={classes.subTitleKey} > School/College: </Typography>
+                  </div>
+
+                  <div className={classes.subTitleValue}>
+                    UEM
+                  </div>
+                </div>
+              </Grid>
+
+              <Grid item md={12} lg={12} xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <div style={{ width: '100%', }}>
                     <Typography className={classes.subTitleKey} > Phone: </Typography>
                   </div>
 
@@ -185,15 +209,15 @@ const User = () => {
                   </div>
 
                   <div className={classes.subTitleValue} >
-                    Hacking is building things that you have always wanted to have built yet.
+                    Hacking is building things that you have alway yet.
                   </div>
                 </div>
               </Grid>
             </Grid>
 
-            <Button variant='outlined' size='large' onClick={handleOpen}>
-              EDIT
-            </Button>
+            <Box sx={{ marginTop: "3rem" }}>
+              <Button variant='outlined' onClick={() => handleOpen()}  >EDIT </Button>
+            </Box>
 
             <Modal
               open={open}
@@ -203,53 +227,104 @@ const User = () => {
             >
               <Box sx={style}>
                 <Grid container spacing={1}>
-                  <Grid item xs={2}>
-                    <label className='form-input'>Name* :</label>
+
+                  <Grid item xs={12} lg={12} md={12}>
+                    <TextInputField
+                      label='Name'
+                      placeholder='name'
+                      required
+                      fullWidth={true}
+                    />
                   </Grid>
-                  <Grid item xs={10}>
-                    <TextField type='text' id='name' sx={{ width: '100%' }} placeholder='User Name' />
+
+                  <Grid item xs={12} lg={12} md={12}>
+                    <TextInputField
+                      label='Email'
+                      placeholder='email'
+                      required
+                      fullWidth={true}
+                    />
                   </Grid>
-                  <Grid item xs={2}>
-                    <label className='form-input'>Email-Id* :</label>
+
+                  <Grid item xs={12} lg={12} md={12}>
+                    <TextInputField
+                      label='Date Of Birth'
+                      type="date"
+                      placeholder='Dob'
+                      required
+                      fullWidth={true}
+                    />
                   </Grid>
-                  <Grid item xs={10}>
-                    <TextField type='text' sx={{ width: '100%' }} id='email' placeholder='Email-Id' />
+
+                  <Grid item xs={12} lg={12} md={12}>
+                    <TextInputField
+                      label='Address'
+                      multiline row={2}
+                      placeholder='type here...'
+                      required
+                      fullWidth={true}
+                    />
                   </Grid>
-                  <Grid item xs={2}>
-                    <label className='form-input'>Institution* :</label>
+
+                  <Grid item xs={12} lg={12} md={12}>
+                    <TextInputField
+                      label='Institute'
+                      placeholder='institute'
+                      fullWidth={true}
+                    />
                   </Grid>
-                  <Grid item xs={10}>
-                    <TextField type='text' sx={{ width: '100%' }} id='iname' placeholder='Institution Name' />
+
+                  <Grid item xs={12} lg={12} md={12}>
+                    <Typography
+                      align='left'
+                      variant='p'
+                    >
+                      Password
+                      {true ? <span style={{ color: 'red' }}>*</span> : null}
+                    </Typography>
+
+                    <OutlinedInput
+                      label="Password"
+                      id="outlined-adornment-password"
+                      type={showPassword ? "text" : "password"}
+                      // value={values.password}
+                      onChange={handleChange("password")}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            fullWidth={true}
+                            style={{ marginRight: '1rem', width: "6rem", padding: "8.5px 14px" }}
+                            edge="end"
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
                   </Grid>
-                  <Grid item xs={2}>
-                    <label className='form-input'>Date of Birth * :</label>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <TextField type='date' sx={{ width: '100%' }} id='date' />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <label className='form-input'>Address * :</label>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <TextField type='text' id='name' sx={{ width: '100%' }} placeholder='Address' />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Button variant='contained' color='success'>
-                      Save
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Button onClick={handleClose} variant='contained' color='error'>
-                      Cancel
-                    </Button>
-                  </Grid>
+
+
+                  <div style={{ display: 'flex', justifyContent: 'space-evenly', flexDirection: "row", marginTop: "3rem", width: "100%" }} >
+                    <div>
+                      <Button onClick={() => handleClose()} variant='outlined' color='error'>
+                        Cancel
+                      </Button>
+                    </div>
+
+                    <div>
+                      <Button variant='contained'>
+                        Save
+                      </Button>
+                    </div>
+                  </div>
+
                 </Grid>
               </Box>
             </Modal>
+
           </div>
-        </Grid>
-        <Grid item xs={8}>
-          <div></div>
         </Grid>
       </Grid >
     </>
