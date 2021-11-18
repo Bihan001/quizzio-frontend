@@ -8,7 +8,6 @@ import Page2 from './page2';
 const steps = ['Exam Details', 'Questions', 'Preview'];
 
 const ExamCreation = () => {
-
   // const classes = useStyles();
   const history = useHistory();
 
@@ -21,7 +20,7 @@ const ExamCreation = () => {
 
   return (
     <Container maxWidth='xl'>
-      <Stepper nonLinear alternativeLabel sx={{ margin: '3rem auto', width: '500px' }} activeStep={activeStep}>
+      <Stepper nonLinear alternativeLabel sx={{ margin: '4rem auto', width: '500px' }} activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton color='inherit' onClick={handleStep(index)}>

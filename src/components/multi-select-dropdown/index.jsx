@@ -16,7 +16,7 @@ const getStyles = (opt, value, theme) => {
 };
 
 const MultiSelect = (props) => {
-  const { value, onChange, options, label, required, style, disabled, labelStyle, labelClassName } = props;
+  const { value, onChange, options, label, placeholder = '', required, style, disabled, labelStyle, labelClassName } = props;
   const theme = useTheme();
 
   return (
@@ -39,10 +39,10 @@ const MultiSelect = (props) => {
         size='small'
         onChange={onChange}
         input={<OutlinedInput />}
-        style={{ marginTop: '0.5rem', width: '300px', ...style }}
+        style={{ marginTop: '0.5rem', width: '100%', ...style }}
         renderValue={(selected) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-            {selected.length === 0 && 'Placeholder'}
+            {selected.length === 0 && placeholder}
             {selected.length > 0 && selected.map((value) => <Chip key={value} label={value} />)}
           </Box>
         )}

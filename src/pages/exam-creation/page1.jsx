@@ -1,23 +1,24 @@
 import { useState } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
 import TimePicker from 'components/date-time-picker/time';
 import MultiSelect from 'components/multi-select-dropdown';
 import DropdownField from 'components/dropdown-field';
 import FileUploadInput from 'components/file-upload-input';
+import TextEditor from 'components/text-editor';
 
 const tags = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+  'Maths',
+  'Physics',
+  'Chemistry',
+  'Exam',
+  'Contest',
+  'Computer Science',
+  'Competitive Programming',
+  'Dynamic Programming',
+  'Graph Theory',
+  'Literature',
 ];
 
 const examTypes = [
@@ -40,39 +41,53 @@ const Page1 = () => {
   };
 
   return (
-    <Grid container spacing={2} direction='row' alignItems='center'>
-      <Grid item lg={2}>
-        <TextInputField label='Exam Name' placeholder='JEE Mains' required />
+    <>
+      <Grid container spacing={2} direction='row' alignItems='center'>
+        <Grid item lg={2}>
+          <TextInputField fullWidth label='Exam Name' placeholder='JEE Mains' required />
+        </Grid>
+        <Grid item lg={2}>
+          <DatePicker fullWidth label='Start Date' required />
+        </Grid>
+        <Grid item lg={2}>
+          <TimePicker fullWidth label='Start Time' required />
+        </Grid>
+        <Grid item lg={2}>
+          <TextInputField fullWidth label='Exam Duration(mins)' placeholder='180' required />
+        </Grid>
+        <Grid item lg={2}>
+          <FileUploadInput fullWidth label='Exam Banner' disabled />
+        </Grid>
+        <Grid item lg={2}>
+          <DropdownField
+            label='Exam Type'
+            required
+            fullWidth
+            options={examTypes}
+            value={examType}
+            handler={(e) => setExamType(e.target.value)}
+          />
+        </Grid>
+        <Grid item lg={2}>
+          <TextInputField fullWidth label='Email List' placeholder='0 emails added' required />
+        </Grid>
+        <Grid item lg={2}>
+          <MultiSelect
+            options={tags}
+            value={selectedTags}
+            onChange={(e) => handleChange(e)}
+            label='Tags'
+            placeholder='Select tags'
+          />
+        </Grid>
+        <Grid item lg={12}>
+          <Typography variant='p' component='p' style={{ marginBottom: '0.5rem' }}>
+            Description
+          </Typography>
+          <TextEditor />
+        </Grid>
       </Grid>
-      <Grid item lg={2}>
-        <TextInputField label='Full Marks' placeholder='100' required />
-      </Grid>
-      <Grid item lg={2}>
-        <DatePicker label='Start Date' required />
-      </Grid>
-      <Grid item lg={2}>
-        <TimePicker label='Start Time' required />
-      </Grid>
-      <Grid item lg={2}>
-        <TextInputField label='Exam Duration(mins)' placeholder='180' required />
-      </Grid>
-      <Grid item lg={2}>
-        <DropdownField
-          label='Exam Type'
-          required
-          fullWidth
-          options={examTypes}
-          value={examType}
-          handler={(e) => setExamType(e.target.value)}
-        />
-      </Grid>
-      <Grid item lg={2}>
-        <FileUploadInput label='Exam Banner' disabled />
-      </Grid>
-      <Grid item>
-        <MultiSelect options={tags} value={selectedTags} onChange={(e) => handleChange(e)} label='Tags' />
-      </Grid>
-    </Grid>
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Grid, Typography, Paper, Input, Box, Button, TextField, Container, Stepper, Step, StepButton } from '@mui/material';
-import RichEditor from 'components/text-editor';
+import TextEditor from 'components/text-editor';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
 import TimePicker from 'components/date-time-picker/time';
@@ -93,7 +93,7 @@ const Page2 = (props) => {
         </div>
 
         {/* Editor  */}
-        <RichEditor />
+        <TextEditor />
       </div>
 
       <div style={{ marginTop: '1rem', justifyContent: 'center' }}>
@@ -165,7 +165,7 @@ const Page2 = (props) => {
         <Grid container spacing={4}>
           {new Array(4).fill(0).map((x) => (
             <Grid item xs={6} md={3}>
-              <Button style={{ borderRadius: '50%' }} variant='contained'>
+              <Button style={{ borderRadius: '50%', padding: '2rem 0' }} variant='contained'>
                 {currQuesNumber}
               </Button>
             </Grid>
