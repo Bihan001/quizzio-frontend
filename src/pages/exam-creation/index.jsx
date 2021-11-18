@@ -3,12 +3,13 @@ import { useHistory } from 'react-router-dom';
 import { Container, Stepper, Step, StepButton } from '@mui/material';
 import Page1 from './page1';
 import Page2 from './page2';
+// import { makeStyles, useTheme } from '@mui/styles';
 
 const steps = ['Exam Details', 'Questions', 'Preview'];
 
 const ExamCreation = () => {
 
-  const classes = useStyles();
+  // const classes = useStyles();
   const history = useHistory();
 
   const [activeStep, setActiveStep] = useState(0);
