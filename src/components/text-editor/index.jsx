@@ -57,7 +57,7 @@ const TinyEditor = () => {
   };
 
   const filePickerHandler = (cb, value, meta) => {
-    console.log('File Picker!');
+    console.log('File  Picker!');
     let input = document.createElement('input');
     input.setAttribute('type', 'file');
     //   input.setAttribute('accept', 'image/*');
