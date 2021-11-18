@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
@@ -50,6 +51,7 @@ let count = 0;
 let questionNumber = 1;
 
 const ExamCreation = () => {
+
   const classes = useStyles();
   const history = useHistory();
   const theme = useTheme();
@@ -80,6 +82,7 @@ const ExamCreation = () => {
     console.log('MODIFIED OPTION ARRAY = ', optionArr);
     console.log('MODIFIED ANSWER ARRAY = ', correctOptionArr);
   }, [optionArr, correctOptionArr]);
+
 
   const ButtonText = [
     {
@@ -246,7 +249,7 @@ const ExamCreation = () => {
                     variant='standard'
                     value={newCorrectOption}
                     onChange={(e) => setNewCorrectOption(e.target.value)}
-                    showActionBtn
+                    showActionBtn={true}
                     actionBtnText='Add'
                     actionOnClick={(e) => addCorrectOption()}
                   />

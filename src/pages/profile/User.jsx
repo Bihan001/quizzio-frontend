@@ -1,12 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import user from 'assets/icons/user.png';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { Grid, Typography, Button, Box, TextField, Modal } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SimpleModal from './SimpleModal';
+import { makeStyles, useTheme } from '@mui/styles';
 import './user.css';
 
 const style = {
@@ -21,13 +20,49 @@ const style = {
   p: 4,
 };
 
+const useStyles = makeStyles((theme) => ({
+  name: {
+    fontSize: "23px",
+    fontWeight: 500,
+    color: "#31344b",
+    margin: "10px 0 5px 0",
+  },
+  title: {
+    color: "#44476a",
+    fontWeight: "400",
+    fontSize: "16px",
+  },
+  subTitleKey: {
+    width: "100%",
+    fontSize: "1.6rem",
+    fontWeight: 500,
+    color: theme.palette.primary.main,
+  },
+  subTitleValue: {
+    fontSize: "1.5rem",
+    fontWeight: 500,
+  },
+
+}));
+
+
 const User = () => {
+
+  const classes = useStyles();
+  const history = useHistory();
+  const theme = useTheme();
+
   const [publishPhoto, setpublishPhoto] = useState(false);
   const [test, setTest] = useState(false);
   const [imageCropped, setimageCropped] = useState(false);
   const [image, setImage] = useState(null);
   const types = ['image/png', 'image/jpeg', 'image/jpg'];
   const [fileselect, setfileselect] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+
   const handleChange = (e) => {
     let selectedFile = e.target.files[0];
     setfileselect(URL.createObjectURL(selectedFile));
@@ -41,18 +76,21 @@ const User = () => {
       }
     }
   };
+
   useEffect(() => {
     if (!fileselect) setTest(false);
     else setTest(!test);
   }, [fileselect]);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+
+
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <div className='container'>
+
+            {/* Profile Picture Field  */}
             <div className='img-area'>
               <div className='inner-area'>
                 <img src={user} alt='' />
@@ -64,6 +102,7 @@ const User = () => {
                   onChange={handleChange}
                   style={{ visibility: 'hidden', position: 'absolute' }}
                 />
+
                 <label
                   fileselect={fileselect}
                   for='input-file'
@@ -84,33 +123,78 @@ const User = () => {
                 ) : null}
               </div>
             </div>
-            <div className='name'>LoL Pug</div>
-            <div className='about'>Teacher</div>
-            <div className='presonal-inform'>
-              <ul className='list-unstyled'>
-                <li>
-                  <b>Name:</b>Lol pug
-                </li>
-                <li>
-                  <b>Phone:</b>+91 23456 78910
-                </li>
-                <li>
-                  <b>Email:</b>lol@email.com
-                </li>
-                <li>
-                  <b>Date of Birth:</b> 6 January 1987
-                </li>
-                <li>
-                  <b>Address:</b>Inox Box 1546, Lorem.
-                </li>
-                <li>
-                  <b>Subject:</b>Epsum
-                </li>
-              </ul>
-            </div>
+
+
+            <Typography className={classes.name}  >  Niharika Dutta  </Typography>
+            <Typography className={classes.title}  >  Developer :)  </Typography>
+
+
+            <Grid container spacing={2} style={{ marginTop: "1.1rem" }}>
+              <Grid item md={12} lg={12} xs={12} >
+                <div style={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <div style={{ width: '100%', }}>
+                    <Typography className={classes.subTitleKey} > Email: </Typography>
+                  </div>
+
+                  <div className={classes.subTitleValue}>
+                    niharikaDutta@gamil.com
+                  </div>
+                </div>
+              </Grid>
+
+              <Grid item md={12} lg={12} xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', justifyContent: "flex-start" }} >
+                  <div style={{ width: '100%', }} >
+                    <Typography className={classes.subTitleKey} > Gender: </Typography>
+                  </div>
+
+                  <div className={classes.subTitleValue}  >
+                    Female
+                  </div>
+                </div>
+              </Grid>
+
+              <Grid item md={12} lg={12} xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <div style={{ width: '100%', }}>
+                    <Typography className={classes.subTitleKey} > Phone: </Typography>
+                  </div>
+
+                  <div className={classes.subTitleValue}>
+                    +1232387953
+                  </div>
+                </div>
+              </Grid>
+
+              <Grid item md={12} lg={12} xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <div style={{ width: '100%', }}>
+                    <Typography className={classes.subTitleKey} > Date Of Birth: </Typography>
+                  </div>
+
+                  <div className={classes.subTitleValue}>
+                    28 th April, 2000
+                  </div>
+                </div>
+              </Grid>
+
+              <Grid item >
+                <div style={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <div style={{ width: '100%', }}>
+                    <Typography className={classes.subTitleKey} > Address: </Typography>
+                  </div>
+
+                  <div className={classes.subTitleValue} >
+                    Hacking is building things that you have always wanted to have built yet.
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
+
             <Button variant='outlined' size='large' onClick={handleOpen}>
               EDIT
             </Button>
+
             <Modal
               open={open}
               onClose={handleClose}
@@ -167,7 +251,7 @@ const User = () => {
         <Grid item xs={8}>
           <div></div>
         </Grid>
-      </Grid>
+      </Grid >
     </>
   );
 };

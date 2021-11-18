@@ -20,21 +20,19 @@ const App = () => {
       fontFamily: "'Inter', sans-serif",
     },
     palette: {
-      mode,
-      ...(mode === 'light'
-        ? {
-          primary: {
-            main: '#1AB273',
-            contrastText: '#fff',
-          },
-          divider: '#1AB273',
-          text: {
-            primary: '#000',
-            secondary: '#000',
-            black: '#000',
-            white: '#fff',
-          },
-        }
+      mode, ...(mode === 'light' ? {
+        primary: {
+          main: '#1AB273',
+          contrastText: '#fff',
+        },
+        divider: '#1AB273',
+        text: {
+          primary: '#000',
+          secondary: '#000',
+          black: '#000',
+          white: '#fff',
+        },
+      }
         : {
           primary: {
             main: '#00dbe2',
