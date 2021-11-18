@@ -25,9 +25,9 @@ const actions = [
       alert(1);
     },
   },
-  { icon: <SaveIcon />, name: 'Save', onClick: () => {} },
-  { icon: <PrintIcon />, name: 'Print', onClick: () => {} },
-  { icon: <ShareIcon />, name: 'Share', onClick: () => {} },
+  { icon: <SaveIcon />, name: 'Save', onClick: () => { } },
+  { icon: <PrintIcon />, name: 'Print', onClick: () => { } },
+  { icon: <ShareIcon />, name: 'Share', onClick: () => { } },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +56,7 @@ const ExamCreation = () => {
 
   const [correctOptionArr, setCorrectOptionArr] = useState([]); // [0,2,4]  arr of index
   const [newCorrectOption, setNewCorrectOption] = useState('');
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(true);
 
   const AddNewOption = () => {
     if (!newOption || !newOption.trim()) return;
@@ -78,19 +78,19 @@ const ExamCreation = () => {
   const ButtonText = [
     {
       title: 'Upload CSV',
-      onClickTrigger: () => {},
+      onClickTrigger: () => { },
     },
     {
       title: 'Preview',
-      onClickTrigger: () => {},
+      onClickTrigger: () => { },
     },
     {
       title: 'Save',
-      onClickTrigger: () => {},
+      onClickTrigger: () => { },
     },
     {
       title: 'Discard',
-      onClickTrigger: () => {},
+      onClickTrigger: () => { },
     },
   ];
 
@@ -104,6 +104,7 @@ const ExamCreation = () => {
 
   return (
     <div className={classes.root}>
+
       <Dialog open={openModal} handleClose={() => setOpenModal(false)}>
         <DialogTitle>New Modal here</DialogTitle>
         <DialogContent>
@@ -119,6 +120,7 @@ const ExamCreation = () => {
           </DialogActions>
         </DialogContent>
       </Dialog>
+
       <Header title='Examination Edit/Creation' description='Create your exam here' />
       <SpeedDial actions={actions} />
       <SpeedDial grid cols={5} actions={actions} style={{ position: 'fixed', bottom: 16, right: 100 }} />
