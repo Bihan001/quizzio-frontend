@@ -38,11 +38,16 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: '3.2rem',
     textAlign: 'center',
-    marginBottom: '4rem',
+    marginBottom: '2rem',
+  },
+  labelSmall: {
+    fontSize: '1.4rem',
   },
 }));
 
+
 let count = 0;
+let questionNumber = 1;
 
 const ExamCreation = () => {
   const classes = useStyles();
@@ -56,7 +61,8 @@ const ExamCreation = () => {
 
   const [correctOptionArr, setCorrectOptionArr] = useState([]); // [0,2,4]  arr of index
   const [newCorrectOption, setNewCorrectOption] = useState('');
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [currQuesNumber, setCurrQuesNumber] = useState(1);
 
   const AddNewOption = () => {
     if (!newOption || !newOption.trim()) return;
@@ -105,7 +111,7 @@ const ExamCreation = () => {
   return (
     <div className={classes.root}>
 
-      <Dialog open={openModal} handleClose={() => setOpenModal(false)}>
+      {/*  <Dialog open={openModal} handleClose={() => setOpenModal(false)}>
         <DialogTitle>New Modal here</DialogTitle>
         <DialogContent>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur sed natus magnam, dolore eius placeat velit, ducimus
@@ -119,13 +125,16 @@ const ExamCreation = () => {
             <Button onClick={() => setOpenModal(false)}>Close</Button>
           </DialogActions>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
 
-      <Header title='Examination Edit/Creation' description='Create your exam here' />
-      <SpeedDial actions={actions} />
-      <SpeedDial grid cols={5} actions={actions} style={{ position: 'fixed', bottom: 16, right: 100 }} />
-      {/* <Typography className={classes.heading}>Examination Edit/Creation</Typography> */}
-      <Box
+      {/* <Header title='Examination Edit/Creation' description='Create your exam here' /> */}
+
+      {/* <SpeedDial actions={actions} /> */}
+      {/* <SpeedDial grid cols={5} actions={actions} style={{ position: 'fixed', bottom: 16, right: 100 }} /> */}
+
+      <Typography className={classes.heading} >Examination Edit/Creation</Typography>
+
+      {/* <Box
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
@@ -133,7 +142,7 @@ const ExamCreation = () => {
           alignContent: 'center',
         }}
       >
-        {/* <Button variant='contained' onClick={(e) => setOpenModal((v) => !v)} style={{ marginRight: '2.3rem' }}>
+        <Button variant='contained' onClick={(e) => setOpenModal((v) => !v)} style={{ marginRight: '2.3rem' }}>
           Open Test Modal
         </Button>
 
@@ -145,11 +154,12 @@ const ExamCreation = () => {
               </Box>
             </>
           );
-        })} */}
-      </Box>
+        })}
+      </Box> */}
+
 
       {/* Section 1  */}
-      <Grid container spacing={2} direction='row' style={{ marginTop: '1rem' }}>
+      <Grid container spacing={2} direction='row' style={{ marginTop: '0rem' }}>
         <Grid item>
           <TextInputField label='Exam Name' placeholder='JEE Mains' required />
         </Grid>
@@ -167,32 +177,43 @@ const ExamCreation = () => {
         </Grid>
       </Grid>
 
+
       {/* Section 2  */}
       <div style={{ marginTop: '1.6rem', display: 'flex', justifyContent: 'space-between' }}>
-        <Paper elevation={2} style={{ padding: '1.5rem', overflowY: 'auto', height: '54rem' }}>
-          <div style={{ paddingBottom: '1.5rem' }}>
-            <DropdownField
-              label='Question Type'
-              placeholder='question type'
-              name='Question Type'
-              required
-              fullWidth={true}
-              options={Options}
-              value={questionType}
-              handler={(e) => setQuestionType(e.target.value)}
-            />
-          </div>
-          {/* Editor  */}
-          <RichEditor />
+        <div>
+          <Paper elevation={2} style={{ padding: '1.5rem', /* overflowY: 'auto',  height: '54rem' */ }}>
+            <div style={{ paddingBottom: '1.5rem' }}>
+              <DropdownField
+                label='Question Type'
+                placeholder='question type'
+                name='Question Type'
+                required
+                fullWidth={true}
+                options={Options}
+                value={questionType}
+                handler={(e) => setQuestionType(e.target.value)}
+              />
+            </div>
+
+            {/* Editor  */}
+            <RichEditor />
+
+          </Paper>
+        </div>
+
+
+
+        <div style={{ marginTop: "1rem", justifyContent: "center" }}>
           {(questionType === 'mcqSingle' || questionType === 'mcqMultiple') && (
-            <Box style={{ marginBottom: '6rem', width: 500 }}>
+            <Box style={{ marginBottom: '6rem', /* width: 500 */ }}>
               <Box style={{ marginTop: '2rem' }}>
-                <Typography variant='h6'>Available Options :</Typography>
+                <Typography variant='subtitle2' sx={{ fontWeight: "700" }} >Available Options :</Typography>
 
                 <Box style={{ display: 'flex', alignItems: 'center' }}>
                   <TextInputField
                     label='New Option'
-                    placeholder='Helo World'
+                    labelClassName={classes.labelSmall}
+                    placeholder='type here...'
                     variant='standard'
                     value={newOption}
                     onChange={(e) => setNewOption(e.target.value)}
@@ -211,12 +232,15 @@ const ExamCreation = () => {
                     ))}
                 </Box>
               </Box>
+
+
               <Box style={{ marginTop: '1.5rem' }}>
-                <Typography variant='h6'>Correct Options :</Typography>
+                <Typography variant='subtitle2' sx={{ fontWeight: "700" }}>Correct Options :</Typography>
                 <Box style={{ display: 'flex', alignItems: 'flex-end' }}>
                   <TextInputField
                     label='Correct Option Id'
                     placeholder='1'
+                    labelClassName={classes.labelSmall}
                     name='newOption'
                     type='number'
                     variant='standard'
@@ -239,15 +263,36 @@ const ExamCreation = () => {
               </Box>
             </Box>
           )}
-        </Paper>
-        <div style={{ width: '30%' }}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, possimus esse est voluptatem aut rerum voluptatibus,
-          eos veritatis fuga vel cumque facilis dignissimos. Placeat blanditiis et nam magnam. Quas maxime fugit corporis beatae
-          fuga accusamus rem odit tempora qui repellendus quo, cumque unde repellat eius similique saepe dolore nobis! Porro
-          officia, in tenetur, aut voluptatem dolor esse quas corrupti explicabo nihil fugit voluptatum excepturi quae qui aperiam
-          ab neque sunt alias distinctio saepe? Quibusdam sed, officiis atque ab deleniti error ad fuga quidem, at aspernatur modi
-          vero magni eligendi! Enim adipisci commodi tenetur praesentium debitis amet deleniti necessitatibus aspernatur minima?
         </div>
+
+
+        <div style={{ marginTop: "2rem", paddingTop: "2rem" }}>
+
+          <Grid container spacing={4}>
+            <Grid item xs={6} md={3}>
+              <Box sx={{ borderRadius: "50rem" }}>
+                <Button variant='contained'>{currQuesNumber}</Button>
+              </Box>
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Box sx={{ borderRadius: "50rem" }}>
+                <Button variant='contained'>{currQuesNumber + 1}</Button>
+              </Box>
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Box sx={{ borderRadius: "50rem" }}>
+                <Button variant='contained'>{currQuesNumber + 1}</Button>
+              </Box>
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Box sx={{ borderRadius: "50rem" }}>
+                <Button variant='contained'>{currQuesNumber + 1}</Button>
+              </Box>
+            </Grid>
+          </Grid>
+
+        </div>
+
       </div>
     </div>
   );

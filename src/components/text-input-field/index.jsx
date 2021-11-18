@@ -21,7 +21,7 @@ const TextInputField = ({
   variant,
   showActionBtn = false,
   actionBtnText = '',
-  actionOnClick = () => {},
+  actionOnClick = () => { },
 }) => {
   return (
     <div>
@@ -30,6 +30,7 @@ const TextInputField = ({
         variant='p'
         style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }}
         className={labelClassName}
+        sx={{}}
       >
         {label}
         {required ? <span style={{ color: 'red' }}>*</span> : null}
