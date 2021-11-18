@@ -1,15 +1,28 @@
-### To run the project:
+# Exam Simulation: Frontend
 
-- npm install
-- npm start
+Frontend for the Exam Simulation project.
 
-### Colors
+## Installation
 
-- white: theme.palette.text.white
-- black: theme.palette.text.black
-- primary(green): theme.palette.primary.main
+Install my-project with npm
 
-### Dialog/Modal
+```bash
+  npm install
+  npm start
+```
 
-- import { Dialog, DialogTitle, DialogContent, DialogActions } from 'components/dialog';
-- Same as Material UI modal
+## Demo
+
+Insert gif or link to demo
+
+## Color Reference
+
+| Color   | Hex                                                              |
+| ------- | ---------------------------------------------------------------- |
+| Black   | ![#0a192f](https://via.placeholder.com/10/000000?text=+) #000000 |
+| White   | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+) #ffffff |
+| Primary | ![#1AB273](https://via.placeholder.com/10/1AB273?text=+) #1AB273 |
+
+## Authors
+
+- [@Bihan001](https://www.github.com/Bihan001)
