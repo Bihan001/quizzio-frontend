@@ -57,6 +57,7 @@ const TinyEditor = () => {
   };
 
   const filePickerHandler = (cb, value, meta) => {
+    console.log('File Picker!');
     let input = document.createElement('input');
     input.setAttribute('type', 'file');
     //   input.setAttribute('accept', 'image/*');
@@ -116,7 +117,11 @@ const TinyEditor = () => {
         content:
           '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>',
       },
-      { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+      {
+        title: 'Starting my story',
+        description: 'A cure for writers block',
+        content: 'Once upon a time...',
+      },
       {
         title: 'New list with dates',
         description: 'New List with dates',
@@ -127,7 +132,8 @@ const TinyEditor = () => {
     template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
     template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
     image_caption: true,
-    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+    quickbars_selection_toolbar:
+      'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
     noneditable_noneditable_class: 'mceNonEditable',
     toolbar_mode: 'sliding',
     contextmenu: 'link image imagetools table',
@@ -135,8 +141,8 @@ const TinyEditor = () => {
 
   return (
     <Editor
-      initialValue='<p>Initial content</p>'
-      apiKey='qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc'
+      initialValue="<p>Initial content</p>"
+      apiKey="qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc"
       init={editorOptions}
       onChange={handleEditorChange}
     />
