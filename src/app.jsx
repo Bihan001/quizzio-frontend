@@ -7,6 +7,7 @@ import Navbar from 'components/navbar';
 import Signup from 'pages/auth/signup';
 import Login from 'pages/auth/login';
 import User from 'pages/profile/User';
+import Home from 'pages/Home';
 
 const App = () => {
   const [themeMode, setThemeMode] = useState('light');
@@ -68,7 +69,10 @@ const App = () => {
   };
 
   // Update the theme only if the mode changes
-  const theme = useMemo(() => createTheme(getDesignTokens(themeMode)), [themeMode]);
+  const theme = useMemo(
+    () => createTheme(getDesignTokens(themeMode)),
+    [themeMode]
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -77,10 +81,11 @@ const App = () => {
       <Paper elevation={0} style={{ width: '100%', minHeight: '100vh', height: '100%' }}>
         <Navbar toggleTheme={toggleTheme} />
         <Switch>
-          <Route path='/signup' exact component={Signup} />
-          <Route path='/login' exact component={Login} />
-          <Route path='/create-exam' component={CreateExam} />
-          <Route path='/profile' component={User} />
+          <Route exact path="/" component={Home} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/create-exam" component={CreateExam} />
+          <Route path="/profile" component={User} />
         </Switch>
       </Paper>
     </ThemeProvider>
