@@ -17,6 +17,7 @@ export default makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     cursor: 'pointer',
     transition: '.2s ease',
+    position: 'relative',
     '&:hover': {},
   },
   show: {
@@ -24,5 +25,21 @@ export default makeStyles((theme) => ({
   },
   hide: {
     opacity: 0,
+  },
+  ongoing: {
+    backgroundColor: 'green',
+    fontSize: '2rem',
+    height: 'fit-content',
+    marginLeft: '3rem',
+    padding: '.5rem',
+    borderRadius: '.2rem',
+  },
+  upcoming: {
+    backgroundColor: 'blue',
+    fontSize: '2rem',
+    height: 'fit-content',
+    marginLeft: '3rem',
+    padding: '.5rem',
+    borderRadius: '.2rem',
   },
 }));

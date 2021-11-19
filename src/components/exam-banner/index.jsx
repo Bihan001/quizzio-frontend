@@ -36,10 +36,16 @@ const ExamBanner = ({ data }) => {
             paddingTop: '25%',
             fontSize: '5rem',
             fontWeight: 'bold',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          {data.name}
+          <div>{data.name}</div>
+          <div className={data.ongoing ? classes.ongoing : classes.upcoming}>
+            {data.ongoing ? 'ongoing' : 'upcoming'}
+          </div>
         </div>
+
         <div
           className={cardHover ? classes.show : classes.hide}
           style={{ display: 'flex', margin: '3rem' }}
