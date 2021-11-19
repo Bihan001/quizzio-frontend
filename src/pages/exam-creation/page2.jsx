@@ -51,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     margin: '1rem',
     borderRadius: '50%',
-    background: theme.palette.primary.main,
-    color: theme.palette.text.white,
+    background: theme.palette.mode === 'dark' ? theme.palette.grey[600] : theme.palette.grey[400],
+    color: theme.palette.common.white,
   },
 }));
 
@@ -175,7 +175,7 @@ const Page2 = (props) => {
         )}
       </Grid>
 
-      <Grid item lg={3}>
+      <Grid item lg={3} style={{ marginTop: '4rem' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {new Array(4).fill(0).map((x, i) => (
             <Button className={classes.bubble} variant='contained'>

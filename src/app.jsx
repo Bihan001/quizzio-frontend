@@ -18,6 +18,10 @@ const App = () => {
     },
     palette: {
       mode,
+      common: {
+        white: '#ffffff',
+        black: '#000000',
+      },
       ...(mode === 'light'
         ? {
             primary: {
@@ -25,28 +29,16 @@ const App = () => {
               contrastText: '#fff',
             },
             divider: '#1AB273',
-            text: {
-              primary: '#000',
-              secondary: '#000',
-              black: '#000',
-              white: '#fff',
-            },
           }
         : {
             primary: {
-              main: '#0a9396',
+              main: '#0dc7ca',
               contrastText: '#000',
             },
             divider: '#00dbe2',
             background: {
               default: '#111',
               paper: '#111',
-            },
-            text: {
-              primary: '#fff',
-              secondary: '#fff',
-              black: '#000',
-              white: '#fff',
             },
           }),
     },

@@ -20,7 +20,12 @@ const ExamCreation = () => {
 
   return (
     <Container maxWidth='xl'>
-      <Stepper nonLinear alternativeLabel sx={{ margin: '4rem auto', width: '500px' }} activeStep={activeStep}>
+      <Stepper
+        nonLinear
+        alternativeLabel
+        sx={{ margin: '4rem auto', marginBottom: '6rem', width: '500px' }}
+        activeStep={activeStep}
+      >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton color='inherit' onClick={handleStep(index)}>
