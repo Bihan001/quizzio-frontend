@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextField, Typography, Button } from '@mui/material';
+import { TextField, Typography, Button, InputAdornment, IconButton } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
 
 const TextInputField = ({
   label,
@@ -22,6 +23,10 @@ const TextInputField = ({
   showActionBtn = false,
   actionBtnText = '',
   actionOnClick = () => {},
+  endIcon,
+  startIcon,
+  endIconOnClick = () => {},
+  startIconOnClick = () => {},
 }) => {
   return (
     <div>
@@ -53,6 +58,22 @@ const TextInputField = ({
           value={value}
           style={{ marginRight: showActionBtn ? '1rem' : 0, ...style }}
           className={className}
+          InputProps={{
+            startAdornment: startIcon && (
+              <InputAdornment position='start'>
+                <IconButton fullWidth edge='start' onClick={(e) => startIconOnClick(e)}>
+                  {startIcon}
+                </IconButton>
+              </InputAdornment>
+            ),
+            endAdornment: endIcon && (
+              <InputAdornment position='start'>
+                <IconButton fullWidth style={{ marginRight: -15 }} edge='start' onClick={(e) => endIconOnClick(e)}>
+                  {endIcon}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         {showActionBtn && (
           <Button variant='contained' onClick={(e) => actionOnClick(e)}>

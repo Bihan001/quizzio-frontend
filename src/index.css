@@ -7,13 +7,15 @@ html {
 }
 
 *::-webkit-scrollbar {
-  width: 2px;
+  width: 5px;
 }
 
 *::-webkit-scrollbar-track {
+  border-radius: 10px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: rgb(209, 209, 209);
+  border-radius: 10px;
+  background-color: rgb(211, 211, 211);
 }

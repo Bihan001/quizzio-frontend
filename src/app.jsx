@@ -78,7 +78,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Paper elevation={0} style={{ width: '100%', minHeight: '100vh' }}>
+      <Paper elevation={0} style={{ width: '100%', minHeight: '100vh', height: '100%' }}>
         <Navbar toggleTheme={toggleTheme} />
         <Switch>
           <Route exact path="/" component={Home} />
