@@ -15,7 +15,7 @@ const Dropdown = ({
   style = {},
 }) => {
   return (
-    <>
+    <div>
       <Typography
         align='left'
         variant='p'
@@ -45,7 +45,7 @@ const Dropdown = ({
             ))}
         </Select>
       </div>
-    </>
+    </div>
   );
 };
 

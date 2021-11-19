@@ -51,7 +51,7 @@ const TextInputField = ({
           rowsMax={rowMax}
           multiline={multiline}
           value={value}
-          style={{ marginRight: '1rem', ...style }}
+          style={{ marginRight: showActionBtn ? '1rem' : 0, ...style }}
           className={className}
         />
         {showActionBtn && (

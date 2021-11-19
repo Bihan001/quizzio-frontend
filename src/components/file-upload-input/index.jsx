@@ -27,6 +27,8 @@ const FileUploadField = ({
   variant,
   showActionBtn = false,
   actionBtnText = '',
+  accept = 'image/*',
+  uploadIcon = <PhotoCamera />,
   actionOnClick = () => {},
 }) => {
   return (
@@ -51,15 +53,15 @@ const FileUploadField = ({
           rowsMax={rowMax}
           multiline={multiline}
           value={value}
-          style={{ marginRight: '1rem', ...style }}
+          style={{ ...style }}
           className={className}
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
                 <label>
-                  <Input accept='image/*' type='file' />
+                  <Input accept={accept} type='file' />
                   <IconButton color='primary' component='span' style={{ marginRight: -11 }}>
-                    <PhotoCamera />
+                    {uploadIcon}
                   </IconButton>
                 </label>
               </InputAdornment>

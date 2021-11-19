@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Grid, Typography, Paper, Input, Box, Button, TextField, Container, Stepper, Step, StepButton } from '@mui/material';
+import ButtonUnstyled from '@mui/core/ButtonUnstyled';
 import TextEditor from 'components/text-editor';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
@@ -16,6 +17,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import AddIcon from '@mui/icons-material/Add';
 
 let count = 0;
 
@@ -40,6 +42,18 @@ const useStyles = makeStyles((theme) => ({
   },
   labelSmall: {
     fontSize: '1.4rem',
+  },
+  bubble: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    minWidth: 0,
+    height: 50,
+    margin: '1rem',
+    borderRadius: '50%',
+    background: theme.palette.primary.main,
+    color: theme.palette.text.white,
   },
 }));
 
@@ -77,46 +91,49 @@ const Page2 = (props) => {
     { value: 'matchitems', label: 'Match the following' },
   ];
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <div>
-        <div style={{ paddingBottom: '1.5rem' }}>
-          <DropdownField
-            label='Question Type'
-            placeholder='question type'
-            name='Question Type'
-            required
-            fullWidth={true}
-            options={Options}
-            value={questionType}
-            handler={(e) => setQuestionType(e.target.value)}
-          />
-        </div>
+    <Grid container spacing={5}>
+      <Grid item lg={6}>
+        <Grid container spacing={2} style={{ marginBottom: '1.5rem' }}>
+          <Grid item lg={4}>
+            <DropdownField
+              label='Question Type'
+              placeholder='question type'
+              name='Question Type'
+              required
+              fullWidth
+              options={Options}
+              value={questionType}
+              handler={(e) => setQuestionType(e.target.value)}
+            />
+          </Grid>
+          <Grid item lg={4}>
+            <TextInputField fullWidth label='Marks' placeholder='2' required />
+          </Grid>
+          <Grid item lg={4}>
+            <TextInputField fullWidth label='Negative Marks' placeholder='1' required />
+          </Grid>
+        </Grid>
+        <TextEditor width='100%' />
+      </Grid>
 
-        {/* Editor  */}
-        <TextEditor />
-      </div>
-
-      <div style={{ marginTop: '1rem', justifyContent: 'center' }}>
+      <Grid item lg={3}>
         {(questionType === 'mcqSingle' || questionType === 'mcqMultiple') && (
-          <Box style={{ marginBottom: '6rem' /* width: 500 */ }}>
-            <Box style={{ marginTop: '2rem' }}>
-              <Typography variant='subtitle2' sx={{ fontWeight: '700' }}>
+          <Box>
+            <Box style={{}}>
+              <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
                 Available Options :
               </Typography>
-
-              <Box style={{ display: 'flex', alignItems: 'center' }}>
-                <TextInputField
-                  label='New Option'
-                  labelClassName={classes.labelSmall}
-                  placeholder='type here...'
-                  variant='standard'
-                  value={newOption}
-                  onChange={(e) => setNewOption(e.target.value)}
-                  showActionBtn
-                  actionBtnText='Add'
-                  actionOnClick={(e) => AddNewOption()}
-                />
-              </Box>
+              <TextInputField
+                label='New Option'
+                labelClassName={classes.labelSmall}
+                placeholder='Add new option'
+                value={newOption}
+                onChange={(e) => setNewOption(e.target.value)}
+                showActionBtn
+                fullWidth
+                actionBtnText='Add'
+                actionOnClick={(e) => AddNewOption()}
+              />
               <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
                 {optionArr &&
                   optionArr.length != 0 &&
@@ -129,24 +146,22 @@ const Page2 = (props) => {
             </Box>
 
             <Box style={{ marginTop: '1.5rem' }}>
-              <Typography variant='subtitle2' sx={{ fontWeight: '700' }}>
+              <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
                 Correct Options :
               </Typography>
-              <Box style={{ display: 'flex', alignItems: 'flex-end' }}>
-                <TextInputField
-                  label='Correct Option Id'
-                  placeholder='1'
-                  labelClassName={classes.labelSmall}
-                  name='newOption'
-                  type='number'
-                  variant='standard'
-                  value={newCorrectOption}
-                  onChange={(e) => setNewCorrectOption(e.target.value)}
-                  showActionBtn
-                  actionBtnText='Add'
-                  actionOnClick={(e) => addCorrectOption()}
-                />
-              </Box>
+              <TextInputField
+                label='Correct Option Id'
+                placeholder='1'
+                labelClassName={classes.labelSmall}
+                name='newOption'
+                type='number'
+                value={newCorrectOption}
+                onChange={(e) => setNewCorrectOption(e.target.value)}
+                fullWidth
+                showActionBtn
+                actionBtnText='Add'
+                actionOnClick={(e) => addCorrectOption()}
+              />
               <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
                 {correctOptionArr &&
                   correctOptionArr.length != 0 &&
@@ -159,20 +174,21 @@ const Page2 = (props) => {
             </Box>
           </Box>
         )}
-      </div>
+      </Grid>
 
-      <div style={{ marginTop: '2rem', paddingTop: '2rem' }}>
-        <Grid container spacing={4}>
-          {new Array(4).fill(0).map((x) => (
-            <Grid item xs={6} md={3}>
-              <Button style={{ borderRadius: '50%', padding: '2rem 0' }} variant='contained'>
-                {currQuesNumber}
-              </Button>
-            </Grid>
+      <Grid item lg={3}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {new Array(4).fill(0).map((x, i) => (
+            <Button className={classes.bubble} variant='contained'>
+              {i + 1}
+            </Button>
           ))}
-        </Grid>
-      </div>
-    </div>
+          <Button className={classes.bubble} variant='contained'>
+            <AddIcon />
+          </Button>
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -51,7 +51,8 @@ const menubar = 'file edit view insert format tools table help';
 const toolbar =
   'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl';
 
-const TinyEditor = () => {
+const TinyEditor = (props) => {
+  const { width = 700, height = 350 } = props;
   const handleEditorChange = (e) => {
     console.log('Content was updated:', e.target.getContent());
   };
@@ -81,8 +82,8 @@ const TinyEditor = () => {
     skin: useDarkMode ? 'oxide-dark' : 'oxide',
     content_css: useDarkMode ? 'dark' : 'default',
     // content_style: [contentCss, contentUiCss].join('\n'),
-    width: 700,
-    height: 300,
+    width,
+    height,
     menubar,
     plugins,
     toolbar,
@@ -132,8 +133,7 @@ const TinyEditor = () => {
     template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
     template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
     image_caption: true,
-    quickbars_selection_toolbar:
-      'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
     noneditable_noneditable_class: 'mceNonEditable',
     toolbar_mode: 'sliding',
     contextmenu: 'link image imagetools table',
@@ -141,8 +141,8 @@ const TinyEditor = () => {
 
   return (
     <Editor
-      initialValue="<p>Initial content</p>"
-      apiKey="qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc"
+      initialValue='<p>Initial content</p>'
+      apiKey='qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc'
       init={editorOptions}
       onChange={handleEditorChange}
     />
