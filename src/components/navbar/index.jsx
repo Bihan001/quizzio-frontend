@@ -59,8 +59,8 @@ export default function Navbar(props) {
   const theme = useTheme();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static'>
+    <>
+      <AppBar position='fixed'>
         <Container maxWidth='xl'>
           <Toolbar>
             <Typography variant='h6' noWrap component='div' sx={{ display: { xs: 'none', sm: 'block' } }}>
@@ -91,8 +91,7 @@ export default function Navbar(props) {
           </Toolbar>
         </Container>
       </AppBar>
-      {/* {renderMobileMenu} */}
-      {/* {renderMenu} */}
-    </Box>
+      <Toolbar />
+    </>
   );
 }
