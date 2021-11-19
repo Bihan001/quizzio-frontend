@@ -42,8 +42,7 @@ import 'tinymce/plugins/noneditable';
 import 'tinymce/plugins/noneditable';
 import 'tinymce/plugins/quickbars';
 import 'tinymce/plugins/emoticons';
-
-const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+import { useTheme } from '@mui/material';
 
 const plugins =
   'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help quickbars emoticons';
@@ -52,6 +51,7 @@ const toolbar =
   'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl';
 
 const TinyEditor = (props) => {
+  const theme = useTheme();
   const { width = 700, height = 350 } = props;
   const handleEditorChange = (e) => {
     console.log('Content was updated:', e.target.getContent());
@@ -79,8 +79,9 @@ const TinyEditor = (props) => {
   };
 
   const editorOptions = {
-    skin: useDarkMode ? 'oxide-dark' : 'oxide',
-    content_css: useDarkMode ? 'dark' : 'default',
+    selector: 'textarea',
+    skin: theme.palette.mode === 'dark' ? 'oxide-dark' : 'oxide',
+    content_css: theme.palette.mode === 'dark' ? 'dark' : 'default',
     // content_style: [contentCss, contentUiCss].join('\n'),
     width,
     height,

@@ -42,7 +42,7 @@ const Page1 = () => {
 
   return (
     <>
-      <Grid container spacing={2} direction='row'>
+      <Grid container spacing={5}>
         <Grid item lg={6}>
           <Grid container spacing={2} direction='row' alignItems='center'>
             <Grid item lg={6}>

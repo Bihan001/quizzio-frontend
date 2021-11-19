@@ -73,13 +73,13 @@ export default function Navbar(props) {
               <StyledInputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-            <Button variant='outlined' size='small' style={{ color: 'white' }}>
+            <Button variant='text' size='small' style={{ color: 'white' }}>
               Sign In
             </Button>
-            <Button variant='outlined' size='small' style={{ color: 'white' }}>
+            <Button variant='text' size='small' style={{ color: 'white' }}>
               Sign Up
             </Button>
-            <Button variant='outlined' size='small' component={Link} to='/create-exam' style={{ color: 'white' }}>
+            <Button variant='text' size='small' component={Link} to='/create-exam' style={{ color: 'white' }}>
               Create Exam
             </Button>
             <IconButton LinkComponent={Link} to='/profile' size='large' edge='start' color='inherit' style={{ marginLeft: 1 }}>
