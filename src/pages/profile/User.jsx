@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import user from 'assets/icons/user.png';
 import { Grid, Typography, Button, Box, TextField, Modal } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import SimpleModal from './SimpleModal';
 import TextInputField from 'components/text-input-field';
 import { makeStyles, useTheme } from '@mui/styles';
@@ -34,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px 0 5px 0",
   },
   title: {
-    color: theme.palette.primary.main,
-    fontWeight: "400",
+    fontWeight: "700",
     fontSize: "16px",
+    paddingBottom: "1rem",
   },
   subTitleKey: {
     width: "100%",
@@ -49,7 +50,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     width: "100%",
   },
-
+  labelSmall: {
+    fontSize: "1.5rem",
+  },
 }));
 
 
@@ -138,18 +141,18 @@ const User = () => {
 
 
             <Typography className={classes.name}  >  Niharika Dutta  </Typography>
-            <Typography className={classes.title}  >  Developer :)  </Typography>
+            <Typography className={classes.title}  >   niharikaDutta@gamil.com :)  </Typography>
 
 
             <Grid container spacing={2} style={{ marginTop: "1.1rem" }}>
-              <Grid item md={12} lg={12} xs={12} >
-                <div style={{ display: 'flex', justifyContent: 'space-between' }} >
-                  <div style={{ width: '100%', }}>
-                    <Typography className={classes.subTitleKey} > Email: </Typography>
+              <Grid item md={12} lg={12} xs={12}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', justifyContent: "flex-start" }} >
+                  <div style={{ width: '100%', }} >
+                    <Typography className={classes.subTitleKey} > Bio   <EditIcon color='primary' style={{ fontSize: "2rem" }} />  : </Typography>
                   </div>
 
-                  <div className={classes.subTitleValue}>
-                    niharikaDutta@gamil.com
+                  <div className={classes.subTitleValue}  >
+                    Developer
                   </div>
                 </div>
               </Grid>
@@ -181,7 +184,7 @@ const User = () => {
               <Grid item md={12} lg={12} xs={12}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }} >
                   <div style={{ width: '100%', }}>
-                    <Typography className={classes.subTitleKey} > Phone: </Typography>
+                    <Typography className={classes.subTitleKey} > Phone    <PhoneEnabledIcon color='primary' style={{ fontSize: "2rem" }} />  : </Typography>
                   </div>
 
                   <div className={classes.subTitleValue}>
@@ -234,6 +237,7 @@ const User = () => {
                       placeholder='name'
                       required
                       fullWidth={true}
+                      labelClassName={classes.labelSmall}
                     />
                   </Grid>
 
@@ -243,6 +247,17 @@ const User = () => {
                       placeholder='email'
                       required
                       fullWidth={true}
+                      labelClassName={classes.labelSmall}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} lg={12} md={12}>
+                    <TextInputField
+                      label='Bio'
+                      placeholder='bio'
+                      required
+                      fullWidth={true}
+                      labelClassName={classes.labelSmall}
                     />
                   </Grid>
 
@@ -253,6 +268,7 @@ const User = () => {
                       placeholder='Dob'
                       required
                       fullWidth={true}
+                      labelClassName={classes.labelSmall}
                     />
                   </Grid>
 
@@ -263,6 +279,7 @@ const User = () => {
                       placeholder='type here...'
                       required
                       fullWidth={true}
+                      labelClassName={classes.labelSmall}
                     />
                   </Grid>
 
@@ -271,6 +288,7 @@ const User = () => {
                       label='Institute'
                       placeholder='institute'
                       fullWidth={true}
+                      labelClassName={classes.labelSmall}
                     />
                   </Grid>
 
@@ -278,6 +296,7 @@ const User = () => {
                     <Typography
                       align='left'
                       variant='p'
+                      className={classes.labelSmall}
                     >
                       Password
                       {true ? <span style={{ color: 'red' }}>*</span> : null}

@@ -73,6 +73,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
       <Paper elevation={0} style={{ width: '100%', minHeight: '100vh' }}>
         <Navbar toggleTheme={toggleTheme} />
         <Switch>
