@@ -1,4 +1,3 @@
-
 import { useState, useMemo, createContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import CreateExam from 'pages/exam-creation';
@@ -9,9 +8,7 @@ import Signup from 'pages/auth/signup';
 import Login from 'pages/auth/login';
 import User from 'pages/profile/User';
 
-
 const App = () => {
-
   const [themeMode, setThemeMode] = useState('light');
 
   const getDesignTokens = (mode) => ({
@@ -20,36 +17,38 @@ const App = () => {
       fontFamily: "'Inter', sans-serif",
     },
     palette: {
-      mode, ...(mode === 'light' ? {
-        primary: {
-          main: '#1AB273',
-          contrastText: '#fff',
-        },
-        divider: '#1AB273',
-        text: {
-          primary: '#000',
-          secondary: '#000',
-          black: '#000',
-          white: '#fff',
-        },
-      }
+      mode,
+      ...(mode === 'light'
+        ? {
+            primary: {
+              main: '#1AB273',
+              contrastText: '#fff',
+            },
+            divider: '#1AB273',
+            text: {
+              primary: '#000',
+              secondary: '#000',
+              black: '#000',
+              white: '#fff',
+            },
+          }
         : {
-          primary: {
-            main: '#0a9396',
-            contrastText: '#000',
-          },
-          divider: '#00dbe2',
-          background: {
-            default: '#111',
-            paper: '#111',
-          },
-          text: {
-            primary: '#fff',
-            secondary: '#fff',
-            black: '#000',
-            white: '#fff',
-          },
-        }),
+            primary: {
+              main: '#0a9396',
+              contrastText: '#000',
+            },
+            divider: '#00dbe2',
+            background: {
+              default: '#111',
+              paper: '#111',
+            },
+            text: {
+              primary: '#fff',
+              secondary: '#fff',
+              black: '#000',
+              white: '#fff',
+            },
+          }),
     },
   });
 
