@@ -6,4 +6,4 @@ export const headers = {
   },
 };
 
-export const axios = myaxios.create({ baseURL: 'http://localhost:5000' });
+export const axios = myaxios.create({ baseURL: 'https://exam-simulation.azurewebsites.net' });
