@@ -33,7 +33,8 @@ const ExamBanner = ({ data }) => {
           className={cardHover ? classes.show : classes.hide}
           style={{
             padding: '3rem',
-            paddingTop: '25%',
+            paddingTop: '20%',
+            paddingBottom: '0rem',
             fontSize: '5rem',
             fontWeight: 'bold',
             display: 'flex',
@@ -44,6 +45,17 @@ const ExamBanner = ({ data }) => {
           <div className={data.ongoing ? classes.ongoing : classes.upcoming}>
             {data.ongoing ? 'ongoing' : 'upcoming'}
           </div>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            margin: '4rem',
+            fontWeight: 'bold',
+            fontSize: '2rem',
+          }}
+          className={cardHover ? classes.show : classes.hide}
+        >
+          Registered : {data.numberOfParticipants}
         </div>
 
         <div

@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     width: '100%',
-    height: '48rem',
+    height: '55rem',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
