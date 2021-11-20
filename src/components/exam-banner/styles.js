@@ -18,6 +18,7 @@ export default makeStyles((theme) => ({
     cursor: 'pointer',
     transition: '.2s ease',
     position: 'relative',
+    color: 'white',
     '&:hover': {},
   },
   show: {

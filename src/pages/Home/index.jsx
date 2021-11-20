@@ -23,6 +23,8 @@ import {
   DialogTitle,
   Dialog,
 } from 'components/dialog';
+import announcementWhite from 'assets/icons/announcementWhite.png';
+import announcementBlack from 'assets/icons/announcementBlack.png';
 
 const examVisibilities = [
   { label: 'Public', value: 'public' },
@@ -34,6 +36,7 @@ const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 const Home = () => {
   const [upcomingExams, setUpcomingExams] = useState([]);
   const theme = useTheme();
+
   const classes = useStyles();
 
   useEffect(async () => {
@@ -52,12 +55,50 @@ const Home = () => {
         <Carousel data={upcomingExams} type="exam-banner" />
       </section>
       <section className={classes.examListSection}>
-        <div className={classes.sectionHeading}>Events and Contests</div>
-        <ExamsListWithFilter />
+        <Container style={{ border: '0px solid blue', width: '100%' }}>
+          <div className={classes.sectionHeading}>Events and Contests</div>
+          <ExamsListWithFilter />
+        </Container>
       </section>
       <section className={classes.examListSection}>
-        <div className={classes.sectionHeading}>More Exams</div>
-        <ExamsListWithFilter />
+        <Container style={{ border: '0px solid blue', width: '100%' }}>
+          <div className={classes.sectionHeading}>More Exams</div>
+          <ExamsListWithFilter />
+        </Container>
+      </section>
+      <section className={classes.announcementSection}>
+        <Container className={classes.announcementContainer}>
+          <div className={classes.sectionHeading}>Announcements</div>
+          {new Array(3).fill(0).map((announcement) => (
+            <div className={classes.announcementCard}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <img
+                  className={classes.imgSize}
+                  src={
+                    theme.palette.mode == 'dark'
+                      ? announcementWhite
+                      : announcementBlack
+                  }
+                />{' '}
+                <h1 style={{ marginRight: '4rem' }}>New Exam</h1>
+                <div>{new Date().toDateString()}</div>
+              </div>
+              <div className={classes.announcementCardDesc}>
+                Registrations for the 1st stages of the Indian Computing
+                Olympiad 2022 - ZIO (Zonal Informatics Olympiad) & ZCO (Zonal
+                Computing Olympiad) are ongoing.
+              </div>
+              <div className={classes.announcementCardButtonDiv}>
+                <Button variant="outlined">Check Details</Button>
+              </div>
+            </div>
+          ))}
+        </Container>
       </section>
     </div>
   );
@@ -89,16 +130,18 @@ const ExamsListWithFilter = () => {
         <Box
           style={{
             marginTop: '1rem',
+            border: '0px solid green',
+            width: '85%',
           }}
         >
           {new Array(3).fill(0).map((exam, i) => (
             <ExamDetailsCard
               style={{
                 marginBottom: i === 4 ? '0.3rem' : '2rem',
-                width: '80rem',
                 borderRadius: 0,
               }}
               data={{ name: 'asd', email: 'ankur' }}
+              fullWidth
             />
           ))}
         </Box>
