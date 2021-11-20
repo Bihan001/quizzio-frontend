@@ -20,6 +20,7 @@ const Home = () => {
     try {
       const res = await getAllUpcomingExams();
       setUpcomingExams(res.data.data);
+      console.log('getAllUpcomingExams');
     } catch (err) {
       console.log(err);
     }

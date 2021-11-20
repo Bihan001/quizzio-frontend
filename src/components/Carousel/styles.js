@@ -2,7 +2,7 @@ import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
   card: {
-    width: '70vw',
+    width: '85vw',
     margin: '0 auto',
     borderRadius: '.5rem',
   },

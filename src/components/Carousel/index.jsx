@@ -18,6 +18,7 @@ import useStyles from './styles';
 import ExamBanner from 'components/exam-banner';
 import { ClassNames } from '@emotion/react';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+console.log(AutoPlaySwipeableViews);
 
 const Carousel = ({ data, type }) => {
   //Carousel States===========
