@@ -40,13 +40,12 @@ export default makeStyles((theme) => ({
       theme.palette.mode === 'dark'
         ? theme.palette.grey[900]
         : theme.palette.grey[100],
-    marginBottom: '3rem',
   },
   announcementSection: {
     backgroundColor:
       theme.palette.mode === 'dark'
         ? theme.palette.grey[900]
-        : theme.palette.grey[200],
+        : 'rgb(26, 178, 115,.09)',
   },
   announcementCard: {
     padding: '1rem',
@@ -63,6 +62,7 @@ export default makeStyles((theme) => ({
     margin: '1rem',
   },
   announcementContainer: {
+    margin: '0 auto',
     paddingTop: '2rem',
     '& > div': { width: '85%', margin: '0 auto', marginTop: '3rem' },
     '& > :nth-child(2)': {
