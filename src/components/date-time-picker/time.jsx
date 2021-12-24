@@ -7,18 +7,12 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 const styles = (theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
       borderColor: '#1AB273 !important',
     },
   },
-
   cssFocused: {},
-
   notchedOutline: {
     borderWidth: '1px',
     borderColor: 'rgba(0, 0, 0, 0.15) !important',
@@ -49,11 +43,7 @@ const DateField = (props) => {
   } = props;
 
   const [value, setValue] = React.useState(new Date()); // 2014-08-18T21:11:54
-  const handleChange1 = (e) => {
-    // let dateTime = e.target.value.concat(':00.000');
-    // if (setDateTime) setDateTime(e.target.value);
-    // if (changeDateTime) changeDateTime(optionIndex, e.target.value);
-  };
+
 
   const handleChange = (newValue) => {
     setValue(newValue);

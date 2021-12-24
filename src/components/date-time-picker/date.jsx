@@ -7,10 +7,6 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 const styles = (theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
   textField: {
     width: 192,
   },
@@ -70,7 +66,7 @@ const DateField = (props) => {
       <div>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DesktopDatePicker
-            inputFormat='MM/dd/yyyy'
+            inputFormat='dd/MM/yyyy'
             value={value}
             onChange={handleChange}
             renderInput={(params) => <TextField fullWidth={fullWidth} size='small' style={{ marginTop: '0.5rem' }} {...params} />}

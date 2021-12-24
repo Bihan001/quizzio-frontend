@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
@@ -28,9 +29,9 @@ const actions = [
       alert(1);
     },
   },
-  { icon: <SaveIcon />, name: 'Save', onClick: () => {} },
-  { icon: <PrintIcon />, name: 'Print', onClick: () => {} },
-  { icon: <ShareIcon />, name: 'Share', onClick: () => {} },
+  { icon: <SaveIcon />, name: 'Save', onClick: () => { } },
+  { icon: <PrintIcon />, name: 'Print', onClick: () => { } },
+  { icon: <ShareIcon />, name: 'Share', onClick: () => { } },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -89,8 +90,12 @@ const Page2 = (props) => {
     { value: 'numerical', label: 'Numerical' },
     { value: 'matchitems', label: 'Match the following' },
   ];
+
+
   return (
     <Grid container spacing={5}>
+
+      {/*   Editor Section  */}
       <Grid item lg={6}>
         <Grid container spacing={2} style={{ marginBottom: '1.5rem' }}>
           <Grid item lg={4}>
@@ -115,6 +120,8 @@ const Page2 = (props) => {
         <TextEditor width='100%' />
       </Grid>
 
+
+      {/* Options Section  */}
       <Grid item lg={3}>
         {(questionType === 'mcqSingle' || questionType === 'mcqMultiple') && (
           <Box>
@@ -175,6 +182,8 @@ const Page2 = (props) => {
         )}
       </Grid>
 
+
+      {/*   BUTTONS -- FOR QUESTION NUMBER  */}
       <Grid item lg={3} style={{ marginTop: '4rem' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {new Array(4).fill(0).map((x, i) => (
@@ -187,6 +196,7 @@ const Page2 = (props) => {
           </Button>
         </div>
       </Grid>
+
     </Grid>
   );
 };

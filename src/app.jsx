@@ -9,6 +9,8 @@ import Login from 'pages/auth/login';
 import User from 'pages/profile/User';
 import Home from 'pages/home';
 import GiveExam from 'pages/give-exam';
+import ExamDetails from 'pages/exam-details';
+
 
 const App = () => {
   const [themeMode, setThemeMode] = useState('light');
@@ -35,35 +37,32 @@ const App = () => {
       },
       ...(mode === 'light'
         ? {
-            primary: {
-              main: '#1AB273',
-              contrastText: '#fff',
-            },
-            divider: '#1AB273',
-          }
+          primary: {
+            main: '#1AB273',
+            contrastText: '#fff',
+          },
+          divider: '#1AB273',
+        }
         : {
-            primary: {
-              main: '#0dc7ca',
-              contrastText: '#000',
-            },
-            divider: '#00dbe2',
-            background: {
-              default: '#111',
-              paper: '#111',
-            },
-          }),
+          primary: {
+            main: '#0dc7ca',
+            contrastText: '#000',
+          },
+          divider: '#00dbe2',
+          background: {
+            default: '#111',
+            paper: '#111',
+          },
+        }),
     },
   });
 
-  const colorMode = useMemo(
-    () => ({
-      // The dark mode switch would invoke this method
-      toggleColorMode: () => {
-        setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    []
-  );
+  // The dark mode switch would invoke this method
+  const colorMode = useMemo(() => ({
+    toggleColorMode: () => {
+      setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    },
+  }), []);
 
   const toggleTheme = () => {
     setThemeMode((t) => (t === 'light' ? 'dark' : 'light'));
@@ -83,6 +82,7 @@ const App = () => {
           <Route path='/signup' exact component={Signup} />
           <Route path='/login' exact component={Login} />
           <Route path='/create-exam' component={CreateExam} />
+          <Route path='/exam-details' component={ExamDetails} />
           <Route path='/profile' component={User} />
           <Route path='/exam/:id/give' component={GiveExam} />
         </Switch>

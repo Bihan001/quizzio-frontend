@@ -1,4 +1,6 @@
-import myaxios from 'axios';
+
+
+import Axios from 'axios';
 
 export const headers = {
   headers: {
@@ -6,4 +8,4 @@ export const headers = {
   },
 };
 
-export const axios = myaxios.create({ baseURL: 'https://exam-simulation.azurewebsites.net' });
+export const axios = Axios.create({ baseURL: 'https://exam-simulation.azurewebsites.net' });

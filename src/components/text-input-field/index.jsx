@@ -22,11 +22,11 @@ const TextInputField = ({
   variant,
   showActionBtn = false,
   actionBtnText = '',
-  actionOnClick = () => {},
+  actionOnClick = () => { },
   endIcon,
   startIcon,
-  endIconOnClick = () => {},
-  startIconOnClick = () => {},
+  endIconOnClick = () => { },
+  startIconOnClick = () => { },
 }) => {
   return (
     <div>
@@ -75,6 +75,8 @@ const TextInputField = ({
             ),
           }}
         />
+
+        {/*   Password  */}
         {showActionBtn && (
           <Button variant='contained' onClick={(e) => actionOnClick(e)}>
             {actionBtnText}

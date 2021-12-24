@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Stepper, Step, StepButton } from '@mui/material';
@@ -20,6 +21,7 @@ const ExamCreation = () => {
 
   return (
     <Container maxWidth='xl'>
+
       <Stepper
         nonLinear
         alternativeLabel
@@ -34,9 +36,11 @@ const ExamCreation = () => {
           </Step>
         ))}
       </Stepper>
+
       {activeStep === 0 && <Page1 />}
       {activeStep === 1 && <Page2 />}
-      {activeStep === 2 && <p>ffff</p>}
+      {activeStep === 2 && <p>  Hey loook at me !!  :) </p>}
+
       {/*  <Dialog open={openModal} handleClose={() => setOpenModal(false)}>
         <DialogTitle>New Modal here</DialogTitle>
         <DialogContent>
