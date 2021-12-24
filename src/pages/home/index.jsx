@@ -1,28 +1,12 @@
+
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@emotion/react';
-import MobileStepper from '@mui/material/MobileStepper';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import { Container } from '@mui/material';
-import { Grid, Typography, Paper, Input, Box, Button } from '@mui/material';
+import { Grid, Typography, Paper, Box, Button } from '@mui/material';
 import useStyles from './styles';
 import { getAllUpcomingExams } from 'api/exam';
 import Carousel from 'components/Carousel';
 import ExamDetailsCard from 'components/ExamDetailsCard/ExamDetailsCard';
-import TextInputField from 'components/text-input-field';
-import DatePicker from 'components/date-time-picker/date';
-import TimePicker from 'components/date-time-picker/time';
-import MultiSelect from 'components/multi-select-dropdown';
-import DropdownField from 'components/dropdown-field';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Dialog,
-} from 'components/dialog';
 import announcementWhite from 'assets/icons/announcementWhite.png';
 import announcementBlack from 'assets/icons/announcementBlack.png';
 
@@ -34,9 +18,9 @@ const examVisibilities = [
 const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 
 const Home = () => {
+
   const [upcomingExams, setUpcomingExams] = useState([]);
   const theme = useTheme();
-
   const classes = useStyles();
 
   useEffect(async () => {
@@ -54,18 +38,21 @@ const Home = () => {
       <section className={classes.carouselSection}>
         <Carousel data={upcomingExams} type="exam-banner" />
       </section>
+
       <section className={classes.examListSection}>
         <Container style={{ border: '0px solid blue', width: '100%' }}>
           <div className={classes.sectionHeading}>Events and Contests</div>
           <ExamsListWithFilter />
         </Container>
       </section>
+
       <section className={classes.examListSection}>
         <Container style={{ border: '0px solid blue', width: '100%' }}>
           <div className={classes.sectionHeading}>More Exams</div>
           <ExamsListWithFilter />
         </Container>
       </section>
+
       <section className={classes.announcementSection}>
         <Container className={classes.announcementContainer}>
           <div className={classes.sectionHeading}>Announcements</div>

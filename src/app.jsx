@@ -34,16 +34,22 @@ const App = () => {
       common: {
         white: '#ffffff',
         black: '#000000',
-      },
-      ...(mode === 'light'
-        ? {
+      }, ...(mode === 'light' ?
+        {
           primary: {
             main: '#1AB273',
             contrastText: '#fff',
+            grey: '#bab5b5  ',
           },
+          // secondary: {
+          //   light: '#F5F5F5',
+          // },
           divider: '#1AB273',
         }
-        : {
+
+        :
+
+        {
           primary: {
             main: '#0dc7ca',
             contrastText: '#000',

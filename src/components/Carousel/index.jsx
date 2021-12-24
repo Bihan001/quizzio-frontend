@@ -1,44 +1,39 @@
+
 import React, { useState, useEffect } from 'react';
 import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import {
-  Grid,
-  Typography,
-  Paper,
-  Input,
-  Box,
-  Button,
-  collapseClasses,
-} from '@mui/material';
+import { Grid, Typography, Paper, Input, Box, Button, collapseClasses, } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import useStyles from './styles';
 import ExamBanner from 'components/exam-banner';
 import { ClassNames } from '@emotion/react';
+
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 console.log(AutoPlaySwipeableViews);
 
 const Carousel = ({ data, type }) => {
+
+  const theme = useTheme();
+  const classes = useStyles();
   //Carousel States===========
   const [activeStep, setActiveStep] = useState(0);
   const [maxSteps, setMaxSteps] = useState(0);
   //==========================
 
-  const theme = useTheme();
-  const classes = useStyles();
   const Cards = {
     'exam-banner': data.map((examDetail, index) => (
       <ExamBanner key={index} data={examDetail} />
     )),
   };
 
-  //useEffects============================
   useEffect(() => {
     setMaxSteps(data.length);
   }, [data]);
-  //====================================
+
 
   //Carousel Config functions-==============
   const handleNext = () => {
@@ -63,6 +58,7 @@ const Carousel = ({ data, type }) => {
       >
         {Cards[type]}
       </AutoPlaySwipeableViews>
+
       <MobileStepper
         className={classes.stepper}
         steps={maxSteps}

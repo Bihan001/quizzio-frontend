@@ -1,17 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
-import {
-  Grid,
-  Typography,
-  Paper,
-  Input,
-  Box,
-  Button,
-  collapseClasses,
-} from '@mui/material';
+import { Grid, Typography, Paper, Input, Box, Button, collapseClasses, } from '@mui/material';
+
 const ExamBanner = ({ data }) => {
+
   const classes = useStyles();
   const [cardHover, setCardHover] = useState(false);
+
+
   return (
     <>
       <Box
@@ -20,12 +17,12 @@ const ExamBanner = ({ data }) => {
         style={
           cardHover
             ? {
-                backgroundImage: `linear-gradient(rgba(28, 40, 51,.5), rgba(28, 40, 51,.5)),url(${data.image})`,
-                color: 'white',
-              }
+              backgroundImage: `linear-gradient(rgba(28, 40, 51,.5), rgba(28, 40, 51,.5)),url(${data.image})`,
+              color: 'white',
+            }
             : {
-                backgroundImage: `linear-gradient(rgba(28, 40, 51,.2), rgba(28, 40, 51,.2)),url(${data.image})`,
-              }
+              backgroundImage: `linear-gradient(rgba(28, 40, 51,.2), rgba(28, 40, 51,.2)),url(${data.image})`,
+            }
         }
         className={classes.examBanner}
       >
@@ -46,6 +43,7 @@ const ExamBanner = ({ data }) => {
             {data.ongoing ? 'ongoing' : 'upcoming'}
           </div>
         </div>
+
         <div
           style={{
             display: 'flex',

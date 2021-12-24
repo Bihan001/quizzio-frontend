@@ -1,3 +1,4 @@
+
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
@@ -18,7 +19,7 @@ export default makeStyles((theme) => ({
     marginBottom: '2rem',
   },
   sectionHeading: {
-    fontSize: '3rem',
+    fontSize: '2.6rem',
     width: '85%',
     border: '0px solid red',
     margin: '1rem auto',
@@ -49,16 +50,14 @@ export default makeStyles((theme) => ({
   },
   announcementCard: {
     padding: '1rem',
-    borderTop: `0px solid ${
-      theme.palette.mode === 'dark'
-        ? theme.palette.common.black
-        : theme.palette.grey[300]
-    }`,
-    borderBottom: `2px solid ${
-      theme.palette.mode === 'dark'
-        ? theme.palette.common.black
-        : theme.palette.grey[300]
-    }`,
+    borderTop: `0px solid ${theme.palette.mode === 'dark'
+      ? theme.palette.common.black
+      : theme.palette.grey[300]
+      }`,
+    borderBottom: `2px solid ${theme.palette.mode === 'dark'
+      ? theme.palette.common.black
+      : theme.palette.grey[300]
+      }`,
     margin: '1rem',
   },
   announcementContainer: {
@@ -66,18 +65,16 @@ export default makeStyles((theme) => ({
     paddingTop: '2rem',
     '& > div': { width: '85%', margin: '0 auto', marginTop: '3rem' },
     '& > :nth-child(2)': {
-      borderTop: `0px solid ${
-        theme.palette.mode === 'dark'
-          ? theme.palette.common.black
-          : theme.palette.grey[300]
-      } !important`,
+      borderTop: `0px solid ${theme.palette.mode === 'dark'
+        ? theme.palette.common.black
+        : theme.palette.grey[300]
+        } !important`,
     },
     '& > :last-child': {
-      borderBottom: `0px solid ${
-        theme.palette.mode === 'dark'
-          ? theme.palette.common.black
-          : theme.palette.grey[300]
-      } !important`,
+      borderBottom: `0px solid ${theme.palette.mode === 'dark'
+        ? theme.palette.common.black
+        : theme.palette.grey[300]
+        } !important`,
     },
   },
   announcementCardDesc: {

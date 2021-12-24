@@ -2,22 +2,17 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Grid, Typography, Paper, Input, Box, Button } from '@mui/material';
 import TextEditor from 'components/text-editor';
 import TextInputField from 'components/text-input-field';
-import DatePicker from 'components/date-time-picker/date';
-import TimePicker from 'components/date-time-picker/time';
 import DropdownField from 'components/dropdown-field';
 import Bullet from '@mui/icons-material/FiberManualRecord';
-import { Dialog, DialogTitle, DialogContent, DialogActions } from 'components/dialog';
-import Header from 'components/header';
-import SpeedDial from 'components/speed-dial';
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import AddIcon from '@mui/icons-material/Add';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 let count = 0;
 
@@ -58,12 +53,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page2 = (props) => {
+
   const classes = useStyles();
   const theme = useTheme();
 
   const [questionType, setQuestionType] = useState('mcqSingle');
   const [optionArr, setOptionArr] = useState([]); //  [{} , {}]
-
   const [newOption, setNewOption] = useState('');
 
   const [correctOptionArr, setCorrectOptionArr] = useState([]); // [0,2,4]  arr of index

@@ -33,9 +33,7 @@ const Page1 = () => {
   const [examType, setExamType] = useState('public');
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
+    const { target: { value }, } = event;
     setSelectedTags(
       // On autofill we get a the stringified value.
       typeof value === 'string' ? value.split(',') : value
@@ -80,6 +78,7 @@ const Page1 = () => {
             </Grid>
           </Grid>
         </Grid>
+
         <Grid item lg={6}>
           <Typography variant='p' component='p' style={{ marginBottom: '0.5rem' }}>
             Description

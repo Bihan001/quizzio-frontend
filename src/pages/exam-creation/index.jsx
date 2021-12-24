@@ -4,6 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { Container, Stepper, Step, StepButton } from '@mui/material';
 import Page1 from './page1';
 import Page2 from './page2';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from 'components/dialog';
+import Header from 'components/header';
+import SpeedDial from 'components/speed-dial';
 // import { makeStyles, useTheme } from '@mui/styles';
 
 const steps = ['Exam Details', 'Questions', 'Preview'];
@@ -11,7 +14,6 @@ const steps = ['Exam Details', 'Questions', 'Preview'];
 const ExamCreation = () => {
   // const classes = useStyles();
   const history = useHistory();
-
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
 
