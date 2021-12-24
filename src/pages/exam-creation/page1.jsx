@@ -44,7 +44,7 @@ const Page1 = () => {
     <>
       <Grid container spacing={5}>
         <Grid item lg={6}>
-          <Grid container spacing={2} direction='row' alignItems='center'>
+          <Grid container spacing={2} direction='row'>
             <Grid item lg={6}>
               <TextInputField fullWidth label='Exam Name' placeholder='JEE Mains' required />
             </Grid>
@@ -74,13 +74,7 @@ const Page1 = () => {
               <FileUploadInput fullWidth label='Email List' disabled accept='.csv' uploadIcon={<UploadFileIcon />} />
             </Grid>
             <Grid item lg={6}>
-              <MultiSelect
-                options={tags}
-                value={selectedTags}
-                onChange={(e) => handleChange(e)}
-                label='Tags'
-                placeholder='Select tags'
-              />
+              <MultiSelect options={tags} value={selectedTags} onChange={(e) => handleChange(e)} label='Tags' placeholder='Select tags' />
             </Grid>
           </Grid>
         </Grid>
