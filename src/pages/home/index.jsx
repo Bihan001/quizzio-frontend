@@ -1,12 +1,11 @@
-
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Container } from '@mui/material';
 import { Grid, Typography, Paper, Box, Button } from '@mui/material';
 import useStyles from './styles';
 import { getAllUpcomingExams } from 'api/exam';
-import Carousel from 'components/Carousel';
-import ExamDetailsCard from 'components/ExamDetailsCard/ExamDetailsCard';
+import Carousel from 'components/carousel';
+import ExamDetailsCard from 'components/exam-details-card';
 import announcementWhite from 'assets/icons/announcementWhite.png';
 import announcementBlack from 'assets/icons/announcementBlack.png';
 
@@ -18,7 +17,6 @@ const examVisibilities = [
 const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 
 const Home = () => {
-
   const [upcomingExams, setUpcomingExams] = useState([]);
   const theme = useTheme();
   const classes = useStyles();
@@ -36,7 +34,7 @@ const Home = () => {
   return (
     <div className={classes.homePage}>
       <section className={classes.carouselSection}>
-        <Carousel data={upcomingExams} type="exam-banner" />
+        <Carousel data={upcomingExams} type='exam-banner' />
       </section>
 
       <section className={classes.examListSection}>
@@ -64,24 +62,16 @@ const Home = () => {
                   alignItems: 'center',
                 }}
               >
-                <img
-                  className={classes.imgSize}
-                  src={
-                    theme.palette.mode == 'dark'
-                      ? announcementWhite
-                      : announcementBlack
-                  }
-                />{' '}
+                <img className={classes.imgSize} src={theme.palette.mode == 'dark' ? announcementWhite : announcementBlack} />{' '}
                 <h1 style={{ marginRight: '4rem' }}>New Exam</h1>
                 <div>{new Date().toDateString()}</div>
               </div>
               <div className={classes.announcementCardDesc}>
-                Registrations for the 1st stages of the Indian Computing
-                Olympiad 2022 - ZIO (Zonal Informatics Olympiad) & ZCO (Zonal
+                Registrations for the 1st stages of the Indian Computing Olympiad 2022 - ZIO (Zonal Informatics Olympiad) & ZCO (Zonal
                 Computing Olympiad) are ongoing.
               </div>
               <div className={classes.announcementCardButtonDiv}>
-                <Button variant="outlined">Check Details</Button>
+                <Button variant='outlined'>Check Details</Button>
               </div>
             </div>
           ))}
@@ -100,8 +90,7 @@ const ExamsListWithFilter = () => {
     examStatus: null,
   });
 
-  const handleFilterChange = (e) =>
-    setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const handleFilterChange = (e) => setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const hideFilters = () => setShowFilters(false);
   return (

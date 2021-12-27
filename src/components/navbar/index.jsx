@@ -63,7 +63,13 @@ export default function Navbar(props) {
       <AppBar position='fixed'>
         <Container maxWidth='xl'>
           <Toolbar>
-            <Typography variant='h6' noWrap component='div' sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Typography
+              variant='h6'
+              noWrap
+              component={Link}
+              to='/'
+              style={{ display: { xs: 'none', sm: 'block' }, textDecoration: 'none', color: theme.palette.common.white }}
+            >
               EXAM SIMULATOR
             </Typography>
             <Search>
