@@ -52,7 +52,7 @@ const toolbar =
 
 const TinyEditor = (props) => {
   const theme = useTheme();
-  const { width = 700, height = 350 } = props;
+  const { width = 700, height = 350, value, onChange } = props;
   const handleEditorChange = (e) => {
     console.log('Content was updated:', e.target.getContent());
   };
@@ -142,10 +142,11 @@ const TinyEditor = (props) => {
 
   return (
     <Editor
-      initialValue='<p>Initial content</p>'
+      initialValue='<p>Write your question here...</p>'
       apiKey='qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc'
       init={editorOptions}
-      onChange={handleEditorChange}
+      value={value}
+      onEditorChange={(value, editorRef) => onChange(value, editorRef)}
     />
   );
 };

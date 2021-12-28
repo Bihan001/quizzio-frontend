@@ -38,23 +38,15 @@ const DateField = (props) => {
     classes,
     width,
     height,
+    name,
+    value,
+    onChange,
     label,
     disabled,
     type = 'datetime-local',
     required,
     fullWidth = false,
   } = props;
-
-  const [value, setValue] = React.useState(new Date()); // 2014-08-18T21:11:54
-  const handleChange1 = (e) => {
-    // let dateTime = e.target.value.concat(':00.000');
-    // if (setDateTime) setDateTime(e.target.value);
-    // if (changeDateTime) changeDateTime(optionIndex, e.target.value);
-  };
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <>
@@ -67,8 +59,9 @@ const DateField = (props) => {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DesktopDatePicker
             inputFormat='dd/MM/yyyy'
+            name={name}
             value={value}
-            onChange={handleChange}
+            onChange={onChange}
             renderInput={(params) => <TextField fullWidth={fullWidth} size='small' style={{ marginTop: '0.5rem' }} {...params} />}
           />
         </LocalizationProvider>

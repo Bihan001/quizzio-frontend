@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { TextField, Typography, Select, MenuItem } from '@mui/material';
 
@@ -6,7 +5,7 @@ const Dropdown = ({
   label,
   disabled,
   value,
-  handler,
+  onChange,
   required,
   options,
   name,
@@ -17,12 +16,7 @@ const Dropdown = ({
 }) => {
   return (
     <div>
-      <Typography
-        align='left'
-        variant='p'
-        style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }}
-        className={labelClassName}
-      >
+      <Typography align='left' variant='p' style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }} className={labelClassName}>
         {label}
         {required ? <span style={{ color: 'red' }}>*</span> : null}
       </Typography>
@@ -35,7 +29,7 @@ const Dropdown = ({
           variant='outlined'
           name={name}
           value={value}
-          onChange={handler}
+          onChange={onChange}
           style={{ marginTop: '0.5rem', ...style }}
         >
           {options &&

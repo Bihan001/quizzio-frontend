@@ -37,17 +37,13 @@ const DateField = (props) => {
     height,
     label,
     disabled,
+    name,
+    value,
+    onChange,
     type = 'datetime-local',
     required,
     fullWidth = false,
   } = props;
-
-  const [value, setValue] = React.useState(new Date()); // 2014-08-18T21:11:54
-
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <>
@@ -58,8 +54,9 @@ const DateField = (props) => {
       <div>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <TimePicker
+            name={name}
             value={value}
-            onChange={handleChange}
+            onChange={onChange}
             renderInput={(params) => <TextField fullWidth={fullWidth} size='small' style={{ marginTop: '0.5rem' }} {...params} />}
           />
         </LocalizationProvider>

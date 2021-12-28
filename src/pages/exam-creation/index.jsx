@@ -1,12 +1,10 @@
-
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Stepper, Step, StepButton } from '@mui/material';
+import { submitNewExamData } from 'api/exam';
 import Page1 from './page1';
 import Page2 from './page2';
-import { Dialog, DialogTitle, DialogContent, DialogActions } from 'components/dialog';
-import Header from 'components/header';
-import SpeedDial from 'components/speed-dial';
+import Page3 from './page3';
 // import { makeStyles, useTheme } from '@mui/styles';
 
 const steps = ['Exam Details', 'Questions', 'Preview'];
@@ -15,23 +13,47 @@ const ExamCreation = () => {
   // const classes = useStyles();
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
-  const [completed, setCompleted] = useState({});
+  const [examDetails, setExamDetails] = useState({
+    name: '',
+    description: '',
+    startDate: new Date(),
+    startTime: null,
+    duration: null,
+    banner: '',
+    type: '',
+    allowedUsers: [],
+    tags: [],
+  });
+  const [questions, setQuestions] = useState([]);
 
   const handleStep = (step) => () => {
     setActiveStep(step);
   };
 
+  const handleDetailsChange = (name, value) => {
+    setExamDetails((d) => ({ ...d, [name]: value }));
+  };
+
+  const handleQuestionsChange = (q) => {
+    if (questions.find((qs) => qs.id === q.id)) {
+      setQuestions((x) => x.map((qs) => (qs.id === q.id ? q : qs)));
+    } else {
+      setQuestions((qs) => [...qs, q]);
+    }
+  };
+
+  const handleSubmitExamData = async () => {
+    const examData = JSON.parse(JSON.stringify(examDetails));
+    examData.questions = questions;
+    const res = await submitNewExamData(examData);
+    console.log(examData, res);
+  };
+
   return (
     <Container maxWidth='xl'>
-
-      <Stepper
-        nonLinear
-        alternativeLabel
-        sx={{ margin: '4rem auto', marginBottom: '6rem', width: '500px' }}
-        activeStep={activeStep}
-      >
+      <Stepper nonLinear alternativeLabel sx={{ margin: '4rem auto', marginBottom: '6rem', width: '500px' }} activeStep={activeStep}>
         {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
+          <Step key={label}>
             <StepButton color='inherit' onClick={handleStep(index)}>
               {label}
             </StepButton>
@@ -39,57 +61,9 @@ const ExamCreation = () => {
         ))}
       </Stepper>
 
-      {activeStep === 0 && <Page1 />}
-      {activeStep === 1 && <Page2 />}
-      {activeStep === 2 && <p>  Hey loook at me !!  :) </p>}
-
-      {/*  <Dialog open={openModal} handleClose={() => setOpenModal(false)}>
-        <DialogTitle>New Modal here</DialogTitle>
-        <DialogContent>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur sed natus magnam, dolore eius placeat velit, ducimus
-          deserunt, laboriosam atque blanditiis! Fuga consequatur culpa quam sunt ut, esse quis possimus velit voluptatum deserunt
-          fugiat sapiente unde non, repellendus aspernatur. At, accusantium corporis repudiandae perferendis eum eaque.
-          Necessitatibus sapiente sit voluptas officiis repellat error repellendus sunt facere libero, assumenda sed? Ratione quas
-          commodi architecto nihil voluptatum, laudantium, unde iure atque fugiat vitae perspiciatis explicabo. Neque, cum nihil
-          autem pariatur illum sequi, tempore, culpa dolores tenetur corrupti veniam deserunt vel porro. Aut, minus? Beatae
-          officiis, praesentium incidunt asperiores magni assumenda ea non!
-          <DialogActions>
-            <Button onClick={() => setOpenModal(false)}>Close</Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog> */}
-
-      {/* <Header title='Examination Edit/Creation' description='Create your exam here' /> */}
-
-      {/* <SpeedDial actions={actions} /> */}
-      {/* <SpeedDial grid cols={5} actions={actions} style={{ position: 'fixed', bottom: 16, right: 100 }} /> */}
-
-      {/* <Typography className={classes.heading}>Examination Edit/Creation</Typography> */}
-
-      {/* <Box
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          alignContent: 'center',
-        }}
-      >
-        <Button variant='contained' onClick={(e) => setOpenModal((v) => !v)} style={{ marginRight: '2.3rem' }}>
-          Open Test Modal
-        </Button>
-
-        {ButtonText.map((item, key) => {
-          return (
-            <>
-              <Box sx={{ marginRight: '2.3rem' }}>
-                <Button variant='contained'>{item.title}</Button>
-              </Box>
-            </>
-          );
-        })}
-      </Box> */}
-
-      {/* Section 1  */}
+      {activeStep === 0 && <Page1 examDetails={examDetails} handleDetailsChange={handleDetailsChange} />}
+      {activeStep === 1 && <Page2 questions={questions} handleQuestionsChange={handleQuestionsChange} />}
+      {activeStep === 2 && <Page3 handleSubmitExamData={handleSubmitExamData} />}
     </Container>
   );
 };

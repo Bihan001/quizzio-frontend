@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
@@ -9,35 +8,29 @@ import DropdownField from 'components/dropdown-field';
 import FileUploadInput from 'components/file-upload-input';
 import TextEditor from 'components/text-editor';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import { getExamTags, getExamTypes } from 'api/exam';
 
-const tags = [
-  'Maths',
-  'Physics',
-  'Chemistry',
-  'Exam',
-  'Contest',
-  'Computer Science',
-  'Competitive Programming',
-  'Dynamic Programming',
-  'Graph Theory',
-  'Literature',
-];
-
-const examTypes = [
-  { label: 'Public', value: 'public' },
-  { label: 'Private', value: 'private' },
-];
-
-const Page1 = () => {
+const Page1 = (props) => {
+  const { examDetails, handleDetailsChange } = props;
   const [selectedTags, setSelectedTags] = useState([]);
-  const [examType, setExamType] = useState('public');
+  const [tags, setTags] = useState([]);
+  const [examTypes, setExamTypes] = useState([]);
+  const [examType, setExamType] = useState('');
 
-  const handleChange = (event) => {
-    const { target: { value }, } = event;
-    setSelectedTags(
-      // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value
-    );
+  useEffect(() => {
+    fetchTags();
+    fetchExamTypes();
+  }, []);
+
+  const fetchTags = async () => {
+    const res = await getExamTags();
+    setTags(res.data);
+  };
+
+  const fetchExamTypes = async () => {
+    const res = await getExamTypes();
+    setExamTypes(res.data);
+    if (res.data.length > 0) setExamType(res.data[0].value);
   };
 
   return (
@@ -46,19 +39,56 @@ const Page1 = () => {
         <Grid item lg={6}>
           <Grid container spacing={2} direction='row'>
             <Grid item lg={6}>
-              <TextInputField fullWidth label='Exam Name' placeholder='JEE Mains' required />
+              <TextInputField
+                fullWidth
+                label='Exam Name'
+                placeholder='JEE Mains'
+                required
+                name='name'
+                value={examDetails.name}
+                onChange={(e) => handleDetailsChange(e.target.name, e.target.value)}
+              />
             </Grid>
             <Grid item lg={6}>
-              <DatePicker fullWidth label='Start Date' required />
+              <DatePicker
+                fullWidth
+                label='Start Date'
+                required
+                name='startDate'
+                value={examDetails.startDate}
+                onChange={(newDate) => handleDetailsChange('startDate', newDate)}
+              />
             </Grid>
             <Grid item lg={6}>
-              <TimePicker fullWidth label='Start Time' required />
+              <TimePicker
+                fullWidth
+                label='Start Time'
+                required
+                name='startTime'
+                value={examDetails.startTime}
+                onChange={(newTime) => handleDetailsChange('startTime', newTime)}
+              />
             </Grid>
             <Grid item lg={6}>
-              <TextInputField fullWidth label='Exam Duration(mins)' placeholder='180' required />
+              <TextInputField
+                fullWidth
+                label='Exam Duration(mins)'
+                placeholder='180'
+                required
+                name='duration'
+                value={examDetails.duration}
+                onChange={(e) => handleDetailsChange(e.target.name, e.target.value)}
+              />
             </Grid>
             <Grid item lg={6}>
-              <FileUploadInput fullWidth label='Exam Banner' disabled />
+              <FileUploadInput
+                fullWidth
+                label='Exam Banner'
+                disabled
+                name='banner'
+                value={examDetails.banner}
+                onChange={(e) => handleDetailsChange(e.target.name, 'dummy url here')}
+              />
             </Grid>
             <Grid item lg={6}>
               <DropdownField
@@ -68,13 +98,33 @@ const Page1 = () => {
                 options={examTypes}
                 value={examType}
                 handler={(e) => setExamType(e.target.value)}
+                name='type'
+                value={examDetails.type}
+                onChange={(e) => handleDetailsChange(e.target.name, e.target.value)}
               />
             </Grid>
             <Grid item lg={6}>
-              <FileUploadInput fullWidth label='Email List' disabled accept='.csv' uploadIcon={<UploadFileIcon />} />
+              <FileUploadInput
+                fullWidth
+                label='Email List'
+                disabled
+                accept='.csv'
+                uploadIcon={<UploadFileIcon />}
+                name='allowedUsers'
+                value={examDetails.allowedUsers}
+                onChange={(e) => handleDetailsChange(e.target.name, 'dummy url here')}
+              />
             </Grid>
             <Grid item lg={6}>
-              <MultiSelect options={tags} value={selectedTags} onChange={(e) => handleChange(e)} label='Tags' placeholder='Select tags' />
+              <MultiSelect
+                options={tags}
+                value={selectedTags}
+                label='Tags'
+                placeholder='Select tags'
+                name='tags'
+                value={examDetails.tags}
+                onChange={(e) => handleDetailsChange(e.target.name, e.target.value)}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -83,7 +133,12 @@ const Page1 = () => {
           <Typography variant='p' component='p' style={{ marginBottom: '0.5rem' }}>
             Description
           </Typography>
-          <TextEditor width='100%' height={295} />
+          <TextEditor
+            width='100%'
+            height={295}
+            value={examDetails.description}
+            onChange={(value) => handleDetailsChange('description', value)}
+          />
         </Grid>
       </Grid>
     </>

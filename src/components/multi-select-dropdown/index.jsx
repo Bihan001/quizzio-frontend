@@ -16,17 +16,12 @@ const getStyles = (opt, value, theme) => {
 };
 
 const MultiSelect = (props) => {
-  const { value, onChange, options, label, placeholder = '', required, style, disabled, labelStyle, labelClassName } = props;
+  const { name, value, onChange, options, label, placeholder = '', required, style, disabled, labelStyle, labelClassName } = props;
   const theme = useTheme();
 
   return (
     <>
-      <Typography
-        align='left'
-        variant='p'
-        style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }}
-        className={labelClassName}
-      >
+      <Typography align='left' variant='p' style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }} className={labelClassName}>
         {label}
         {required ? <span style={{ color: 'red' }}>*</span> : null}
       </Typography>
@@ -35,6 +30,7 @@ const MultiSelect = (props) => {
         multiple
         displayEmpty
         required={required}
+        name={name}
         value={value}
         size='small'
         onChange={onChange}

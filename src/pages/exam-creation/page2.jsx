@@ -1,20 +1,18 @@
-
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
-import { Grid, Typography, Paper, Input, Box, Button } from '@mui/material';
+import { Grid, Typography, Box, Button } from '@mui/material';
 import TextEditor from 'components/text-editor';
 import TextInputField from 'components/text-input-field';
 import DropdownField from 'components/dropdown-field';
-import Bullet from '@mui/icons-material/FiberManualRecord';
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import AddIcon from '@mui/icons-material/Add';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-
-let count = 0;
+import { getQuestionTypes } from 'api/exam';
+import MCQ from './question-types/mcq';
+import FillBlanks from './question-types/fill-blanks';
 
 const actions = [
   {
@@ -24,9 +22,9 @@ const actions = [
       alert(1);
     },
   },
-  { icon: <SaveIcon />, name: 'Save', onClick: () => { } },
-  { icon: <PrintIcon />, name: 'Print', onClick: () => { } },
-  { icon: <ShareIcon />, name: 'Share', onClick: () => { } },
+  { icon: <SaveIcon />, name: 'Save', onClick: () => {} },
+  { icon: <PrintIcon />, name: 'Print', onClick: () => {} },
+  { icon: <ShareIcon />, name: 'Share', onClick: () => {} },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -34,9 +32,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '3.2rem',
     textAlign: 'center',
     marginBottom: '2rem',
-  },
-  labelSmall: {
-    fontSize: '1.4rem',
   },
   bubble: {
     display: 'flex',
@@ -53,43 +48,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page2 = (props) => {
-
   const classes = useStyles();
   const theme = useTheme();
 
-  const [questionType, setQuestionType] = useState('mcqSingle');
-  const [optionArr, setOptionArr] = useState([]); //  [{} , {}]
-  const [newOption, setNewOption] = useState('');
+  const { questions, handleQuestionsChange } = props;
 
-  const [correctOptionArr, setCorrectOptionArr] = useState([]); // [0,2,4]  arr of index
-  const [newCorrectOption, setNewCorrectOption] = useState('');
-  const [openModal, setOpenModal] = useState(false);
-  const [currQuesNumber, setCurrQuesNumber] = useState(1);
+  const [questionTypes, setQuestionTypes] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState({});
 
-  const AddNewOption = () => {
-    if (!newOption || !newOption.trim()) return;
-    setOptionArr([...optionArr, { id: count++, data: newOption }]);
-    setNewOption('');
+  useEffect(() => {
+    fetchQuestionTypes();
+  }, []);
+
+  useEffect(() => {
+    if (currentQuestion.id) handleQuestionsChange(currentQuestion);
+  }, [currentQuestion]);
+
+  const fetchQuestionTypes = async () => {
+    const res = await getQuestionTypes();
+    setQuestionTypes(res.data);
   };
 
-  const addCorrectOption = () => {
-    if (!newCorrectOption || !newCorrectOption.trim()) return;
-    setCorrectOptionArr([...correctOptionArr, newCorrectOption]);
-    setNewCorrectOption('');
+  const addNewQuestion = () => {
+    setCurrentQuestion({
+      id: Date.now(),
+      type: 'mcq',
+      question: '',
+      options: [],
+      correctOption: [],
+      marks: 2,
+      negMarks: 1,
+    });
   };
-
-  const Options = [
-    { value: 'mcqSingle', label: 'MCQ - 1 correct option' },
-    { value: 'mcqMultiple', label: 'MCQ - More than 1 correct option' },
-    { value: 'fillblank', label: '1 word answer' },
-    { value: 'numerical', label: 'Numerical' },
-    { value: 'matchitems', label: 'Match the following' },
-  ];
-
 
   return (
     <Grid container spacing={5}>
-
       {/*   Editor Section  */}
       <Grid item lg={6}>
         <Grid container spacing={2} style={{ marginBottom: '1.5rem' }}>
@@ -97,101 +90,73 @@ const Page2 = (props) => {
             <DropdownField
               label='Question Type'
               placeholder='question type'
-              name='Question Type'
               required
               fullWidth
-              options={Options}
-              value={questionType}
-              handler={(e) => setQuestionType(e.target.value)}
+              options={questionTypes}
+              value={currentQuestion.type}
+              onChange={(e) => setCurrentQuestion((q) => ({ ...q, type: e.target.value }))}
             />
           </Grid>
           <Grid item lg={4}>
-            <TextInputField fullWidth label='Marks' placeholder='2' required />
+            <TextInputField
+              fullWidth
+              type='number'
+              label='Marks'
+              placeholder={2}
+              required
+              value={currentQuestion.marks}
+              onChange={(e) => setCurrentQuestion((q) => ({ ...q, marks: e.target.value }))}
+            />
           </Grid>
           <Grid item lg={4}>
-            <TextInputField fullWidth label='Negative Marks' placeholder='1' required />
+            <TextInputField
+              fullWidth
+              type='number'
+              label='Negative Marks'
+              placeholder={1}
+              required
+              value={currentQuestion.negMarks}
+              onChange={(e) => setCurrentQuestion((q) => ({ ...q, negMarks: e.target.value }))}
+            />
           </Grid>
         </Grid>
-        <TextEditor width='100%' />
+        <TextEditor
+          width='100%'
+          value={currentQuestion.question}
+          onChange={(value) => setCurrentQuestion((q) => ({ ...q, question: value }))}
+        />
       </Grid>
-
 
       {/* Options Section  */}
       <Grid item lg={3}>
-        {(questionType === 'mcqSingle' || questionType === 'mcqMultiple') && (
-          <Box>
-            <Box style={{}}>
-              <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
-                Available Options :
-              </Typography>
-              <TextInputField
-                label='New Option'
-                labelClassName={classes.labelSmall}
-                placeholder='Add new option'
-                value={newOption}
-                onChange={(e) => setNewOption(e.target.value)}
-                showActionBtn
-                fullWidth
-                actionBtnText='Add'
-                actionOnClick={(e) => AddNewOption()}
-              />
-              <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
-                {optionArr &&
-                  optionArr.length != 0 &&
-                  optionArr.map((item, index) => (
-                    <Box style={{ marginBottom: '0.2rem' }}>
-                      {index + 1}) {item.data}
-                    </Box>
-                  ))}
-              </Box>
-            </Box>
-
-            <Box style={{ marginTop: '1.5rem' }}>
-              <Typography variant='subtitle1' sx={{ fontWeight: '700' }}>
-                Correct Options :
-              </Typography>
-              <TextInputField
-                label='Correct Option Id'
-                placeholder='1'
-                labelClassName={classes.labelSmall}
-                name='newOption'
-                type='number'
-                value={newCorrectOption}
-                onChange={(e) => setNewCorrectOption(e.target.value)}
-                fullWidth
-                showActionBtn
-                actionBtnText='Add'
-                actionOnClick={(e) => addCorrectOption()}
-              />
-              <Box style={{ paddingLeft: '0.5rem', paddingTop: '0.5rem' }}>
-                {correctOptionArr &&
-                  correctOptionArr.length != 0 &&
-                  correctOptionArr.map((item, index) => (
-                    <span style={{ marginRight: '1rem' }}>
-                      <Bullet style={{ width: '1rem', height: '1rem' }} /> {item}
-                    </span>
-                  ))}
-              </Box>
-            </Box>
-          </Box>
+        {(currentQuestion.type === 'mcq' || currentQuestion.type === 'multipleOptions') && (
+          <MCQ currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
+        )}
+        {currentQuestion.type === 'fillInTheBlanks' && (
+          <FillBlanks currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
         )}
       </Grid>
-
 
       {/*   BUTTONS -- FOR QUESTION NUMBER  */}
       <Grid item lg={3} style={{ marginTop: '4rem' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {new Array(4).fill(0).map((x, i) => (
-            <Button className={classes.bubble} variant='contained'>
+          {questions.map((q, i) => (
+            <Button
+              className={classes.bubble}
+              variant='contained'
+              onClick={() => setCurrentQuestion(q)}
+              style={{
+                boxShadow: currentQuestion.id === q.id ? '0 0 3px 3px rgba(0,0,0,0.4)' : 'none',
+              }}
+            >
               {i + 1}
             </Button>
           ))}
-          <Button className={classes.bubble} variant='contained'>
+          <Button className={classes.bubble} variant='contained' onClick={() => addNewQuestion()}>
             <AddIcon />
           </Button>
         </div>
       </Grid>
-
     </Grid>
   );
 };
