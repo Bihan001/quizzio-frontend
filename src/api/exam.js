@@ -2,8 +2,14 @@ import { axios, headers } from './config';
 import { examFetchedData } from './mock-data';
 
 export const getAllUpcomingExams = () => {
-  return axios.get('/exam/getAllUpcomingExams');
+  return axios.get('/exam/all-upcoming-exams');
 };
+
+export const createExam = (data) => {
+  return axios.post('/exam/create', data);
+};
+
+export const getExamDetails = (id) => axios.get(`/exam/details/${id}`);
 
 export const getExamMainData = (examId, userId) => {
   return new Promise((resolve, reject) => {
@@ -55,7 +61,10 @@ export const getQuestionTypes = () => {
       resolve({
         data: [
           { value: 'mcq', label: 'MCQ - 1 correct option' },
-          { value: 'multipleOptions', label: 'MCQ - More than 1 correct option' },
+          {
+            value: 'multipleOptions',
+            label: 'MCQ - More than 1 correct option',
+          },
           { value: 'fillInTheBlanks', label: '1 word answer' },
         ],
       });

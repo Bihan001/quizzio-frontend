@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Typography, Button, Paper, Grid } from '@mui/material';
 import { useLocation, useHistory } from 'react-router-dom';
 import { getExamMainData, submitExamAnswers } from 'api/exam';
+import { getExam } from 'api/user';
 import Page1 from './page1';
 import Page2 from './page2';
 
@@ -21,8 +22,9 @@ const GiveExam = () => {
   }, []);
 
   const getExamData = async () => {
-    const res = await getExamMainData(examId, 'asdf');
-    setExamData(res.data);
+    const res = await getExam(examId, '0257d1ed-cbeb-4db3-92c1-f325d05ae768');
+    if (res) setExamData(res.data.data);
+    else console.log('Error occured !', res);
   };
 
   const handleQAnswer = (qId, ans) => {
@@ -44,8 +46,10 @@ const GiveExam = () => {
   const handlePagePrev = () => setPage((p) => p - 1);
 
   return (
-    <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
-      {page === 1 && <Page1 handlePageNext={handlePageNext} examData={examData} />}
+    <Container maxWidth="xl" style={{ padding: '5rem 0' }}>
+      {page === 1 && (
+        <Page1 handlePageNext={handlePageNext} examData={examData} />
+      )}
       {page === 2 && (
         <Page2
           questions={questions}
