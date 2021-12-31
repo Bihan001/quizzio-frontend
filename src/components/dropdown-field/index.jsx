@@ -16,7 +16,12 @@ const Dropdown = ({
 }) => {
   return (
     <div>
-      <Typography align='left' variant='p' style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }} className={labelClassName}>
+      <Typography
+        align="left"
+        variant="p"
+        style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }}
+        className={labelClassName}
+      >
         {label}
         {required ? <span style={{ color: 'red' }}>*</span> : null}
       </Typography>
@@ -25,8 +30,8 @@ const Dropdown = ({
         <Select
           fullWidth={fullWidth}
           displayEmpty
-          size='small'
-          variant='outlined'
+          size="small"
+          variant="outlined"
           name={name}
           value={value}
           onChange={onChange}

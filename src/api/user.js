@@ -1,4 +1,3 @@
-
 import { axios, headers } from './config';
 /**
  *
@@ -13,3 +12,6 @@ import { axios, headers } from './config';
 export const signin = (email, password) => {
   return axios.post('/signin', { email, password }, headers);
 };
+
+export const getExam = (examId, userId) =>
+  axios.get(`/user/get-exam?examId=${examId}&userId=${userId}`);
