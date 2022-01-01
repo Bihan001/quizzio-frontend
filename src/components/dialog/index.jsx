@@ -6,15 +6,18 @@ import {
 } from '@mui/material';
 
 export const DialogActions = (props) => {
-  return <MyDialogActions>{props.children}</MyDialogActions>;
+  const { children, ...rest } = props;
+  return <MyDialogActions {...rest}>{children}</MyDialogActions>;
 };
 
 export const DialogContent = (props) => {
-  return <MyDialogContent>{props.children}</MyDialogContent>;
+  const { children, ...rest } = props;
+  return <MyDialogContent {...rest}>{children}</MyDialogContent>;
 };
 
 export const DialogTitle = (props) => {
-  return <MyDialogTitle>{props.children}</MyDialogTitle>;
+  const { children, ...rest } = props;
+  return <MyDialogTitle {...rest}>{children}</MyDialogTitle>;
 };
 
 export const Dialog = (props) => {

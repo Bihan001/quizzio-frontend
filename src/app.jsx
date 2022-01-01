@@ -4,8 +4,8 @@ import CreateExam from 'pages/exam-creation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Paper } from '@mui/material';
 import Navbar from 'components/navbar';
-import Signup from 'pages/auth/signup';
-import Login from 'pages/auth/login';
+import Register from 'layouts/register';
+import Login from 'layouts/login';
 import User from 'pages/profile/User';
 import Home from 'pages/home';
 import GiveExam from 'pages/give-exam';
@@ -31,31 +31,22 @@ const App = () => {
   };
 
   // Update the theme only if the mode changes
-  const theme = useMemo(
-    () => createTheme(getDesignTokens(themeMode)),
-    [themeMode]
-  );
+  const theme = useMemo(() => createTheme(getDesignTokens(themeMode)), [themeMode]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
-      <Paper
-        elevation={0}
-        style={{ width: '100%', minHeight: '100vh', height: '100%' }}
-      >
-        {!location.pathname.includes('/give') && (
-          <Navbar toggleTheme={toggleTheme} />
-        )}
+      <Paper elevation={0} style={{ width: '100%', minHeight: '100vh', height: '100%' }}>
+        {!location.pathname.includes('/give') && <Navbar toggleTheme={toggleTheme} />}
+        <Login />
+        <Register />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/create-exam" component={CreateExam} />
-          <Route exact path="/profile" component={User} />
-          <Route exact path="/exam/:id" component={ExamDetails} />
-          <Route exact path="/exam/:id/give" component={GiveExam} />
-          <Redirect to="/" />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/create-exam' component={CreateExam} />
+          <Route exact path='/profile' component={User} />
+          <Route exact path='/exam/:id' component={ExamDetails} />
+          <Route exact path='/exam/:id/give' component={GiveExam} />
+          <Redirect to='/' />
         </Switch>
       </Paper>
     </ThemeProvider>

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { useTheme } from '@mui/styles';
+import { useDispatch } from 'react-redux';
+import { enableVisibility, dialogNames } from 'redux/slices/dialog-visibility';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -57,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar(props) {
   const { toggleTheme } = props;
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -79,11 +82,11 @@ export default function Navbar(props) {
               <StyledInputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-            <Button variant='text' size='small' style={{ color: 'white' }}>
-              Sign In
+            <Button variant='text' size='small' style={{ color: 'white' }} onClick={() => dispatch(enableVisibility(dialogNames.login))}>
+              Login
             </Button>
-            <Button variant='text' size='small' style={{ color: 'white' }}>
-              Sign Up
+            <Button variant='text' size='small' style={{ color: 'white' }} onClick={() => dispatch(enableVisibility(dialogNames.register))}>
+              Register
             </Button>
             <Button variant='text' size='small' component={Link} to='/create-exam' style={{ color: 'white' }}>
               Create Exam

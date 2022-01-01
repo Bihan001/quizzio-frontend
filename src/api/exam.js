@@ -1,11 +1,11 @@
-import { axios, headers } from './config';
+import { axios, getHeaders } from './config';
 import { examFetchedData } from './mock-data';
 
 export const getAllUpcomingExams = () => {
   return axios.get('/exam/all-upcoming-exams');
 };
 
-export const createExam = (data) => {
+export const createExam = async (data) => {
   return axios.post('/exam/create', data);
 };
 

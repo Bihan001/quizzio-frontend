@@ -1,17 +1,20 @@
-import { axios, headers } from './config';
+import { axios, getHeaders } from './config';
 /**
  *
  * @param {string} email User's Email
  * @param {string} password User's Password
  * @returns Promise<AxiosResponse<any, any>>
  * @example
- * import {signin} from 'api/user';
- * signin('bihan', 'abcdefgh').then(res => console.log(res.data)).catch(err => console.log(err));
+ * import {loginWithEmailAndPassword} from 'api/user';
+ * loginWithEmailAndPassword('bihan', 'abcdefgh').then(res => console.log(res.data)).catch(err => console.log(err));
  */
 
-export const signin = (email, password) => {
-  return axios.post('/signin', { email, password }, headers);
+export const loginWithEmailAndPassword = (email, password) => {
+  return axios.post('/user/login', { email, password }, getHeaders());
 };
 
-export const getExam = (examId, userId) =>
-  axios.get(`/user/get-exam?examId=${examId}&userId=${userId}`);
+export const registerNewUser = (data) => {
+  return axios.post('/user/register', data, getHeaders());
+};
+
+export const getExam = (examId, userId) => axios.get(`/user/get-exam?examId=${examId}&userId=${userId}`);

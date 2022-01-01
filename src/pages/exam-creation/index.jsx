@@ -10,6 +10,18 @@ import { createExam } from 'api/exam';
 
 const steps = ['Exam Details', 'Questions', 'Preview'];
 
+const combineDateAndTime = (date, time) => {
+  date = new Date(date);
+  time = new Date(time);
+  let timeString = time.getHours() + ':' + time.getMinutes() + ':00';
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1; // Jan is 0, dec is 11
+  let day = date.getDate();
+  let dateString = '' + year + '-' + month + '-' + day;
+  let combined = new Date(dateString + ' ' + timeString);
+  return combined;
+};
+
 const ExamCreation = () => {
   // const classes = useStyles();
   const history = useHistory();
@@ -45,49 +57,35 @@ const ExamCreation = () => {
   };
 
   const handleSubmitExamData = async () => {
-    const examData = JSON.parse(JSON.stringify(examDetails));
-    examData.questions = questions;
-    examData['userId'] = '0257d1ed-cbeb-4db3-92c1-f325d05ae768';
-    examData.startTime = +new Date(examData.startTime);
-    const res = await createExam(examData);
-    if (res) {
+    try {
+      const examData = JSON.parse(JSON.stringify(examDetails));
+      examData.questions = questions;
+      examData['userId'] = '0257d1ed-cbeb-4db3-92c1-f325d05ae768';
+      examData.startTime = +combineDateAndTime(examData.startDate, examData.startTime);
+      delete examData.startDate;
+      const res = await createExam(examData);
       console.log('Exam data is : ', examData, ' res is : ', res);
       history.push('/');
-    } else console.log('error occured!');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <Container maxWidth="xl">
-      <Stepper
-        nonLinear
-        alternativeLabel
-        sx={{ margin: '4rem auto', marginBottom: '6rem', width: '500px' }}
-        activeStep={activeStep}
-      >
+    <Container maxWidth='xl'>
+      <Stepper nonLinear alternativeLabel sx={{ margin: '4rem auto', marginBottom: '6rem', width: '500px' }} activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
+            <StepButton color='inherit' onClick={handleStep(index)}>
               {label}
             </StepButton>
           </Step>
         ))}
       </Stepper>
 
-      {activeStep === 0 && (
-        <Page1
-          examDetails={examDetails}
-          handleDetailsChange={handleDetailsChange}
-        />
-      )}
-      {activeStep === 1 && (
-        <Page2
-          questions={questions}
-          handleQuestionsChange={handleQuestionsChange}
-        />
-      )}
-      {activeStep === 2 && (
-        <Page3 handleSubmitExamData={handleSubmitExamData} />
-      )}
+      {activeStep === 0 && <Page1 examDetails={examDetails} handleDetailsChange={handleDetailsChange} />}
+      {activeStep === 1 && <Page2 questions={questions} handleQuestionsChange={handleQuestionsChange} />}
+      {activeStep === 2 && <Page3 handleSubmitExamData={handleSubmitExamData} />}
     </Container>
   );
 };
