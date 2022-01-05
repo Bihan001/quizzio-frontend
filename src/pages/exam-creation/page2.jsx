@@ -22,9 +22,9 @@ const actions = [
       alert(1);
     },
   },
-  { icon: <SaveIcon />, name: 'Save', onClick: () => {} },
-  { icon: <PrintIcon />, name: 'Print', onClick: () => {} },
-  { icon: <ShareIcon />, name: 'Share', onClick: () => {} },
+  { icon: <SaveIcon />, name: 'Save', onClick: () => { } },
+  { icon: <PrintIcon />, name: 'Print', onClick: () => { } },
+  { icon: <ShareIcon />, name: 'Share', onClick: () => { } },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -48,11 +48,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page2 = (props) => {
+
   const classes = useStyles();
   const theme = useTheme();
-
   const { questions, handleQuestionsChange } = props;
-
+  console.log(questions);
   const [questionTypes, setQuestionTypes] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState({});
 
@@ -61,7 +61,8 @@ const Page2 = (props) => {
   }, []);
 
   useEffect(() => {
-    if (currentQuestion.id) handleQuestionsChange(currentQuestion);
+    if (currentQuestion.id)
+      handleQuestionsChange(currentQuestion);
   }, [currentQuestion]);
 
   const fetchQuestionTypes = async () => {
@@ -83,7 +84,8 @@ const Page2 = (props) => {
 
   return (
     <Grid container spacing={5}>
-      {/*   Editor Section  */}
+
+      {/*   EDITOR SECTION   */}
       <Grid item lg={6}>
         <Grid container spacing={2} style={{ marginBottom: '1.5rem' }}>
           <Grid item lg={4}>
@@ -120,6 +122,7 @@ const Page2 = (props) => {
             />
           </Grid>
         </Grid>
+
         <TextEditor
           width='100%'
           value={currentQuestion.question}
@@ -127,26 +130,34 @@ const Page2 = (props) => {
         />
       </Grid>
 
-      {/* Options Section  */}
+
+      {/*  OPTION SECTION   */}
       <Grid item lg={3}>
         {(currentQuestion.type === 'mcq' || currentQuestion.type === 'multipleOptions') && (
-          <MCQ currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
+          <MCQ
+            currentQuestion={currentQuestion}
+            setCurrentQuestion={setCurrentQuestion}
+          />
         )}
         {currentQuestion.type === 'fillInTheBlanks' && (
-          <FillBlanks currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
+          <FillBlanks
+            currentQuestion={currentQuestion}
+            setCurrentQuestion={setCurrentQuestion}
+          />
         )}
       </Grid>
+
 
       {/*   BUTTONS -- FOR QUESTION NUMBER  */}
       <Grid item lg={3} style={{ marginTop: '4rem' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {questions.map((q, i) => (
+          {questions.map((ques, i) => (
             <Button
               className={classes.bubble}
               variant='contained'
-              onClick={() => setCurrentQuestion(q)}
+              onClick={() => setCurrentQuestion(ques)}  // Set the current ques acc to the Index Number
               style={{
-                boxShadow: currentQuestion.id === q.id ? '0 0 3px 3px rgba(0,0,0,0.4)' : 'none',
+                boxShadow: currentQuestion.id === ques.id ? '0 0 3px 3px rgba(0,0,0,0.4)' : 'none',
               }}
             >
               {i + 1}

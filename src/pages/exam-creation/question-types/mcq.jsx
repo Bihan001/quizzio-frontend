@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Grid, Typography, Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -11,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MCQ = (props) => {
+
   const classes = useStyles();
   const { currentQuestion, setCurrentQuestion } = props;
 
@@ -29,6 +31,7 @@ const MCQ = (props) => {
     setCurrentQuestion((q) => ({ ...q, correctOption: [...q.correctOption, newCorrectOption] }));
     setNewCorrectOption('');
   };
+
   return (
     <Box>
       <Box style={{}}>

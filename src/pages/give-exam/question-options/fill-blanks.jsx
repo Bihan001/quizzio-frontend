@@ -1,6 +1,8 @@
+
 import TextInputField from 'components/text-input-field';
 
 const FillBlanks = (props) => {
+
   const { questionId, answer, handleQAnswer } = props;
 
   return (

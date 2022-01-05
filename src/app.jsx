@@ -44,7 +44,7 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route exact path='/create-exam' component={CreateExam} />
           <Route exact path='/profile' component={User} />
-          <Route exact path='/exam/:id' component={ExamDetails} />
+          <Route exact path='/details' component={ExamDetails} />  {/*  /exam/:id  */}
           <Route exact path='/exam/:id/give' component={GiveExam} />
           <Redirect to='/' />
         </Switch>
