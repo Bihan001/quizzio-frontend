@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from 'react';
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 import CreateExam from 'pages/exam-creation';
@@ -13,6 +14,7 @@ import ExamDetails from 'pages/exam-details';
 import getDesignTokens from 'utilities/theme';
 
 const App = () => {
+
   const location = useLocation();
   const [themeMode, setThemeMode] = useState('light');
 

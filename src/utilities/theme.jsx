@@ -1,4 +1,6 @@
+
 const getDesignTokens = (mode) => ({
+
   breakpoints: {
     values: {
       xs: 0,
@@ -18,29 +20,40 @@ const getDesignTokens = (mode) => ({
       white: '#ffffff',
       black: '#000000',
     },
-    ...(mode === 'light'
-      ? {
-          primary: {
-            main: '#1AB273',
-            contrastText: '#fff',
-            grey: '#bab5b5  ',
-          },
-          divider: '#1AB273',
-          background: {
-            default: '#f9f9f9',
-          },
-        }
-      : {
-          primary: {
-            main: '#0dc7ca',
-            contrastText: '#000',
-          },
-          divider: '#00dbe2',
-          background: {
-            default: '#111',
-            paper: '#111',
-          },
-        }),
+    ...(mode === 'light' ? {
+      primary: {
+        main: '#1AB273',
+        contrastText: '#fff',
+        grey: '#bab5b5',
+      },
+      text: {
+        primary: '#000',
+        secondary: '#fff',
+      },
+      divider: '#1AB273',
+      background: {
+        default: '#f9f9f9',
+      },
+    }
+
+      :
+
+      {/* 0dc7ca  00dbe2 */
+        primary: {
+          main: '#ffd670',
+          contrastText: '#000',
+          grey: '#bab5b5',
+        },
+        text: {
+          primary: '#fff',
+          secondary: '#000',
+        },
+        divider: '#ffd670',
+        background: {
+          default: '#111',
+          paper: '#111',
+        },
+      }),
   },
 });
 

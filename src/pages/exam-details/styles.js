@@ -1,6 +1,9 @@
+
+
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
+
   banner: {
     width: '100%',
     objectFit: 'cover',
@@ -18,7 +21,22 @@ export default makeStyles((theme) => ({
     padding: '1.6rem',
     textAlign: 'center',
     display: 'flex',
+    width: '75%',
+  },
+  joinCard: {
+    position: 'absolute',
+    width: '18%',
+    // height: '24rem',
+    backgroundColor: theme.palette.primary.main,
+    padding: "1rem",
+    transform: 'translateY(-20%)',  // Shifts Vertically
+  },
+  JoinButton: {
     width: '100%',
+    margin: "1.0rem .5rem",
+    backgroundColor: theme.palette.primary.contrastText,
+    color: theme.palette.text.primary,
+    fontWeight: '600',
   },
   root: {
     flexGrow: 1,

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button } from '@mui/material';
 import { useTheme } from '@mui/styles';
@@ -25,6 +26,7 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = (props) => {
+
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -49,6 +51,21 @@ const Exam_Details = (props) => {
     );
   };
 
+  const JoinCardText = ({ heading, value }) => {
+    return (
+      <div style={{ display: 'flex', marginBottom: '1.3rem' }} >
+        <Grid item md={4} >
+          <Typography variant='subtitle2' style={{ textTransform: 'uppercase' }} > {heading}    :     </Typography>
+        </Grid>
+
+        <Grid item md={8} >
+          <Typography style={{ fontSize: '1.5rem', fontWeight: "600", paddingLeft: '0.5rem' }} color={theme.palette.primary.contrastText}  >  {value}  </Typography>
+        </Grid>
+      </div>
+    );
+  };
+
+
   return (
     <>
       <section style={{ maxHeight: '45rem' }}>
@@ -57,36 +74,47 @@ const Exam_Details = (props) => {
           className={classes.banner}
         />
       </section>
+
       <Container maxWidth='xl'>
         <div style={{ display: 'flex' }}>
           <img
             src='https://media.istockphoto.com/photos/jolly-father-christmas-reading-letters-from-children-picture-id108353737?b=1&k=20&m=108353737&s=170667a&w=0&h=WhSAq3xVPEHRJvks0tFxun5dSHU0UbvUin60qOX-M00='
             className={classes.dp}
           />
+
           <div style={{ marginLeft: '3rem', width: '100%' }}>
             <div style={{ padding: '1rem 0' }}>
               <Typography variant='h4' fontSize='3rem'>
                 Data Structures and Algorithms
               </Typography>
-              <Typography variant='p'>By: {'Bihan Chakraborty'}</Typography>
+              <Typography variant='p'>By: {'Niharika Dutta'}</Typography>
             </div>
+
             <div style={{ display: 'flex' }}>
               <div className={classes.examInfo}>
                 <TextPair heading='Starts On' value='Oct 27, 2021 03:00 PM IST' />
                 <TextPair heading='Exam Mode' value='Online' />
                 <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
               </div>
+
               <div>
-                <Button size='large' variant='contained' onClick={() => redirectToGiveExam()}>
-                  JOIN EXAM
-                </Button>
+                <div className={classes.joinCard} >
+                  <JoinCardText heading='opens at' value='Oct 27, 03:00 PM IST' />  <hr />
+                  <JoinCardText heading='closes at' value='Oct 27, 03:00 PM IST' />  <hr />
+                  <JoinCardText heading='duration' value='2 Hours 15 Mins' />  <hr />
+
+                  <Button className={classes.JoinButton} size='large' variant='contained' onClick={() => redirectToGiveExam()}>
+                    JOIN   {''}   EXAM
+                  </Button>
+                </div>
               </div>
             </div>
+
           </div>
-        </div>
+        </div >
 
-        {/*   Section - 2  */}
 
+        {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
         <div className={classes.root}>
           <Tabs
@@ -119,7 +147,7 @@ const Exam_Details = (props) => {
             Discussions
           </TabPanel>
         </div>
-      </Container>
+      </Container >
     </>
   );
 };
