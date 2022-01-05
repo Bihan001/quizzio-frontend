@@ -25,10 +25,10 @@ const getDesignTokens = (mode) => ({
             contrastText: '#fff',
             grey: '#bab5b5  ',
           },
-          // secondary: {
-          //   light: '#F5F5F5',
-          // },
           divider: '#1AB273',
+          background: {
+            default: '#f9f9f9',
+          },
         }
       : {
           primary: {

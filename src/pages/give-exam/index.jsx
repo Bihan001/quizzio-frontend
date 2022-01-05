@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Container, Typography, Button, Paper, Grid } from '@mui/material';
 import { useLocation, useHistory } from 'react-router-dom';
 import { getExamMainData, submitExamAnswers } from 'api/exam';
 import { getExam } from 'api/user';
 import Page1 from './page1';
 import Page2 from './page2';
+import RequestFullScreen from 'layouts/request-full-screen';
 
 const GiveExam = () => {
   const location = useLocation();
@@ -14,12 +15,36 @@ const GiveExam = () => {
   const [answer, setAnswer] = useState({});
   const [questionsStatus, setQuestionsStatus] = useState({});
   const [page, setPage] = useState(1);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const documentElement = document.documentElement;
 
   const questions = examData.questions || [];
 
   useEffect(() => {
+    enterFullScreen();
+    documentElement.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        setIsFullScreen(true);
+      } else {
+        setIsFullScreen(false);
+      }
+    });
     getExamData();
   }, []);
+
+  const enterFullScreen = () => {
+    documentElement
+      .requestFullscreen()
+      .then(() => console.log('entered full screen'))
+      .catch((err) => console.error(err));
+  };
+
+  const exitFullScreen = () => {
+    document
+      .exitFullscreen()
+      .then(() => console.log('exited full screen'))
+      .catch((err) => console.error(err));
+  };
 
   const getExamData = async () => {
     const res = await getExam(examId, '0257d1ed-cbeb-4db3-92c1-f325d05ae768');
@@ -38,6 +63,7 @@ const GiveExam = () => {
   const handleEndExam = async () => {
     const res = await submitExamAnswers(examId, 'sadf', answer);
     console.log(res);
+    exitFullScreen();
     history.push(`/exam/${examId}`);
   };
 
@@ -46,21 +72,25 @@ const GiveExam = () => {
   const handlePagePrev = () => setPage((p) => p - 1);
 
   return (
-    <Container maxWidth="xl" style={{ padding: '5rem 0' }}>
-      {page === 1 && (
-        <Page1 handlePageNext={handlePageNext} examData={examData} />
+    <div style={{ width: '100%', height: '100vh' }}>
+      {!isFullScreen ? (
+        <RequestFullScreen enterFullScreen={enterFullScreen} />
+      ) : (
+        <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
+          {page === 1 && <Page1 handlePageNext={handlePageNext} examData={examData} />}
+          {page === 2 && (
+            <Page2
+              questions={questions}
+              answerObj={answer}
+              handleQAnswer={handleQAnswer}
+              questionsStatus={questionsStatus}
+              handleQStatus={handleQStatus}
+              handleEndExam={handleEndExam}
+            />
+          )}
+        </Container>
       )}
-      {page === 2 && (
-        <Page2
-          questions={questions}
-          answerObj={answer}
-          handleQAnswer={handleQAnswer}
-          questionsStatus={questionsStatus}
-          handleQStatus={handleQStatus}
-          handleEndExam={handleEndExam}
-        />
-      )}
-    </Container>
+    </div>
   );
 };
 

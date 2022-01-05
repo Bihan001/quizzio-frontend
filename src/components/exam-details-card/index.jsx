@@ -1,10 +1,19 @@
 import { useState } from 'react';
 import { Box, Card, CardActions, CardContent, Button, Typography, Paper, Grid } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 const ExamDetailsCard = (props) => {
+  const history = useHistory();
   const { fullWidth, width, data, ...rest } = props;
+
+  const examDetailsRoute = `/exam/${data.id}`;
+
+  const redirectToExamDetailsPage = () => {
+    history.push(examDetailsRoute);
+  };
+
   return (
-    <Card sx={{ minWidth: fullWidth ? '100%' : width || 300 }} {...rest}>
+    <Card onClick={() => redirectToExamDetailsPage()} sx={{ minWidth: fullWidth ? '100%' : width || 300, cursor: 'pointer' }} {...rest}>
       <CardContent>
         <Typography variant='h5'>JEE Mains</Typography>
         <Typography variant='subtitle2' color='text.secondary'>
