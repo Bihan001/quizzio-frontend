@@ -27,23 +27,7 @@ const styles = (theme) => ({
 });
 
 const DateField = (props) => {
-  const {
-    dateTime,
-    setDateTime,
-    changeDateTime,
-    optionIndex,
-    classes,
-    width,
-    height,
-    label,
-    disabled,
-    name,
-    value,
-    onChange,
-    type = 'datetime-local',
-    required,
-    fullWidth = false,
-  } = props;
+  const { label, disabled, name, value, onChange, required, fullWidth = false, style } = props;
 
   return (
     <>
@@ -57,7 +41,9 @@ const DateField = (props) => {
             name={name}
             value={value}
             onChange={onChange}
-            renderInput={(params) => <TextField fullWidth={fullWidth} size='small' style={{ marginTop: '0.5rem' }} {...params} />}
+            renderInput={(params) => (
+              <TextField required={required} fullWidth={fullWidth} size='small' style={{ marginTop: '0.5rem', ...style }} {...params} />
+            )}
           />
         </LocalizationProvider>
       </div>

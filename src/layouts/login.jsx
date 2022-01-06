@@ -10,7 +10,7 @@ import { loginWithEmailAndPassword } from 'api/user';
 const Login = () => {
   const dispatch = useDispatch();
 
-  const { [dialogNames.login]: registerVisibility } = useSelector((state) => state.dialogVisibility);
+  const { [dialogNames.login]: loginVisibility } = useSelector((state) => state.dialogVisibility);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   return (
-    <Dialog open={registerVisibility} maxWidth='lg' handleClose={() => handleClose()}>
+    <Dialog open={loginVisibility} maxWidth='lg' handleClose={() => handleClose()}>
       <DialogTitle style={{ textAlign: 'center' }}>Welcome Back</DialogTitle>
       <DialogContent>
         <TextInputField
