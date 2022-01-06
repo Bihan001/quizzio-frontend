@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { DialogActions, DialogContent, DialogTitle, Dialog } from 'components/dialog';
 import { dialogNames, hideVisibility } from 'redux/slices/dialog-visibility';
-import { setUser } from 'redux/slices/auth';
+import { setUserAndToken } from 'redux/slices/auth';
 import TextInputField from 'components/text-input-field';
 import { loginWithEmailAndPassword } from 'api/user';
 
@@ -23,7 +23,7 @@ const Login = () => {
     try {
       const res = await loginWithEmailAndPassword(email, password);
       console.log(res);
-      setUser(res.data.user);
+      setUserAndToken({ user: res.data.data.user, token: res.data.data.token });
       handleClose();
     } catch (err) {
       console.error(err);

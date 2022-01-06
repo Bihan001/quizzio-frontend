@@ -108,7 +108,7 @@ const Page1 = (props) => {
                 options={examTypes}
                 // handler={(e) => setExamType(e.target.value)}
                 name="isPrivate"
-                value={examDetails.isPrivate ? 'Private' : 'Public'}
+                value={examDetails.isPrivate ? 'private' : 'public'}
                 onChange={(e) =>
                   handleDetailsChange(
                     e.target.name,

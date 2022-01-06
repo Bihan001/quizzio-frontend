@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import CreateExam from 'pages/exam-creation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Paper } from '@mui/material';
@@ -14,7 +15,10 @@ import getDesignTokens from 'utilities/theme';
 
 const App = () => {
   const location = useLocation();
+  const { user } = useSelector((state) => state.auth);
   const [themeMode, setThemeMode] = useState('light');
+
+  useEffect(() => {}, []);
 
   // The dark mode switch would invoke this method
   const colorMode = useMemo(
