@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Box, Tab, Tabs, Button } from '@mui/material';
+import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
 import { useHistory } from 'react-router-dom';
 import About from './tab-content/about';
@@ -26,7 +25,6 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = (props) => {
-
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -42,7 +40,7 @@ const Exam_Details = (props) => {
 
   const TextPair = ({ heading, value }) => {
     return (
-      <div style={{ padding: '0 2rem' }}>
+      <div>
         <Typography variant='subtitle2' color={theme.palette.primary.grey} style={{ textTransform: 'uppercase' }}>
           {heading}
         </Typography>
@@ -53,18 +51,18 @@ const Exam_Details = (props) => {
 
   const JoinCardText = ({ heading, value }) => {
     return (
-      <div style={{ display: 'flex', marginBottom: '1.3rem' }} >
-        <Grid item md={4} >
-          <Typography variant='subtitle2' style={{ textTransform: 'uppercase' }} > {heading}    :     </Typography>
+      <div style={{ display: 'flex', marginBottom: '1.3rem' }}>
+        <Grid item md={4}>
+          <Typography variant='subtitle2' style={{ textTransform: 'uppercase' }}>
+            {heading}:
+          </Typography>
         </Grid>
-
-        <Grid item md={8} >
-          <Typography style={{ fontSize: '1.5rem', fontWeight: "600", paddingLeft: '0.5rem' }} color={theme.palette.primary.contrastText}  >  {value}  </Typography>
+        <Grid item md={8}>
+          <Typography style={{ fontSize: '1.5rem', fontWeight: '600', paddingLeft: '0.5rem' }}>{value}</Typography>
         </Grid>
       </div>
     );
   };
-
 
   return (
     <>
@@ -95,24 +93,25 @@ const Exam_Details = (props) => {
                 <TextPair heading='Starts On' value='Oct 27, 2021 03:00 PM IST' />
                 <TextPair heading='Exam Mode' value='Online' />
                 <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
+                <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
+                <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
+                <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
               </div>
 
-              <div>
-                <div className={classes.joinCard} >
-                  <JoinCardText heading='opens at' value='Oct 27, 03:00 PM IST' />  <hr />
-                  <JoinCardText heading='closes at' value='Oct 27, 03:00 PM IST' />  <hr />
-                  <JoinCardText heading='duration' value='2 Hours 15 Mins' />  <hr />
-
-                  <Button className={classes.JoinButton} size='large' variant='contained' onClick={() => redirectToGiveExam()}>
-                    JOIN   {''}   EXAM
-                  </Button>
-                </div>
-              </div>
+              <Paper elevation={2} className={classes.joinCard}>
+                <JoinCardText heading='opens at' value='Oct 27, 03:00 PM IST' />
+                <hr />
+                <JoinCardText heading='closes at' value='Oct 27, 03:00 PM IST' />
+                <hr />
+                <JoinCardText heading='duration' value='2 Hours 15 Mins' />
+                <hr />
+                <Button className={classes.JoinButton} size='large' variant='contained' onClick={() => redirectToGiveExam()}>
+                  JOIN EXAM
+                </Button>
+              </Paper>
             </div>
-
           </div>
-        </div >
-
+        </div>
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
@@ -125,11 +124,11 @@ const Exam_Details = (props) => {
             aria-label='Vertical tabs example'
             className={classes.tabVerticalLine}
           >
-            <Tab className={classes.tabStyle} label='About' {...a11yProps(0)} />
-            <Tab className={classes.tabStyle} label='Rules' {...a11yProps(1)} />
-            <Tab className={classes.tabStyle} label='Teams' {...a11yProps(2)} />
-            <Tab className={classes.tabStyle} label="FAQ's" {...a11yProps(3)} />
-            <Tab className={classes.tabStyle} label='Discussions' {...a11yProps(4)} />
+            <Tab label='About' {...a11yProps(0)} />
+            <Tab label='Rules' {...a11yProps(1)} />
+            <Tab label='Teams' {...a11yProps(2)} />
+            <Tab label="FAQ's" {...a11yProps(3)} />
+            <Tab label='Discussions' {...a11yProps(4)} />
           </Tabs>
           <TabPanel value={value} index={0}>
             <About />
@@ -147,7 +146,7 @@ const Exam_Details = (props) => {
             Discussions
           </TabPanel>
         </div>
-      </Container >
+      </Container>
     </>
   );
 };

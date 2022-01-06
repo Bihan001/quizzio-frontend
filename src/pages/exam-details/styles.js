@@ -1,9 +1,6 @@
-
-
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
-
   banner: {
     width: '100%',
     objectFit: 'cover',
@@ -17,25 +14,21 @@ export default makeStyles((theme) => ({
     objectFit: 'cover',
   },
   examInfo: {
-    backgroundColor: theme.palette.background.default,
-    padding: '1.6rem',
-    textAlign: 'center',
-    display: 'flex',
+    // padding: '1.6rem',
     width: '75%',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr',
   },
   joinCard: {
-    position: 'absolute',
-    width: '18%',
-    // height: '24rem',
-    backgroundColor: theme.palette.primary.main,
-    padding: "1rem",
-    transform: 'translateY(-20%)',  // Shifts Vertically
+    position: 'relative',
+    width: '25%',
+    backgroundColor: theme.palette.background.default,
+    padding: '1.5rem',
+    transform: 'translateY(-20%)', // Shifts Vertically
   },
   JoinButton: {
     width: '100%',
-    margin: "1.0rem .5rem",
-    backgroundColor: theme.palette.primary.contrastText,
-    color: theme.palette.text.primary,
+    margin: '1.0rem auto',
     fontWeight: '600',
   },
   root: {
@@ -48,8 +41,5 @@ export default makeStyles((theme) => ({
   tabVerticalLine: {
     borderRight: `1.2px solid ${theme.palette.divider}`,
     overflow: 'visible !important',
-  },
-  tabStyle: {
-    fontWeight: '600',
   },
 }));
