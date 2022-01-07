@@ -1,3 +1,5 @@
+
+
 const PRIMARY_COLOR = '#1ab273';
 const SECONDARY_COLOR = '#ffd670';
 
@@ -23,38 +25,41 @@ const getDesignTokens = (mode) => ({
     },
     ...(mode === 'light'
       ? {
-          primary: {
-            main: PRIMARY_COLOR,
-            contrastText: '#fff',
-            grey: '#bab5b5',
-          },
-          text: {
-            primary: '#000',
-            secondary: '#555',
-          },
-          divider: PRIMARY_COLOR,
-          background: {
-            default: '#f9f9f9',
-          },
-        }
-      : {
-          /* 0dc7ca  00dbe2 */
-          primary: {
-            main: SECONDARY_COLOR,
-            contrastText: '#000',
-            grey: '#bab5b5',
-          },
-          text: {
-            primary: '#fff',
-            secondary: '#ddd',
-          },
-          divider: SECONDARY_COLOR,
-          background: {
-            default: '#111',
-            paper: '#111',
-          },
-        }),
+        primary: {
+          main: PRIMARY_COLOR,
+          contrastText: '#fff',
+          grey: '#bab5b5',
+        },
+        text: {
+          primary: '#000',
+          secondary: '#555',
+        },
+        divider: PRIMARY_COLOR,
+        background: {
+          default: '#f9f9f9',
+        },
+      }
+
+      :
+
+      {
+        primary: {
+          main: SECONDARY_COLOR,
+          contrastText: '#000',
+          grey: '#bab5b5',
+        },
+        text: {
+          primary: '#fff',
+          secondary: '#ddd',
+        },
+        divider: SECONDARY_COLOR,
+        background: {
+          default: '#111',
+          paper: '#111',
+        },
+      }),
   },
 });
+
 
 export default getDesignTokens;

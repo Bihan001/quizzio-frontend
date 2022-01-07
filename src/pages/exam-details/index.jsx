@@ -130,6 +130,7 @@ const Exam_Details = (props) => {
           </div>
         </div>
 
+
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
         <div className={classes.root}>

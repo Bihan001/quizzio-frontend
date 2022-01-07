@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
   },
   JoinButton: {
     width: '100%',
-    margin: '1.0rem auto',
+    margin: '1rem auto',
     fontWeight: '600',
   },
   root: {

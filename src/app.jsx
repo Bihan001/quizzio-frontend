@@ -1,3 +1,4 @@
+
 import { useState, useMemo, useEffect } from 'react';
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -18,7 +19,7 @@ const App = () => {
   const { user } = useSelector((state) => state.auth);
   const [themeMode, setThemeMode] = useState('light');
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   // The dark mode switch would invoke this method
   const colorMode = useMemo(
@@ -48,7 +49,7 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route exact path='/create-exam' component={CreateExam} />
           <Route exact path='/profile' component={User} />
-          <Route exact path='/exam/:id' component={ExamDetails} /> {/*  /exam/:id  */}
+          <Route exact path='/details' component={ExamDetails} /> {/*  /exam/:id  */}
           <Route exact path='/exam/:id/give' component={GiveExam} />
           <Redirect to='/' />
         </Switch>

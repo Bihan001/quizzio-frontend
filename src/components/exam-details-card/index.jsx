@@ -1,11 +1,14 @@
+
 import { useState } from 'react';
 import { Box, Card, CardActions, CardContent, Button, Typography, Paper, Grid } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
-const ExamDetailsCard = (props) => {
-  const history = useHistory();
-  const { fullWidth, width, data, ...rest } = props;
 
+const ExamDetailsCard = (props) => {
+
+  const history = useHistory();
+  const { fullWidth, width, data, cardDetails, ...rest } = props;
+  console.log(cardDetails);
   const examDetailsRoute = `/exam/${data.id}`;
 
   const redirectToExamDetailsPage = () => {
@@ -15,7 +18,7 @@ const ExamDetailsCard = (props) => {
   return (
     <Card onClick={() => redirectToExamDetailsPage()} sx={{ minWidth: fullWidth ? '100%' : width || 300, cursor: 'pointer' }} {...rest}>
       <CardContent>
-        <Typography variant='h5'>JEE Mains</Typography>
+        <Typography variant='h5'>  {cardDetails.name !== null ? cardDetails.name : '-'} </Typography>
         <Typography variant='subtitle2' color='text.secondary'>
           19th Nov, 2021
         </Typography>
@@ -23,13 +26,13 @@ const ExamDetailsCard = (props) => {
           <Box style={{ marginRight: '2rem' }}>
             <Typography variant='subtitle2'>Duration</Typography>
             <Typography variant='subtitle2' color='text.secondary'>
-              3 hrs
+              {cardDetails.duration !== null ? `${cardDetails.duration} mins` : '-'}
             </Typography>
           </Box>
           <Box style={{ marginRight: '2rem' }}>
             <Typography variant='subtitle2'>No. of Participants</Typography>
             <Typography variant='subtitle2' color='text.secondary'>
-              17,92,531
+              {cardDetails.numberOfParticipants !== null ? cardDetails.numberOfParticipants : '-'}
             </Typography>
           </Box>
           <Box style={{ marginRight: '2rem' }}>
@@ -41,7 +44,7 @@ const ExamDetailsCard = (props) => {
           <Box style={{ marginRight: '2rem' }}>
             <Typography variant='subtitle2'>Exam Timing</Typography>
             <Typography variant='subtitle2' color='text.secondary'>
-              9:30AM - 12:30PM
+              {cardDetails.timing !== null ? cardDetails.timing : '-'}
             </Typography>
           </Box>
           <Box style={{ marginRight: '2rem' }}>
@@ -51,11 +54,15 @@ const ExamDetailsCard = (props) => {
             </Typography>
           </Box>
         </Box>
+
         <Button size='small' variant='text' style={{ padding: 0, marginTop: 5 }}>
           View Details
         </Button>
+
       </CardContent>
     </Card>
   );
 };
+
+
 export default ExamDetailsCard;

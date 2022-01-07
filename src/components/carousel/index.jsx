@@ -24,9 +24,14 @@ const Carousel = ({ data, type }) => {
   const [maxSteps, setMaxSteps] = useState(0);
   //==========================
 
+
+  // Map and send each data Object
   const Cards = {
     'exam-banner': data.map((examDetail, index) => (
-      <ExamBanner key={index} data={examDetail} />
+      <ExamBanner
+        key={index}
+        data={examDetail}
+      />
     )),
   };
 

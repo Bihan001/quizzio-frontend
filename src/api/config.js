@@ -1,7 +1,9 @@
+
+
 import Axios from 'axios';
 
 export const getHeaders = () => {
   return { headers: { Authorization: `Bearer ${localStorage.getItem('AUTH_TOKEN')}` } };
 };
 
-export const axios = Axios.create({ baseURL: 'http://localhost:5000' });
+export const axios = Axios.create({ baseURL: 'http://localhost:5000' });  

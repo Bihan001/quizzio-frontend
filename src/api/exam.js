@@ -1,5 +1,10 @@
+
 import { axios, getHeaders } from './config';
 import { examFetchedData } from './mock-data';
+
+// ------------------------------------------------
+// baseURL: 'http://localhost:5000'
+// -------------------------------------------------
 
 export const getExams = (filters) => {
   return axios.post('/exam/all', filters);
@@ -17,7 +22,7 @@ export const startExam = (examId) => {
   return axios.get(`/exam/${examId}/start`, getHeaders());
 };
 
-export const submitExamAnswers = (examId, answers) => {};
+export const submitExamAnswers = (examId, answers) => { };
 
 export const getExamTags = () => {
   return new Promise((resolve, reject) => {

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Container } from '@mui/material';
@@ -17,39 +18,61 @@ const examVisibilities = [
 const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 
 const Home = () => {
-  const [exams, setExams] = useState([]);
+
+  const [fetchAllExam, setFetchAllExam] = useState([]);
   const theme = useTheme();
   const classes = useStyles();
 
+
+  // -------------------------------------
+  //      FETCH ALL EXAMS DATA 
+  // -------------------------------------
   useEffect(async () => {
     try {
       const res = await getExams({});
-      setExams(res.data.data);
+      console.log("ALL EXAMS : ", res);
+      setFetchAllExam(res.data.data);
     } catch (err) {
       console.log(err);
     }
   }, []);
 
+
   return (
     <div className={classes.homePage}>
+
+      {/* -------------     CAROUSAL PART    -------------------- */}
       <section className={classes.carouselSection}>
-        <Carousel data={exams} type='exam-banner' />
+        <Carousel
+          data={fetchAllExam}
+          type='exam-banner'
+        />
       </section>
 
+
+      {/* -------------     SECOND  PART    -------------------- */}
       <section className={classes.examListSection}>
         <Container style={{ border: '0px solid blue', width: '100%' }}>
           <div className={classes.sectionHeading}>Events and Contests</div>
-          <ExamsListWithFilter />
+          <ExamsListWithFilter
+            allData={fetchAllExam}
+          />
         </Container>
       </section>
 
+
+      {/* -------------     THIRD PART    -------------------- */}
       <section className={classes.examListSection}>
         <Container style={{ border: '0px solid blue', width: '100%' }}>
           <div className={classes.sectionHeading}>More Exams</div>
-          <ExamsListWithFilter />
+          <ExamsListWithFilter
+            allData={fetchAllExam}
+          />
         </Container>
       </section>
 
+
+      {/* -------------------   LAST ANNOUNCEMENT SECTION    ------------------- */}
       <section className={classes.announcementSection}>
         <Container className={classes.announcementContainer}>
           <div className={classes.sectionHeading}>Announcements</div>
@@ -81,7 +104,11 @@ const Home = () => {
 };
 export default Home;
 
-const ExamsListWithFilter = () => {
+
+
+
+const ExamsListWithFilter = ({ allData }) => {
+
   const [showFilters, setShowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     startDate: null,
@@ -90,8 +117,8 @@ const ExamsListWithFilter = () => {
   });
 
   const handleFilterChange = (e) => setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
-
   const hideFilters = () => setShowFilters(false);
+
   return (
     <>
       <Box
@@ -109,13 +136,15 @@ const ExamsListWithFilter = () => {
             width: '85%',
           }}
         >
-          {new Array(3).fill(0).map((exam, i) => (
+          {/*  array.map(()  =>  {}) */}
+          {allData && allData.map((Obj, i) => (
             <ExamDetailsCard
               style={{
                 marginBottom: i === 4 ? '0.3rem' : '2rem',
                 borderRadius: 0,
               }}
               data={{ name: 'asd', email: 'ankur' }}
+              cardDetails={Obj}
               fullWidth
             />
           ))}
