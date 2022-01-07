@@ -1,8 +1,8 @@
 import { axios, getHeaders } from './config';
 import { examFetchedData } from './mock-data';
 
-export const getAllUpcomingExams = () => {
-  return axios.get('/exam/upcoming');
+export const getExams = (filters) => {
+  return axios.post('/exam/all', filters);
 };
 
 export const getExamDetails = (id) => {

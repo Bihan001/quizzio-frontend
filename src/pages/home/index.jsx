@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react';
 import { Container } from '@mui/material';
 import { Grid, Typography, Paper, Box, Button } from '@mui/material';
 import useStyles from './styles';
-import { getAllUpcomingExams } from 'api/exam';
+import { getExams } from 'api/exam';
 import Carousel from 'components/carousel';
 import ExamDetailsCard from 'components/exam-details-card';
 import announcementWhite from 'assets/icons/announcementWhite.png';
@@ -17,15 +17,14 @@ const examVisibilities = [
 const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 
 const Home = () => {
-  const [upcomingExams, setUpcomingExams] = useState([]);
+  const [exams, setExams] = useState([]);
   const theme = useTheme();
   const classes = useStyles();
 
   useEffect(async () => {
     try {
-      const res = await getAllUpcomingExams();
-      setUpcomingExams(res.data.data);
-      console.log('getAllUpcomingExams');
+      const res = await getExams({});
+      setExams(res.data.data);
     } catch (err) {
       console.log(err);
     }
@@ -34,7 +33,7 @@ const Home = () => {
   return (
     <div className={classes.homePage}>
       <section className={classes.carouselSection}>
-        <Carousel data={upcomingExams} type='exam-banner' />
+        <Carousel data={exams} type='exam-banner' />
       </section>
 
       <section className={classes.examListSection}>
