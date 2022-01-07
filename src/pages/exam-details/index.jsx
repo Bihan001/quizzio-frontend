@@ -60,7 +60,7 @@ const Exam_Details = () => {
   var addMins = new Date(a.getTime() + examData.duration * 60000);  // Converts to Minutes
   var event = new Date(addMins);
   var end = event.toLocaleTimeString();
-
+  // -------------------------------------------------------
 
 
   const handleChange = (event, newValue) => {
