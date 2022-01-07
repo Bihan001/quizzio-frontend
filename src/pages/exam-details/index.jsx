@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
@@ -25,7 +26,8 @@ const a11yProps = (index) => {
   };
 };
 
-const Exam_Details = (props) => {
+const Exam_Details = () => {
+
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -34,18 +36,32 @@ const Exam_Details = (props) => {
   const examId = location.pathname.split('/')[2];
   const [examData, setExamData] = useState({});
 
-  useEffect(() => {
-    fetchExamDetails();
-  }, []);
 
-  const fetchExamDetails = async () => {
+  // -------------------------------------
+  //      FETCH ALL EXAMS DATA 
+  // -------------------------------------
+  useEffect(async () => {
     try {
       const res = await getExamDetails(examId);
       setExamData(res.data.data);
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
-  };
+  }, []);
+
+
+  // -----------------------------------------------------
+  //               Time Manupulation 
+  // -----------------------------------------------------
+  let a = new Date(examData.startTime);
+  var StartTime = a.toDateString();
+  var start = a.toLocaleTimeString();
+
+  var addMins = new Date(a.getTime() + examData.duration * 60000);  // Converts to Minutes
+  var event = new Date(addMins);
+  var end = event.toLocaleTimeString();
+
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -86,6 +102,7 @@ const Exam_Details = (props) => {
       <section style={{ maxHeight: '45rem' }}>
         <img
           src='https://media-fastly.hackerearth.com/media/hackathon/bial-superapp-hackathon/images/7c1ad88a32-new_cover_2.png'
+          // src={examData.image}
           className={classes.banner}
         />
       </section>
@@ -100,27 +117,27 @@ const Exam_Details = (props) => {
           <div style={{ marginLeft: '3rem', width: '100%' }}>
             <div style={{ padding: '1rem 0' }}>
               <Typography variant='h4' fontSize='3rem'>
-                Data Structures and Algorithms
+                {examData.name !== null ? examData.name : '-'}
               </Typography>
               <Typography variant='p'>By: {'Niharika Dutta'}</Typography>
             </div>
 
             <div style={{ display: 'flex' }}>
               <div className={classes.examInfo}>
-                <TextPair heading='Starts On' value='Oct 27, 2021 03:00 PM IST' />
+                <TextPair heading='Starts On' value={`${StartTime} , ${start}`} />
                 <TextPair heading='Exam Mode' value='Online' />
-                <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
-                <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
-                <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
-                <TextPair heading='Ends On' value='Oct 27, 2021 06:00 PM IST' />
+                <TextPair heading='Ends On' value='-' />
+                <TextPair heading='Ends On' value='-' />
+                <TextPair heading='Ends On' value='-' />
+                <TextPair heading='Ends On' value='-' />
               </div>
 
               <Paper elevation={2} className={classes.joinCard}>
-                <JoinCardText heading='opens at' value='Oct 27, 03:00 PM IST' />
+                <JoinCardText heading='opens at' value={` ${start}`} />
                 <hr />
-                <JoinCardText heading='closes at' value='Oct 27, 03:00 PM IST' />
+                <JoinCardText heading='closes at' value={` ${end}`} />
                 <hr />
-                <JoinCardText heading='duration' value='2 Hours 15 Mins' />
+                <JoinCardText heading='duration' value={`${examData.duration} Mins`} />
                 <hr />
                 <Button className={classes.JoinButton} size='large' variant='contained' onClick={() => redirectToGiveExam()}>
                   JOIN EXAM

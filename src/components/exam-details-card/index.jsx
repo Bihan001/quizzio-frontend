@@ -8,19 +8,31 @@ const ExamDetailsCard = (props) => {
 
   const history = useHistory();
   const { fullWidth, width, data, cardDetails, ...rest } = props;
-  console.log(cardDetails);
-  const examDetailsRoute = `/exam/${data.id}`;
+
+
+  // -----------------------------------------------------
+  //               Time Manupulation 
+  // -----------------------------------------------------
+  let a = new Date(cardDetails.startTime);
+  var StartTime = a.toDateString();
+  var start = a.toLocaleTimeString();
+
+  var addMins = new Date(a.getTime() + cardDetails.duration * 60000);
+  var event = new Date(addMins);
+  var end = event.toLocaleTimeString();
+
 
   const redirectToExamDetailsPage = () => {
-    history.push(examDetailsRoute);
-  };
+    history.push(`/exam/${cardDetails.id}`);
+  }
+
 
   return (
-    <Card onClick={() => redirectToExamDetailsPage()} sx={{ minWidth: fullWidth ? '100%' : width || 300, cursor: 'pointer' }} {...rest}>
+    <Card sx={{ minWidth: fullWidth ? '100%' : width || 300, cursor: 'pointer' }} {...rest}>
       <CardContent>
         <Typography variant='h5'>  {cardDetails.name !== null ? cardDetails.name : '-'} </Typography>
         <Typography variant='subtitle2' color='text.secondary'>
-          19th Nov, 2021
+          {cardDetails.startTime !== null ? StartTime : '-'}
         </Typography>
         <Box style={{ display: 'flex', marginTop: '1rem' }}>
           <Box style={{ marginRight: '2rem' }}>
@@ -44,7 +56,7 @@ const ExamDetailsCard = (props) => {
           <Box style={{ marginRight: '2rem' }}>
             <Typography variant='subtitle2'>Exam Timing</Typography>
             <Typography variant='subtitle2' color='text.secondary'>
-              {cardDetails.timing !== null ? cardDetails.timing : '-'}
+              {cardDetails.timing !== null ? `${start}  -  ${end}` : '-'}
             </Typography>
           </Box>
           <Box style={{ marginRight: '2rem' }}>
@@ -55,7 +67,7 @@ const ExamDetailsCard = (props) => {
           </Box>
         </Box>
 
-        <Button size='small' variant='text' style={{ padding: 0, marginTop: 5 }}>
+        <Button size='small' variant='text' style={{ padding: 0, marginTop: 5 }} onClick={() => redirectToExamDetailsPage()}>
           View Details
         </Button>
 
