@@ -2,24 +2,22 @@ import { axios, getHeaders } from './config';
 import { examFetchedData } from './mock-data';
 
 export const getAllUpcomingExams = () => {
-  return axios.get('/exam/all-upcoming-exams');
+  return axios.get('/exam/upcoming');
+};
+
+export const getExamDetails = (id) => {
+  return axios.get(`/exam/${id}`);
 };
 
 export const createExam = async (data) => {
-  return axios.post('/exam/create', data);
+  return axios.post('/exam/create', data, getHeaders());
 };
 
-export const getExamDetails = (id) => axios.get(`/exam/details/${id}`);
-
-export const getExamMainData = (examId, userId) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(examFetchedData);
-    }, 1000);
-  });
+export const startExam = (examId) => {
+  return axios.get(`/exam/${examId}/start`, getHeaders());
 };
 
-export const submitExamAnswers = (examId, userId, answers) => {};
+export const submitExamAnswers = (examId, answers) => {};
 
 export const getExamTags = () => {
   return new Promise((resolve, reject) => {

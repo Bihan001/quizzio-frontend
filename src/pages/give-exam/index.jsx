@@ -1,15 +1,12 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Container, Typography, Button, Paper, Grid } from '@mui/material';
 import { useLocation, useHistory } from 'react-router-dom';
-import { getExamMainData, submitExamAnswers } from 'api/exam';
-import { getExam } from 'api/user';
+import { submitExamAnswers, startExam } from 'api/exam';
 import Page1 from './page1';
 import Page2 from './page2';
 import RequestFullScreen from 'layouts/request-full-screen';
 
 const GiveExam = () => {
-
   const location = useLocation();
   const history = useHistory();
   const examId = location.pathname.split('/')[2];
@@ -25,10 +22,8 @@ const GiveExam = () => {
   useEffect(() => {
     EnterFullScreen();
     documentElement.addEventListener('fullscreenchange', () => {
-      if (document.fullscreenElement)
-        setIsFullScreen(true);
-      else
-        setIsFullScreen(false);
+      if (document.fullscreenElement) setIsFullScreen(true);
+      else setIsFullScreen(false);
     });
     getExamData();
   }, []);
@@ -48,7 +43,7 @@ const GiveExam = () => {
   };
 
   const getExamData = async () => {
-    const res = await getExam(examId, '0257d1ed-cbeb-4db3-92c1-f325d05ae768');
+    const res = await startExam(examId);
     if (res) setExamData(res.data.data);
     else console.log('Error occured !', res);
   };
@@ -62,7 +57,7 @@ const GiveExam = () => {
   };
 
   const handleEndExam = async () => {
-    const res = await submitExamAnswers(examId, 'sadf', answer);
+    const res = await submitExamAnswers(examId, answer);
     console.log(res);
     ExitFullScreen();
     history.push(`/exam/${examId}`);
@@ -76,25 +71,21 @@ const GiveExam = () => {
     <div style={{ width: '100%', height: '100vh' }}>
       {!isFullScreen ? (
         <RequestFullScreen EnterFullScreen={EnterFullScreen} />
-      )
-
-        :
-
-        (
-          <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
-            {page === 1 && <Page1 handlePageNext={handlePageNext} examData={examData} />}
-            {page === 2 && (
-              <Page2
-                questions={questions}
-                answerObj={answer}
-                handleQAnswer={handleQAnswer}
-                questionsStatus={questionsStatus}
-                handleQStatus={handleQStatus}
-                handleEndExam={handleEndExam}
-              />
-            )}
-          </Container>
-        )}
+      ) : (
+        <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
+          {page === 1 && <Page1 handlePageNext={handlePageNext} examData={examData} />}
+          {page === 2 && (
+            <Page2
+              questions={questions}
+              answerObj={answer}
+              handleQAnswer={handleQAnswer}
+              questionsStatus={questionsStatus}
+              handleQStatus={handleQStatus}
+              handleEndExam={handleEndExam}
+            />
+          )}
+        </Container>
+      )}
     </div>
   );
 };

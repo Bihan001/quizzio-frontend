@@ -60,7 +60,6 @@ const ExamCreation = () => {
     try {
       const examData = JSON.parse(JSON.stringify(examDetails));
       examData.questions = questions;
-      examData['userId'] = '0257d1ed-cbeb-4db3-92c1-f325d05ae768';
       examData.startTime = +combineDateAndTime(examData.startDate, examData.startTime);
       delete examData.startDate;
       const res = await createExam(examData);

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import About from './tab-content/about';
 import useStyles from './styles';
+import { getExamDetails } from 'api/exam';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -26,16 +27,32 @@ const a11yProps = (index) => {
 
 const Exam_Details = (props) => {
   const history = useHistory();
+  const location = useLocation();
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
+  const examId = location.pathname.split('/')[2];
+  const [examData, setExamData] = useState({});
+
+  useEffect(() => {
+    fetchExamDetails();
+  }, []);
+
+  const fetchExamDetails = async () => {
+    try {
+      const res = await getExamDetails(examId);
+      setExamData(res.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const redirectToGiveExam = () => {
-    history.push(`/exam/${1}/give`);
+    history.push(`/exam/${examId}/give`);
   };
 
   const TextPair = ({ heading, value }) => {

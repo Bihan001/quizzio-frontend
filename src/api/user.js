@@ -16,5 +16,3 @@ export const loginWithEmailAndPassword = (email, password) => {
 export const registerNewUser = (data) => {
   return axios.post('/user/register', data, getHeaders());
 };
-
-export const getExam = (examId, userId) => axios.get(`/user/get-exam?examId=${examId}&userId=${userId}`);
