@@ -5,6 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import About from './tab-content/about';
 import useStyles from './styles';
 import { getExamDetails } from 'api/exam';
+import DomPurify from 'dompurify';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -92,6 +93,8 @@ const Exam_Details = () => {
     );
   };
 
+  const cleanDescription = DomPurify.sanitize(examData.description);
+
   return (
     <>
       <section style={{ maxHeight: '45rem' }}>
@@ -159,7 +162,7 @@ const Exam_Details = () => {
             <Tab label='Discussions' {...a11yProps(4)} />
           </Tabs>
           <TabPanel value={value} index={0}>
-            <About />
+            <About content={cleanDescription} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             Rules

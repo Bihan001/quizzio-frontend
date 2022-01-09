@@ -1,5 +1,7 @@
 import { Editor } from '@tinymce/tinymce-react';
 import tinymce from 'tinymce/tinymce';
+import { useTheme } from '@mui/material';
+import { uploadImages } from 'api/utils';
 // Theme
 import 'tinymce/themes/silver';
 import 'tinymce/themes/mobile';
@@ -42,7 +44,6 @@ import 'tinymce/plugins/noneditable';
 import 'tinymce/plugins/noneditable';
 import 'tinymce/plugins/quickbars';
 import 'tinymce/plugins/emoticons';
-import { useTheme } from '@mui/material';
 
 const plugins =
   'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help quickbars emoticons';
@@ -62,18 +63,28 @@ const TinyEditor = (props) => {
     let input = document.createElement('input');
     input.setAttribute('type', 'file');
     //   input.setAttribute('accept', 'image/*');
-    input.onchange = function () {
-      let file = this.files[0];
-      let reader = new FileReader();
-      reader.onload = function () {
-        let id = 'blobid' + new Date().getTime();
-        let blobCache = tinymce.activeEditor.editorUpload.blobCache;
-        let base64 = reader.result.split(',')[1];
-        let blobInfo = blobCache.create(id, file, base64);
-        blobCache.add(blobInfo);
-        cb(blobInfo.blobUri(), { title: file.name });
-      };
-      reader.readAsDataURL(file);
+    input.onchange = async function () {
+      // let file = this.files[0];
+      // let reader = new FileReader();
+      // reader.onload = function () {
+      //   let id = 'blobid' + new Date().getTime();
+      //   let blobCache = tinymce.activeEditor.editorUpload.blobCache;
+      //   let base64 = reader.result.split(',')[1];
+      //   let blobInfo = blobCache.create(id, file, base64);
+      //   blobCache.add(blobInfo);
+      //   cb(blobInfo.blobUri(), { title: file.name });
+      // };
+      // reader.readAsDataURL(file);
+      try {
+        const file = this.files[0];
+        const formData = new FormData();
+        formData.append('image', file);
+        const res = await uploadImages(formData);
+        const { url, public_id } = res.data.data.urls[0];
+        cb(url, { title: public_id });
+      } catch (err) {
+        console.error(err);
+      }
     };
     input.click();
   };

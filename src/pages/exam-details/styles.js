@@ -35,8 +35,8 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    height: 224,
-    marginBottom: '4rem',
+    minHeight: '50rem',
+    paddingBottom: '10rem',
   },
   tabVerticalLine: {
     borderRight: `1.2px solid ${theme.palette.divider}`,

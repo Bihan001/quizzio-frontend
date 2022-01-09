@@ -4,6 +4,7 @@ import { makeStyles, useTheme } from '@mui/styles';
 import MCQSingle from './question-options/mcq-single';
 import MCQMultiple from './question-options/mcq-multiple';
 import FillBlanks from './question-options/fill-blanks';
+import DomPurify from 'dompurify';
 
 const qStatus = {
   notAttempted: 'not_attempted',
@@ -57,6 +58,8 @@ const Page2 = (props) => {
   const paperHeight = 'calc(100vh - 20rem)';
   const questionHeight = 'calc(100vh - 35rem)';
 
+  const cleanQuestion = DomPurify.sanitize(currentQuestion.question);
+
   return (
     <>
       <Paper elevation={0} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '5rem' }}>
@@ -73,7 +76,7 @@ const Page2 = (props) => {
               <Typography variant='p'>{`Negative Marks: ${1}`}</Typography>
             </div>
             <div style={{ height: questionHeight, overflowY: 'auto' }}>
-              {currentQuestion.question}
+              <div dangerouslySetInnerHTML={{ __html: cleanQuestion }} />
               <div style={{ marginTop: '2rem' }}>
                 {currentQuestion.type === 'multipleOptions' && (
                   <MCQMultiple
