@@ -50,7 +50,7 @@ const Register = () => {
       body.dob = '2018-03-29T13:34:00.000';
       const res = await registerNewUser(body);
       console.log(res);
-      setUserAndToken({ user: res.data.data.user, token: res.data.data.token });
+      dispatch(setUserAndToken({ user: res.data.data.user, token: res.data.data.token }));
       handleClose();
     } catch (err) {
       console.error(err);

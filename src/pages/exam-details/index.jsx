@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
@@ -27,7 +26,6 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
-
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -36,9 +34,8 @@ const Exam_Details = () => {
   const examId = location.pathname.split('/')[2];
   const [examData, setExamData] = useState({});
 
-
   // -------------------------------------
-  //      FETCH ALL EXAMS DATA 
+  //      FETCH ALL EXAMS DATA
   // -------------------------------------
   useEffect(async () => {
     try {
@@ -49,19 +46,17 @@ const Exam_Details = () => {
     }
   }, []);
 
-
   // -----------------------------------------------------
-  //               Time Manupulation 
+  //               Time Manupulation
   // -----------------------------------------------------
   let a = new Date(examData.startTime);
   var StartTime = a.toDateString();
   var start = a.toLocaleTimeString();
 
-  var addMins = new Date(a.getTime() + examData.duration * 60000);  // Converts to Minutes
+  var addMins = new Date(a.getTime() + examData.duration * 60000); // Converts to Minutes
   var event = new Date(addMins);
   var end = event.toLocaleTimeString();
   // -------------------------------------------------------
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -119,9 +114,8 @@ const Exam_Details = () => {
               <Typography variant='h4' fontSize='3rem'>
                 {examData.name !== null ? examData.name : '-'}
               </Typography>
-              <Typography variant='p'>By: {'Niharika Dutta'}</Typography>
+              <Typography variant='p'>By: {examData.user?.name}</Typography>
             </div>
-
             <div style={{ display: 'flex' }}>
               <div className={classes.examInfo}>
                 <TextPair heading='Starts On' value={`${StartTime} , ${start}`} />
@@ -146,7 +140,6 @@ const Exam_Details = () => {
             </div>
           </div>
         </div>
-
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}

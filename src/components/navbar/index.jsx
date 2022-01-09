@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { useTheme } from '@mui/styles';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { enableVisibility, dialogNames } from 'redux/slices/dialog-visibility';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -60,6 +60,7 @@ export default function Navbar(props) {
   const { toggleTheme } = props;
   const theme = useTheme();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -82,18 +83,36 @@ export default function Navbar(props) {
               <StyledInputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-            <Button variant='text' size='small' style={{ color: 'white' }} onClick={() => dispatch(enableVisibility(dialogNames.login))}>
-              Login
-            </Button>
-            <Button variant='text' size='small' style={{ color: 'white' }} onClick={() => dispatch(enableVisibility(dialogNames.register))}>
-              Register
-            </Button>
-            <Button variant='text' size='small' component={Link} to='/create-exam' style={{ color: 'white' }}>
-              Create Exam
-            </Button>
-            <IconButton LinkComponent={Link} to='/profile' size='large' edge='start' color='inherit' style={{ marginLeft: 1 }}>
-              <AccountCircleIcon />
-            </IconButton>
+            {!user && (
+              <>
+                <Button
+                  variant='text'
+                  size='small'
+                  style={{ color: 'white' }}
+                  onClick={() => dispatch(enableVisibility(dialogNames.login))}
+                >
+                  Login
+                </Button>
+                <Button
+                  variant='text'
+                  size='small'
+                  style={{ color: 'white' }}
+                  onClick={() => dispatch(enableVisibility(dialogNames.register))}
+                >
+                  Register
+                </Button>
+              </>
+            )}
+            {!!user && (
+              <>
+                <Button variant='text' size='small' component={Link} to='/create-exam' style={{ color: 'white' }}>
+                  Create Exam
+                </Button>
+                <IconButton LinkComponent={Link} to='/profile' size='large' edge='start' color='inherit' style={{ marginLeft: 1 }}>
+                  <AccountCircleIcon />
+                </IconButton>
+              </>
+            )}
             <IconButton size='large' edge='start' color='inherit' onClick={() => toggleTheme()} sx={{ ml: 1 }}>
               {theme.palette.mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
             </IconButton>

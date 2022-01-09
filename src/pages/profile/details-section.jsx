@@ -42,10 +42,10 @@ const Details = () => {
           Item One
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <ExamsList />
+          <ExamsList type='hosted' />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
-          <ExamsList />
+          <ExamsList type='given' />
         </TabPanel>
       </Paper>
     </>

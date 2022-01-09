@@ -1,4 +1,3 @@
-
 import { axios, getHeaders } from './config';
 import { examFetchedData } from './mock-data';
 
@@ -22,7 +21,9 @@ export const startExam = (examId) => {
   return axios.get(`/exam/${examId}/start`, getHeaders());
 };
 
-export const submitExamAnswers = (examId, answers) => { };
+export const submitExamAnswers = (data) => {
+  return axios.post(`/exam/submit`, data, getHeaders());
+};
 
 export const getExamTags = () => {
   return new Promise((resolve, reject) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Card, CardActions, CardContent, Button, Typography, Paper, Grid } from '@mui/material';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
@@ -8,6 +8,7 @@ import DropdownField from 'components/dropdown-field';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { DialogActions, DialogContent, DialogTitle, Dialog } from 'components/dialog';
 import ExamDetailsCard from 'components/exam-details-card';
+import { getHostedExams, getGivenExams } from 'api/user';
 
 const examVisibilities = [
   { label: 'Public', value: 'public' },
@@ -16,13 +17,30 @@ const examVisibilities = [
 
 const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 
-const ExamsHosted = () => {
+const ExamsList = (props) => {
+  const { type } = props;
   const [showFilters, setShowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     startDate: null,
     examVisibility: null,
     examStatus: null,
   });
+  const [exams, setExams] = useState([]);
+
+  useEffect(() => {
+    fetchExams();
+  }, []);
+
+  const fetchExams = async () => {
+    try {
+      let res;
+      if (type === 'hosted') res = await getHostedExams();
+      if (type === 'given') res = await getGivenExams();
+      setExams(res.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleFilterChange = (e) => setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -86,8 +104,13 @@ const ExamsHosted = () => {
             overflowY: 'auto',
           }}
         >
-          {new Array(5).fill(0).map((exam, i) => (
-            <ExamDetailsCard style={{ marginBottom: i === 4 ? '0.3rem' : '2rem' }} data={{ name: 'asd', email: 'ankur' }} fullWidth />
+          {exams.map((exam, i) => (
+            <ExamDetailsCard
+              cardDetails={exam}
+              style={{ marginBottom: i === 4 ? '0.3rem' : '2rem' }}
+              data={{ name: 'asd', email: 'ankur' }}
+              fullWidth
+            />
           ))}
         </Box>
       </Box>
@@ -95,4 +118,4 @@ const ExamsHosted = () => {
   );
 };
 
-export default ExamsHosted;
+export default ExamsList;

@@ -1,7 +1,6 @@
-
 import { useState, useMemo, useEffect } from 'react';
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CreateExam from 'pages/exam-creation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Paper } from '@mui/material';
@@ -13,13 +12,27 @@ import Home from 'pages/home';
 import GiveExam from 'pages/give-exam';
 import ExamDetails from 'pages/exam-details';
 import getDesignTokens from 'utilities/theme';
+import { getCurrentUser } from 'api/user';
+import { setUserAndToken } from 'redux/slices/auth';
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const [themeMode, setThemeMode] = useState('light');
 
-  useEffect(() => { }, []);
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
+
+  const fetchCurrentUser = async () => {
+    try {
+      const res = await getCurrentUser();
+      dispatch(setUserAndToken({ user: res.data.data }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // The dark mode switch would invoke this method
   const colorMode = useMemo(

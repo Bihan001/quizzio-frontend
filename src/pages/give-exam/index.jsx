@@ -57,7 +57,12 @@ const GiveExam = () => {
   };
 
   const handleEndExam = async () => {
-    const res = await submitExamAnswers(examId, answer);
+    const body = {
+      examId,
+      answers: answer,
+      finishTime: Date.now(),
+    };
+    const res = await submitExamAnswers(body);
     console.log(res);
     ExitFullScreen();
     history.push(`/exam/${examId}`);

@@ -32,7 +32,7 @@ const ExamCreation = () => {
     isPrivate: false,
     startDate: new Date(),
     startTime: null,
-    duration: null,
+    endTime: null,
     image: ' ',
     type: ' ',
     allowedUsers: [],
@@ -61,7 +61,10 @@ const ExamCreation = () => {
       const examData = JSON.parse(JSON.stringify(examDetails));
       examData.questions = questions;
       examData.startTime = +combineDateAndTime(examData.startDate, examData.startTime);
+      examData.endTime = +combineDateAndTime(examData.startDate, examData.endTime);
+      examData.duration = +new Date(examData.endTime) - +new Date(examData.startTime);
       delete examData.startDate;
+      delete examData.endTime;
       const res = await createExam(examData);
       console.log('Exam data is : ', examData, ' res is : ', res);
       history.push('/');
