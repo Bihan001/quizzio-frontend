@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   MaxWidth: {
     maxWidth: '600px !important',
   },
-
 }));
 
 
@@ -74,7 +73,7 @@ const Register = () => {
   return (
     <Dialog open={registerVisibility} handleClose={handleClose} maxWidth='xs' style={{ padding: '3rem' }}   >
 
-      <DialogTitle>Register</DialogTitle>
+      <DialogTitle style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: 'bold' }} > Register </DialogTitle>
 
       <DialogContent  >
         <Grid container spacing={2}>
@@ -84,6 +83,7 @@ const Register = () => {
               label='Name'
               placeholder='John Doe'
               fullWidth={true}
+              required
               value={newUserData.name}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
@@ -94,6 +94,7 @@ const Register = () => {
               label='Email'
               placeholder='johndoe@gmail.com'
               fullWidth
+              required
               value={newUserData.email}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
@@ -105,6 +106,7 @@ const Register = () => {
               label='Password'
               placeholder='********'
               fullWidth
+              required
               endIcon={showPassword ? <Visibility /> : <VisibilityOff />}
               endIconOnClick={() => setShowPassword(!showPassword)}
               value={newUserData.password}
@@ -117,6 +119,7 @@ const Register = () => {
               label='Phone Number'
               placeholder='+91-1234567890'
               fullWidth
+              required
               value={newUserData.phoneNumber}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
@@ -126,6 +129,7 @@ const Register = () => {
               fullWidth
               label='Date of Birth'
               name='dob'
+              required
               value={newUserData.dob}
               onChange={(newDate) => handleDataChange('dob', newDate)}
             />
@@ -136,6 +140,7 @@ const Register = () => {
               label='Address'
               placeholder='JohnHouse, JohnStreet, JohnTown, JohnCountry'
               fullWidth
+              required
               value={newUserData.address}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
@@ -146,6 +151,7 @@ const Register = () => {
               label='Institute'
               placeholder='University/College/School'
               fullWidth
+              required
               value={newUserData.institute}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
@@ -156,18 +162,19 @@ const Register = () => {
               fullWidth
               options={genders}
               name='gender'
+              required
               value={newUserData.gender}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
+          <Grid item xs={12} md={6} ml={3} style={{ margin: 'auto' }} >
             <TextInputField
               name='bio'
               label='Bio'
               multiline
               row={3}
               placeholder='About you'
-              fullWidth
+              fullWidth={true}
               value={newUserData.bio}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />

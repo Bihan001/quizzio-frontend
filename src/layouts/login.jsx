@@ -7,6 +7,7 @@ import { dialogNames, hideVisibility } from 'redux/slices/dialog-visibility';
 import { setUserAndToken } from 'redux/slices/auth';
 import TextInputField from 'components/text-input-field';
 import { loginWithEmailAndPassword } from 'api/user';
+import './a.css';
 
 const Login = () => {
 
@@ -32,10 +33,8 @@ const Login = () => {
 
   return (
     <Dialog open={loginVisibility} maxWidth='lg' handleClose={() => handleClose()}>
-      <DialogTitle style={{ textAlign: 'center' }}>
-
-        Welcome Back
-
+      <DialogTitle style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: 'bold' }} >
+        Welcome Back!
       </DialogTitle>
 
       <DialogContent>

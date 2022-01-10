@@ -74,6 +74,7 @@ const Profile = () => {
 
   return (
     <>
+      {/* -----------------------------        EDIT PROFILE MODAL PART         ---------------------------------------------- */}
       <Dialog open={editDialogOpen} handleClose={handleEditDialogClose} maxWidth='xs' style={{ padding: '3rem' }}>
         <DialogTitle>Edit Profile</DialogTitle>
         <DialogContent>
@@ -136,6 +137,9 @@ const Profile = () => {
           </Grid>
         </DialogContent>
       </Dialog>
+      {/* -------------------------------------------------------------------------------------- */}
+
+
       <CropImageDialog
         open={imageDialogOpen}
         setOpen={setImageDialogOpen}

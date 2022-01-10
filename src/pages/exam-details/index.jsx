@@ -176,9 +176,9 @@ const Exam_Details = () => {
     );
   };
 
-  const getTypography = (text = '') => {
+  const getTypography = (text = '', style = {}) => {
     return (
-      <Typography component='p' variant='p' className={classes.joinText}>
+      <Typography component='p' variant='p' style={style} className={classes.joinText}>
         {text}
       </Typography>
     );
@@ -248,7 +248,7 @@ const Exam_Details = () => {
       }
     } else if (currentTime >= endTime) {
       // after exam
-      return getTypography('Exam has ended');
+      return getTypography('!! Exam has ended !! ', { color: "crimson", fontWeight: "900" });
     }
   };
 
@@ -289,14 +289,15 @@ const Exam_Details = () => {
 
       <Container maxWidth='xl'>
         <div style={{ display: 'flex' }}>
+
           <img src={examData.user?.image} className={classes.dp} />
 
           <div style={{ marginLeft: '3rem', width: '100%' }}>
-            <div style={{ padding: '1rem auto 2.4rem auto' }}>
+            <div style={{ padding: '1rem 0rem 3rem 0rem' }}>
               <Typography variant='h4' fontSize='3rem'>
                 {examData.name !== null ? examData.name : '-'}
               </Typography>
-              <Typography variant='p'>By: {examData.user?.name}</Typography>
+              <Typography variant='p' style={{ fontWeight: '500' }}  > Contributor : {examData.user?.name}</Typography>
             </div>
 
 
