@@ -16,10 +16,14 @@ export const authSlice = createSlice({
       if (action.payload.user) state.user = action.payload.user;
       if (action.payload.token) localStorage.setItem('AUTH_TOKEN', action.payload.token);
     },
+    clearUserAndToken: (state) => {
+      state.user = null;
+      localStorage.removeItem('AUTH_TOKEN');
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUserAndToken } = authSlice.actions;
+export const { setUserAndToken, clearUserAndToken } = authSlice.actions;
 
 export default authSlice.reducer;

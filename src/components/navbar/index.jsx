@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { useTheme } from '@mui/styles';
 import { useSelector, useDispatch } from 'react-redux';
+import { clearUserAndToken } from 'redux/slices/auth';
 import { enableVisibility, dialogNames } from 'redux/slices/dialog-visibility';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -62,6 +63,10 @@ export default function Navbar(props) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
+  const logout = () => {
+    dispatch(clearUserAndToken());
+  };
+
   return (
     <>
       <AppBar position='fixed'>
@@ -111,6 +116,9 @@ export default function Navbar(props) {
                 <IconButton LinkComponent={Link} to='/profile' size='large' edge='start' color='inherit' style={{ marginLeft: 1 }}>
                   <AccountCircleIcon />
                 </IconButton>
+                <Button variant='text' size='small' onClick={() => logout()} style={{ color: 'white' }}>
+                  Logout
+                </Button>
               </>
             )}
             <IconButton size='large' edge='start' color='inherit' onClick={() => toggleTheme()} sx={{ ml: 1 }}>
