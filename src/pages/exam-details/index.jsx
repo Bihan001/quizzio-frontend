@@ -308,7 +308,7 @@ const Exam_Details = () => {
                 />
                 <TextPair
                   heading='starts on'
-                  value={new Date(examData.startTime + examData.duration).toDateString() || '-'}
+                  value={new Date(examData.startTime).toDateString() || '-'}
                 />
                 <TextPair
                   heading='Number of Participants'
