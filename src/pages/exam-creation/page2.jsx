@@ -70,7 +70,7 @@ const Page2 = (props) => {
 
   const fetchQuestionTypes = async () => {
     const res = await getQuestionTypes();
-    setQuestionTypes(res.data);
+    setQuestionTypes(res.data.data);
   };
 
   const addNewQuestion = () => {

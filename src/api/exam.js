@@ -17,6 +17,14 @@ export const createExam = async (data) => {
   return axios.post('/exam/create', data, getHeaders());
 };
 
+export const registerInExam = async (data) => {
+  return axios.post('/exam/register', data, getHeaders());
+};
+
+export const getUserExamRegisterStatus = async (examId) => {
+  return axios.get(`/exam/exam-registered?examId=${examId}`, getHeaders());
+};
+
 export const startExam = (examId) => {
   return axios.get(`/exam/${examId}/start`, getHeaders());
 };
@@ -26,24 +34,7 @@ export const submitExamAnswers = (data) => {
 };
 
 export const getExamTags = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        data: [
-          'Maths',
-          'Physics',
-          'Chemistry',
-          'Exam',
-          'Contest',
-          'Computer Science',
-          'Competitive Programming',
-          'Dynamic Programming',
-          'Graph Theory',
-          'Literature',
-        ],
-      });
-    }, 1000);
-  });
+  return axios.get('/exam/tags');
 };
 
 export const getExamTypes = () => {
@@ -55,37 +46,12 @@ export const getExamTypes = () => {
           { label: 'Private', value: 'private' },
         ],
       });
-    }, 1000);
+    }, 100);
   });
 };
 
 export const getQuestionTypes = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        data: [
-          { value: 'mcq', label: 'MCQ - 1 correct option' },
-          {
-            value: 'multipleOptions',
-            label: 'MCQ - More than 1 correct option',
-          },
-          { value: 'fillInTheBlanks', label: '1 word answer' },
-        ],
-      });
-    }, 1000);
-  });
-};
-
-export const submitNewExamData = (examData) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          examId: '123',
-        },
-      });
-    }, 1000);
-  });
+  return axios.get('/exam/question-types');
 };
 
 export const getExamResult = (examId) => {

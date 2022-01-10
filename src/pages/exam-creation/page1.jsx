@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
 import TextInputField from 'components/text-input-field';
-import DatePicker from 'components/date-time-picker/date';
-import TimePicker from 'components/date-time-picker/time';
+import DateTimePicker from 'components/date-time-picker/date-time';
 import MultiSelect from 'components/multi-select-dropdown';
 import DropdownField from 'components/dropdown-field';
 import FileUploadInput from 'components/file-upload-input';
 import TextEditor from 'components/text-editor';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { getExamTags, getExamTypes } from 'api/exam';
+import { csvToJSON } from 'utilities/functions';
 
 const Page1 = (props) => {
   const { examDetails, handleDetailsChange } = props;
@@ -24,13 +24,34 @@ const Page1 = (props) => {
 
   const fetchTags = async () => {
     const res = await getExamTags();
-    setTags(res.data);
+    setTags(res.data.data);
   };
 
   const fetchExamTypes = async () => {
     const res = await getExamTypes();
     setExamTypes(res.data);
     if (res.data.length > 0) setExamType(res.data[0].value);
+  };
+
+  const handleBannerUpload = (event) => {
+    const file = event.target.files[0];
+    console.log(file);
+    handleDetailsChange('image', file);
+  };
+
+  const handleAllowedUsersUpload = (event) => {
+    const file = event.target.files[0];
+    console.log(file);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const str = reader.result;
+      const json = csvToJSON(str);
+      const emails = json.map((x) => x.email);
+      console.log(emails);
+      handleDetailsChange('allowedUsers', emails);
+      reader.abort();
+    };
+    reader.readAsText(file);
   };
 
   return (
@@ -50,19 +71,19 @@ const Page1 = (props) => {
               />
             </Grid>
             <Grid item lg={6}>
-              <DatePicker
+              <FileUploadInput
                 fullWidth
-                label='Start Date'
-                required
-                name='startDate'
-                value={examDetails.startDate}
-                onChange={(newDate) => handleDetailsChange('startDate', newDate)}
+                label='Exam Banner'
+                disabled
+                name='image'
+                value={examDetails.image?.name}
+                onChange={(e) => handleBannerUpload(e)}
               />
             </Grid>
             <Grid item lg={6}>
-              <TimePicker
+              <DateTimePicker
                 fullWidth
-                label='Start Time'
+                label='Starts From'
                 required
                 name='startTime'
                 value={examDetails.startTime}
@@ -70,23 +91,13 @@ const Page1 = (props) => {
               />
             </Grid>
             <Grid item lg={6}>
-              <TimePicker
+              <DateTimePicker
                 fullWidth
-                label='End Time'
+                label='Ends On'
                 required
                 name='endTime'
                 value={examDetails.endTime}
                 onChange={(newTime) => handleDetailsChange('endTime', newTime)}
-              />
-            </Grid>
-            <Grid item lg={6}>
-              <FileUploadInput
-                fullWidth
-                label='Exam Banner'
-                disabled
-                name='image'
-                value={examDetails.banner}
-                onChange={(e) => handleDetailsChange(e.target.name, 'dummy url here')}
               />
             </Grid>
             <Grid item lg={6}>
@@ -106,11 +117,12 @@ const Page1 = (props) => {
                 fullWidth
                 label='Email List'
                 disabled
+                uploadDisabled={!examDetails.isPrivate}
                 accept='.csv'
                 uploadIcon={<UploadFileIcon />}
                 name='allowedUsers'
                 value={examDetails.allowedUsers}
-                onChange={(e) => handleDetailsChange(e.target.name, 'dummy url here')}
+                onChange={(e) => handleAllowedUsersUpload(e)}
               />
             </Grid>
             <Grid item lg={6}>

@@ -27,10 +27,17 @@ export default makeStyles((theme) => ({
     padding: '1.5rem',
     transform: 'translateY(-20%)', // Shifts Vertically
   },
-  JoinButton: {
+  joinButton: {
     width: '100%',
     margin: '1rem auto',
     fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  joinText: {
+    margin: '0 auto',
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    textAlign: 'center',
   },
   root: {
     flexGrow: 1,

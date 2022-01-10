@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import About from './tab-content/about';
 import useStyles from './styles';
-import { getExamDetails } from 'api/exam';
+import { getExamDetails, registerInExam, getUserExamRegisterStatus } from 'api/exam';
 import DomPurify from 'dompurify';
+
+let timerInterval;
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -31,36 +34,114 @@ const Exam_Details = () => {
   const location = useLocation();
   const classes = useStyles();
   const theme = useTheme();
+  const { user } = useSelector((state) => state.auth);
   const [value, setValue] = useState(0);
   const examId = location.pathname.split('/')[2];
   const [examData, setExamData] = useState({});
+  const [registerStatus, setRegisterStatus] = useState(false);
+
+  // Timer states
+  const [remainingTime, setRemainingTime] = useState({
+    days: null,
+    hours: null,
+    minutes: null,
+    seconds: null,
+  });
+
+  useEffect(() => {
+    if (!examData?.startTime) return;
+    const duration = new Date(examData.startTime) - Date.now();
+    if (duration < 0) {
+      return setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    }
+    const dd = getUnitsFromDuration(duration);
+    console.log(duration, dd);
+    setRemainingTime({ days: dd.days, hours: dd.hours, minutes: dd.minutes, seconds: dd.seconds });
+  }, [examData.startTime]);
+
+  useEffect(() => {
+    if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null) {
+      return;
+    }
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      if (remainingTime.seconds > 0) {
+        setRemainingTime((t) => ({ ...t, seconds: t.seconds - 1 }));
+      }
+      if (remainingTime.seconds === 0) {
+        if (remainingTime.minutes === 0) {
+          if (remainingTime.hours === 0) {
+            if (remainingTime.days === 0) {
+              // Timer has finished
+              clearInterval(timerInterval);
+            } else {
+              setRemainingTime((t) => ({ ...t, days: t.days - 1, hours: 23, minutes: 59, seconds: 59 }));
+            }
+          } else {
+            setRemainingTime((t) => ({ ...t, hours: t.hours - 1, minutes: 59, seconds: 59 }));
+          }
+        } else {
+          setRemainingTime((t) => ({ ...t, minutes: t.minutes - 1, seconds: 59 }));
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(timerInterval);
+    };
+  }, [remainingTime]);
 
   // -------------------------------------
   //      FETCH ALL EXAMS DATA
   // -------------------------------------
   useEffect(async () => {
+    fetchExamDetails();
+    checkRegisterStatus();
+  }, []);
+
+  const getUnitsFromDuration = (duration) => {
+    duration = duration / 1000;
+    const days = Math.floor(duration / 86400);
+    duration -= days * 86400;
+    const hours = Math.floor(duration / 3600) % 24;
+    duration -= hours * 3600;
+    const minutes = Math.floor(duration / 60) % 60;
+    duration -= minutes * 60;
+    const seconds = Math.floor(duration % 60);
+    return { days, hours, minutes, seconds };
+  };
+
+  const checkRegisterStatus = async () => {
+    try {
+      const res = await getUserExamRegisterStatus(examId);
+      setRegisterStatus(!!res.data.data.registered);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchExamDetails = async () => {
     try {
       const res = await getExamDetails(examId);
       setExamData(res.data.data);
     } catch (err) {
       console.log(err);
     }
-  }, []);
-
-  // -----------------------------------------------------
-  //               Time Manupulation
-  // -----------------------------------------------------
-  let a = new Date(examData.startTime);
-  var StartTime = a.toDateString();
-  var start = a.toLocaleTimeString();
-
-  var addMins = new Date(a.getTime() + examData.duration * 60000); // Converts to Minutes
-  var event = new Date(addMins);
-  var end = event.toLocaleTimeString();
-  // -------------------------------------------------------
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const registerUserInExam = async () => {
+    try {
+      const res = await registerInExam({ examId });
+      if (res.status === 200) {
+        setRegisterStatus(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const redirectToGiveExam = () => {
@@ -87,13 +168,102 @@ const Exam_Details = () => {
           </Typography>
         </Grid>
         <Grid item md={8}>
-          <Typography style={{ fontSize: '1.5rem', fontWeight: '600', paddingLeft: '0.5rem' }}>{value}</Typography>
+          <Typography style={{ fontSize: '1.5rem', fontWeight: '600' }}>{value}</Typography>
         </Grid>
       </div>
     );
   };
 
   const cleanDescription = DomPurify.sanitize(examData.description);
+
+  const getTypography = (text = '') => {
+    return (
+      <Typography component='p' variant='p' className={classes.joinText}>
+        {text}
+      </Typography>
+    );
+  };
+
+  const getButton = (text = '', type = '') => {
+    return (
+      <Button
+        className={classes.joinButton}
+        size='large'
+        variant='contained'
+        color='info'
+        onClick={() => (type === 'register' ? registerUserInExam() : type === 'start' ? redirectToGiveExam() : null)}
+      >
+        {text}
+      </Button>
+    );
+  };
+
+  const JoinRegisterSection = () => {
+    if (!examData.startTime) return null;
+    if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null)
+      return null;
+    const startTime = new Date(examData.startTime);
+    const endTime = new Date(+startTime + examData.duration);
+    const remain =
+      remainingTime.days * 86400000 - remainingTime.hours * 3600000 - remainingTime.minutes * 60000 - remainingTime.seconds * 1000;
+    // If days,hours,minutes,seconds are zeros, then remain = 0, and startTime - remain = 0, so currentTime should be Date.now()
+    const currentTime = remain === 0 ? Date.now() : +startTime - remain;
+    if (currentTime < startTime) {
+      // before exam
+      if (!user) {
+        return (
+          <>
+            {getTypography('Login to register for exam')}
+            <CountdownTimer />
+          </>
+        );
+      } else {
+        return (
+          <>
+            {getButton('Register', 'register')}
+            <CountdownTimer />
+          </>
+        );
+      }
+    } else if (currentTime >= startTime && currentTime < endTime) {
+      if (!user) {
+        return getTypography('Login to enter exam');
+      }
+      // user has not registered
+      else if (!registerStatus) {
+        return getTypography('You have not registered for this exam');
+      } else {
+        return getButton('Enter Exam', 'start');
+      }
+    } else if (currentTime >= endTime) {
+      // after exam
+      return getTypography('Exam has ended');
+    }
+  };
+
+  const CountdownTimer = () => {
+    return (
+      <Typography component='p' variant='p' className={classes.joinText}>
+        {`${remainingTime.days} days ${remainingTime.hours} hours ${remainingTime.minutes} minutes ${remainingTime.seconds} seconds`}
+      </Typography>
+    );
+  };
+
+  const getExamDurationFormatted = () => {
+    if (!examData.duration) return null;
+    const { days, hours, minutes } = getUnitsFromDuration(examData.duration);
+    let duration = '';
+    if (days > 0) {
+      duration += days === 1 ? `${days} day ` : `${days} days `;
+    }
+    if (hours > 0) {
+      duration += hours === 1 ? `${hours} hour ` : `${hours} hours `;
+    }
+    if (minutes > 0) {
+      duration += minutes === 1 ? `${minutes} minute ` : `${minutes} minutes `;
+    }
+    return duration;
+  };
 
   return (
     <>
@@ -107,10 +277,7 @@ const Exam_Details = () => {
 
       <Container maxWidth='xl'>
         <div style={{ display: 'flex' }}>
-          <img
-            src='https://media.istockphoto.com/photos/jolly-father-christmas-reading-letters-from-children-picture-id108353737?b=1&k=20&m=108353737&s=170667a&w=0&h=WhSAq3xVPEHRJvks0tFxun5dSHU0UbvUin60qOX-M00='
-            className={classes.dp}
-          />
+          <img src={examData.user?.image} className={classes.dp} />
 
           <div style={{ marginLeft: '3rem', width: '100%' }}>
             <div style={{ padding: '1rem 0' }}>
@@ -121,24 +288,21 @@ const Exam_Details = () => {
             </div>
             <div style={{ display: 'flex' }}>
               <div className={classes.examInfo}>
-                <TextPair heading='Starts On' value={`${StartTime} , ${start}`} />
-                <TextPair heading='Exam Mode' value='Online' />
-                <TextPair heading='Ends On' value='-' />
-                <TextPair heading='Ends On' value='-' />
-                <TextPair heading='Ends On' value='-' />
-                <TextPair heading='Ends On' value='-' />
+                <TextPair heading='Exam Type' value={examData.isPrivate ? 'Private' : 'Public'} />
+                <TextPair
+                  heading='Number of Participants'
+                  value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
+                />
               </div>
 
               <Paper elevation={2} className={classes.joinCard}>
-                <JoinCardText heading='opens at' value={` ${start}`} />
+                <JoinCardText heading='opens at' value={new Date(examData.startTime).toLocaleString() || '-'} />
                 <hr />
-                <JoinCardText heading='closes at' value={` ${end}`} />
+                <JoinCardText heading='closes at' value={new Date(examData.startTime + examData.duration).toLocaleString() || '-'} />
                 <hr />
-                <JoinCardText heading='duration' value={`${examData.duration} Mins`} />
+                <JoinCardText heading='duration' value={`${getExamDurationFormatted()}`} />
                 <hr />
-                <Button className={classes.JoinButton} size='large' variant='contained' onClick={() => redirectToGiveExam()}>
-                  JOIN EXAM
-                </Button>
+                <JoinRegisterSection />
               </Paper>
             </div>
           </div>
