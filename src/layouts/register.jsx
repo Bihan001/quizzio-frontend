@@ -1,3 +1,4 @@
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { DialogActions, DialogContent, DialogTitle, Dialog } from 'components/dialog';
@@ -19,6 +20,7 @@ const genders = [
 ];
 
 const Register = () => {
+
   const [showPassword, setShowPassword] = useState(false);
   const [newUserData, setNewUserData] = useState({
     name: '',
@@ -67,7 +69,7 @@ const Register = () => {
               name='name'
               label='Name'
               placeholder='John Doe'
-              fullWidth
+              fullWidth={true}
               value={newUserData.name}
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />

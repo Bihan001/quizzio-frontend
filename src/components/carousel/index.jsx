@@ -5,7 +5,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Grid, Typography, Paper, Input, Box, Button, collapseClasses, } from '@mui/material';
+import { Button } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import useStyles from './styles';
 import ExamBanner from 'components/exam-banner';
