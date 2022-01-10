@@ -220,12 +220,21 @@ const Exam_Details = () => {
           </>
         );
       } else {
-        return (
-          <>
-            {getButton('Register', 'register')}
-            <CountdownTimer />
-          </>
-        );
+        if (!registerStatus) {
+          return (
+            <>
+              {getButton('Register', 'register')}
+              <CountdownTimer />
+            </>
+          );
+        } else {
+          return (
+            <>
+              {getTypography('You have already registered')}
+              <CountdownTimer />
+            </>
+          );
+        }
       }
     } else if (currentTime >= startTime && currentTime < endTime) {
       if (!user) {
