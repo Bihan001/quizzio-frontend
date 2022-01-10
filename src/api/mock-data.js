@@ -62,3 +62,42 @@ export const examFetchedData = {
     isPrivate: 0,
   },
 };
+
+export const examResult = [
+  {
+    question: 'What is the return type of printf in C?',
+    type: 'mcq',
+    options: [
+      { id: 1, data: 'char' },
+      { id: 2, data: 'float' },
+      { id: 3, data: 'int' },
+      { id: 4, data: 'void' },
+    ],
+    marks: 2,
+    negMarks: 2,
+    givenOption: [3],
+    correctOption: [3],
+  },
+  {
+    question: 'Select the languages that uses an compiler',
+    type: 'multipleOptions',
+    options: [
+      { id: 1, data: 'C++' },
+      { id: 2, data: 'C' },
+      { id: 3, data: 'Python' },
+      { id: 4, data: 'C#' },
+    ],
+    marks: 2,
+    negMarks: 2,
+    givenOption: [1, 3],
+    correctOption: [1, 2, 4],
+  },
+  {
+    question: 'Which function is used to print a string in Java?',
+    type: 'fillInTheBlanks',
+    marks: 2,
+    negMarks: 2,
+    givenOption: 'System.out.println("Hello World");',
+    correctOption: 'System.out.println',
+  },
+];

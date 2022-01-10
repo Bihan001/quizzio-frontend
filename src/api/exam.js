@@ -1,5 +1,5 @@
 import { axios, getHeaders } from './config';
-import { examFetchedData } from './mock-data';
+import { examResult } from './mock-data';
 
 // ------------------------------------------------
 // baseURL: 'http://localhost:5000'
@@ -83,6 +83,16 @@ export const submitNewExamData = (examData) => {
         data: {
           examId: '123',
         },
+      });
+    }, 1000);
+  });
+};
+
+export const getExamResult = (examId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        data: examResult,
       });
     }, 1000);
   });
