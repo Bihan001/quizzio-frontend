@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
@@ -30,6 +31,7 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
+
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -39,6 +41,7 @@ const Exam_Details = () => {
   const examId = location.pathname.split('/')[2];
   const [examData, setExamData] = useState({});
   const [registerStatus, setRegisterStatus] = useState(false);
+  const cleanDescription = DomPurify.sanitize(examData.description);
 
   // Timer states
   const [remainingTime, setRemainingTime] = useState({
@@ -59,10 +62,12 @@ const Exam_Details = () => {
     setRemainingTime({ days: dd.days, hours: dd.hours, minutes: dd.minutes, seconds: dd.seconds });
   }, [examData.startTime]);
 
+
   useEffect(() => {
     if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null) {
       return;
     }
+
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
       if (remainingTime.seconds > 0) {
@@ -90,6 +95,7 @@ const Exam_Details = () => {
       clearInterval(timerInterval);
     };
   }, [remainingTime]);
+
 
   // -------------------------------------
   //      FETCH ALL EXAMS DATA
@@ -173,8 +179,6 @@ const Exam_Details = () => {
       </div>
     );
   };
-
-  const cleanDescription = DomPurify.sanitize(examData.description);
 
   const getTypography = (text = '') => {
     return (
@@ -265,8 +269,11 @@ const Exam_Details = () => {
     return duration;
   };
 
+
+
   return (
     <>
+      {/* -----------     Banner    ----------- */}
       <section style={{ maxHeight: '45rem' }}>
         <img
           src='https://media-fastly.hackerearth.com/media/hackathon/bial-superapp-hackathon/images/7c1ad88a32-new_cover_2.png'
@@ -275,26 +282,44 @@ const Exam_Details = () => {
         />
       </section>
 
+
       <Container maxWidth='xl'>
         <div style={{ display: 'flex' }}>
+
           <img src={examData.user?.image} className={classes.dp} />
 
           <div style={{ marginLeft: '3rem', width: '100%' }}>
-            <div style={{ padding: '1rem 0' }}>
+            <div style={{ padding: '1rem auto 2.4rem auto' }}>
               <Typography variant='h4' fontSize='3rem'>
                 {examData.name !== null ? examData.name : '-'}
               </Typography>
-              <Typography variant='p'>By: {examData.user?.name}</Typography>
+              <Typography variant='p'>By:  {examData.user?.name}</Typography>
             </div>
+
+
             <div style={{ display: 'flex' }}>
+              {/*-------------------------------------------------- */}
+              {/*                INFORMATION                        */}
+              {/*-------------------------------------------------- */}
               <div className={classes.examInfo}>
-                <TextPair heading='Exam Type' value={examData.isPrivate ? 'Private' : 'Public'} />
+                <TextPair
+                  heading='Exam Type'
+                  value={examData.isPrivate ? 'Private' : 'Public'}
+                />
+                <TextPair
+                  heading='starts on'
+                  value={new Date(examData.startTime + examData.duration).toDateString() || '-'}
+                />
                 <TextPair
                   heading='Number of Participants'
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
                 />
               </div>
 
+
+              {/*-------------------------------------------------- */}
+              {/*             EXAM  TIME  DISPLAY  CARD             */}
+              {/*-------------------------------------------------- */}
               <Paper elevation={2} className={classes.joinCard}>
                 <JoinCardText heading='opens at' value={new Date(examData.startTime).toLocaleString() || '-'} />
                 <hr />
@@ -302,11 +327,16 @@ const Exam_Details = () => {
                 <hr />
                 <JoinCardText heading='duration' value={`${getExamDurationFormatted()}`} />
                 <hr />
+
+                {/* Timer Part */}
                 <JoinRegisterSection />
               </Paper>
+
             </div>
           </div>
         </div>
+
+
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
@@ -319,8 +349,8 @@ const Exam_Details = () => {
             aria-label='Vertical tabs example'
             className={classes.tabVerticalLine}
           >
-            <Tab label='About' {...a11yProps(0)} />
-            <Tab label='Rules' {...a11yProps(1)} />
+            <Tab label='Description' {...a11yProps(0)} />
+            <Tab label='Result' {...a11yProps(1)} />
             <Tab label='Teams' {...a11yProps(2)} />
             <Tab label="FAQ's" {...a11yProps(3)} />
             <Tab label='Discussions' {...a11yProps(4)} />

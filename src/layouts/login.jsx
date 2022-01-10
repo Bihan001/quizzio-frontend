@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
@@ -8,10 +9,9 @@ import TextInputField from 'components/text-input-field';
 import { loginWithEmailAndPassword } from 'api/user';
 
 const Login = () => {
+
   const dispatch = useDispatch();
-
   const { [dialogNames.login]: loginVisibility } = useSelector((state) => state.dialogVisibility);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -32,7 +32,12 @@ const Login = () => {
 
   return (
     <Dialog open={loginVisibility} maxWidth='lg' handleClose={() => handleClose()}>
-      <DialogTitle style={{ textAlign: 'center' }}>Welcome Back</DialogTitle>
+      <DialogTitle style={{ textAlign: 'center' }}>
+
+        Welcome Back
+
+      </DialogTitle>
+
       <DialogContent>
         <TextInputField
           fullWidth
@@ -42,6 +47,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           style={{ marginBottom: '1rem' }}
         />
+
         <TextInputField
           fullWidth
           label='Password'
@@ -50,11 +56,13 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <DialogActions>
           <Button style={{ margin: '1rem auto 0 auto' }} variant='contained' onClick={() => handleLogin()}>
             Login
           </Button>
         </DialogActions>
+
       </DialogContent>
     </Dialog>
   );

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
@@ -22,9 +23,9 @@ const actions = [
       alert(1);
     },
   },
-  { icon: <SaveIcon />, name: 'Save', onClick: () => {} },
-  { icon: <PrintIcon />, name: 'Print', onClick: () => {} },
-  { icon: <ShareIcon />, name: 'Share', onClick: () => {} },
+  { icon: <SaveIcon />, name: 'Save', onClick: () => { } },
+  { icon: <PrintIcon />, name: 'Print', onClick: () => { } },
+  { icon: <ShareIcon />, name: 'Share', onClick: () => { } },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page2 = (props) => {
+
   const classes = useStyles();
   const theme = useTheme();
   const { questions, handleQuestionsChange } = props;

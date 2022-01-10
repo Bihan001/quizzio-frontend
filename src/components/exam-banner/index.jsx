@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
-import { Grid, Typography, Paper, Input, Box, Button, collapseClasses, } from '@mui/material';
+import { Box, } from '@mui/material';
 
 const ExamBanner = ({ data }) => {
 
@@ -15,11 +15,10 @@ const ExamBanner = ({ data }) => {
         onMouseEnter={() => setCardHover(true)}
         onMouseLeave={() => setCardHover(false)}
         style={
-          cardHover
-            ? {
-              backgroundImage: `linear-gradient(rgba(28, 40, 51,.5), rgba(28, 40, 51,.5)),url(${data.image})`,
-              color: 'white',
-            }
+          cardHover ? {
+            backgroundImage: `linear-gradient(rgba(28, 40, 51,.5), rgba(28, 40, 51,.5)),url(${data.image})`,
+            color: 'white',
+          }
             : {
               backgroundImage: `linear-gradient(rgba(28, 40, 51,.2), rgba(28, 40, 51,.2)),url(${data.image})`,
             }
