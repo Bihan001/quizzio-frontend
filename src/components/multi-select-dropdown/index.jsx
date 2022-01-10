@@ -16,7 +16,7 @@ const getStyles = (opt, value, theme) => {
 };
 
 const MultiSelect = (props) => {
-  const { name, value, onChange, options, label, placeholder = '', required, style, disabled, labelStyle, labelClassName } = props;
+  const { name, value, onChange, options = [], label, placeholder = '', required, style, disabled, labelStyle, labelClassName } = props;
   const theme = useTheme();
 
   return (

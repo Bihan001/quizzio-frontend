@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Stepper, Step, StepButton } from '@mui/material';
-import { submitNewExamData } from 'api/exam';
 import Page1 from './page1';
 import Page2 from './page2';
 import Page3 from './page3';
 import { createExam } from 'api/exam';
+import { uploadImages } from 'api/utils';
 // import { makeStyles, useTheme } from '@mui/styles';
 
 const steps = ['Exam Details', 'Questions', 'Preview'];
@@ -27,10 +27,9 @@ const ExamCreation = () => {
   const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
   const [examDetails, setExamDetails] = useState({
-    name: 'demoExam',
+    name: '',
     description: ' ',
     isPrivate: false,
-    startDate: new Date(),
     startTime: null,
     endTime: null,
     image: ' ',
@@ -60,16 +59,29 @@ const ExamCreation = () => {
     try {
       const examData = JSON.parse(JSON.stringify(examDetails));
       examData.questions = questions;
-      examData.startTime = +combineDateAndTime(examData.startDate, examData.startTime);
-      examData.endTime = +combineDateAndTime(examData.startDate, examData.endTime);
       examData.duration = +new Date(examData.endTime) - +new Date(examData.startTime);
-      delete examData.startDate;
+      examData.startTime = +new Date(examData.startTime);
       delete examData.endTime;
+      examData.image = await handleUploadBannerImage();
+      console.log(examData.image);
       const res = await createExam(examData);
       console.log('Exam data is : ', examData, ' res is : ', res);
       history.push('/');
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleUploadBannerImage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('image', examDetails.image);
+      const res = await uploadImages(formData);
+      console.log(res);
+      return res.data.data[0].url;
+    } catch (err) {
+      console.error(err);
+      return ' ';
     }
   };
 

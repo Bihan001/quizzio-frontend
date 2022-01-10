@@ -29,6 +29,7 @@ const FileUploadField = ({
   actionBtnText = '',
   accept = 'image/*',
   uploadIcon = <PhotoCamera />,
+  uploadDisabled = false,
   actionOnClick = () => {},
 }) => {
   return (
@@ -48,7 +49,6 @@ const FileUploadField = ({
           size='small'
           variant={variant || 'outlined'}
           placeholder={placeholder}
-          onChange={onChange}
           rows={row}
           rowsMax={rowMax}
           multiline={multiline}
@@ -59,8 +59,8 @@ const FileUploadField = ({
             endAdornment: (
               <InputAdornment position='end'>
                 <label>
-                  <Input accept={accept} type='file' />
-                  <IconButton color='primary' component='span' style={{ marginRight: -11 }}>
+                  <Input accept={accept} type='file' onChange={onChange} />
+                  <IconButton disabled={uploadDisabled} color='primary' component='span' style={{ marginRight: -11 }}>
                     {uploadIcon}
                   </IconButton>
                 </label>

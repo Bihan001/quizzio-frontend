@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Grid, Typography, Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -12,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MCQ = (props) => {
-
   const classes = useStyles();
   const { currentQuestion, setCurrentQuestion } = props;
 
@@ -21,7 +19,7 @@ const MCQ = (props) => {
 
   const addNewOption = () => {
     if (!newOption || !newOption.trim()) return;
-    setCurrentQuestion((q) => ({ ...q, options: [...q.options, { id: Date.now(), data: newOption }] }));
+    setCurrentQuestion((q) => ({ ...q, options: [...q.options, { id: q.options.length + 1 || 1, data: newOption }] }));
     setNewOption('');
   };
 

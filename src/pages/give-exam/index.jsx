@@ -43,9 +43,14 @@ const GiveExam = () => {
   };
 
   const getExamData = async () => {
-    const res = await startExam(examId);
-    if (res) setExamData(res.data.data);
-    else console.log('Error occured !', res);
+    try {
+      const res = await startExam(examId);
+      if (res) setExamData(res.data.data);
+      else console.log('Error occured !', res);
+    } catch (err) {
+      console.error(err);
+      history.push(`/exam/${examId}`);
+    }
   };
 
   const handleQAnswer = (qId, ans) => {
