@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { DialogActions, DialogContent, DialogTitle, Dialog } from 'components/dialog';
 import { dialogNames, hideVisibility, enableVisibility } from 'redux/slices/dialog-visibility';
 import { Grid, Button } from '@mui/material';
+import { makeStyles, useTheme } from '@mui/styles';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
 import DropdownField from 'components/dropdown-field';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import './a.css';
 
 import { registerNewUser } from 'api/user';
 import { setUserAndToken } from 'redux/slices/auth';
@@ -19,8 +21,18 @@ const genders = [
   { label: 'Other', value: 'other' },
 ];
 
+
+const useStyles = makeStyles((theme) => ({
+  MaxWidth: {
+    maxWidth: '600px !important',
+  },
+
+}));
+
+
 const Register = () => {
 
+  const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [newUserData, setNewUserData] = useState({
     name: '',
@@ -60,11 +72,13 @@ const Register = () => {
   };
 
   return (
-    <Dialog open={registerVisibility} handleClose={handleClose} maxWidth='xs' style={{ padding: '3rem' }}>
+    <Dialog open={registerVisibility} handleClose={handleClose} maxWidth='xs' style={{ padding: '3rem' }}   >
+
       <DialogTitle>Register</DialogTitle>
-      <DialogContent>
+
+      <DialogContent  >
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }}>
             <TextInputField
               name='name'
               label='Name'
@@ -74,7 +88,7 @@ const Register = () => {
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <TextInputField
               name='email'
               label='Email'
@@ -84,7 +98,7 @@ const Register = () => {
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <TextInputField
               name='password'
               type={showPassword ? 'text' : 'password'}
@@ -97,7 +111,7 @@ const Register = () => {
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <TextInputField
               name='phoneNumber'
               label='Phone Number'
@@ -107,7 +121,7 @@ const Register = () => {
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <DatePicker
               fullWidth
               label='Date of Birth'
@@ -116,7 +130,7 @@ const Register = () => {
               onChange={(newDate) => handleDataChange('dob', newDate)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <TextInputField
               name='address'
               label='Address'
@@ -126,7 +140,7 @@ const Register = () => {
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <TextInputField
               name='institution'
               label='Institute'
@@ -136,7 +150,7 @@ const Register = () => {
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <DropdownField
               label='Gender'
               fullWidth
@@ -146,12 +160,12 @@ const Register = () => {
               onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5} style={{ margin: "auto" }} >
             <TextInputField
               name='bio'
               label='Bio'
               multiline
-              row={2}
+              row={3}
               placeholder='About you'
               fullWidth
               value={newUserData.bio}
