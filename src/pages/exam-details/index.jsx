@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
@@ -31,7 +30,6 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
-
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -61,7 +59,6 @@ const Exam_Details = () => {
     console.log(duration, dd);
     setRemainingTime({ days: dd.days, hours: dd.hours, minutes: dd.minutes, seconds: dd.seconds });
   }, [examData.startTime]);
-
 
   useEffect(() => {
     if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null) {
@@ -95,7 +92,6 @@ const Exam_Details = () => {
       clearInterval(timerInterval);
     };
   }, [remainingTime]);
-
 
   // -------------------------------------
   //      FETCH ALL EXAMS DATA
@@ -208,10 +204,12 @@ const Exam_Details = () => {
       return null;
     const startTime = new Date(examData.startTime);
     const endTime = new Date(+startTime + examData.duration);
-    const remain =
-      remainingTime.days * 86400000 - remainingTime.hours * 3600000 - remainingTime.minutes * 60000 - remainingTime.seconds * 1000;
+    const remain = Math.abs(
+      remainingTime.days * 86400000 - remainingTime.hours * 3600000 - remainingTime.minutes * 60000 - remainingTime.seconds * 1000
+    );
     // If days,hours,minutes,seconds are zeros, then remain = 0, and startTime - remain = 0, so currentTime should be Date.now()
     const currentTime = remain === 0 ? Date.now() : +startTime - remain;
+    console.log(remain, currentTime, +startTime, +endTime);
     if (currentTime < startTime) {
       // before exam
       if (!user) {
@@ -269,8 +267,6 @@ const Exam_Details = () => {
     return duration;
   };
 
-
-
   return (
     <>
       {/* -----------     Banner    ----------- */}
@@ -282,10 +278,8 @@ const Exam_Details = () => {
         />
       </section>
 
-
       <Container maxWidth='xl'>
         <div style={{ display: 'flex' }}>
-
           <img src={examData.user?.image} className={classes.dp} />
 
           <div style={{ marginLeft: '3rem', width: '100%' }}>
@@ -293,7 +287,7 @@ const Exam_Details = () => {
               <Typography variant='h4' fontSize='3rem'>
                 {examData.name !== null ? examData.name : '-'}
               </Typography>
-              <Typography variant='p'>By:  {examData.user?.name}</Typography>
+              <Typography variant='p'>By: {examData.user?.name}</Typography>
             </div>
 
 
@@ -316,7 +310,6 @@ const Exam_Details = () => {
                 />
               </div>
 
-
               {/*-------------------------------------------------- */}
               {/*             EXAM  TIME  DISPLAY  CARD             */}
               {/*-------------------------------------------------- */}
@@ -331,12 +324,9 @@ const Exam_Details = () => {
                 {/* Timer Part */}
                 <JoinRegisterSection />
               </Paper>
-
             </div>
           </div>
         </div>
-
-
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
