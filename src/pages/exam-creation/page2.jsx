@@ -75,7 +75,7 @@ const Page2 = (props) => {
 
   const addNewQuestion = () => {
     setCurrentQuestion({
-      id: Date.now(),
+      id: questions.length,
       type: 'mcq',
       question: '',
       options: [],
