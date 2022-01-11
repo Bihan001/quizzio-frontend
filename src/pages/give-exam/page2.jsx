@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Typography, Button, Paper, Grid } from '@mui/material';
 import { makeStyles, useTheme } from '@mui/styles';
@@ -28,26 +29,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page2 = (props) => {
+
   const {
     questions = [],
     answerObj = {},
-    handleQAnswer = () => {},
+    handleQAnswer = () => { },
     questionsStatus = {},
-    handleQStatus = () => {},
-    handleEndExam = () => {},
+    handleQStatus = () => { },
+    handleEndExam = () => { },
     remainingTime = {},
   } = props;
+
   const classes = useStyles();
   const theme = useTheme();
-
   const [currentQuestion, setCurrentQuestion] = useState({});
+  const paperHeight = 'calc(100vh - 20rem)';
+  const questionHeight = 'calc(100vh - 35rem)';
+  const QuestionStatement = DomPurify.sanitize(currentQuestion.question);
+
 
   useEffect(() => {
     if (questions.length > 0) {
+      console.log("questions :: ", questions);
       setCurrentQuestion(questions[0]);
     }
   }, [questions]);
 
+
+  // --------------------------------------------
+  // FUnction for the Question Number Bubble  (returns the color)
+  // --------------------------------------------
   const getBubbleBackground = (qId) => {
     const status = questionsStatus[qId];
     if (!status || status === qStatus.notAttempted)
@@ -56,13 +67,10 @@ const Page2 = (props) => {
     if (status === qStatus.review) return theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.main;
   };
 
-  const paperHeight = 'calc(100vh - 20rem)';
-  const questionHeight = 'calc(100vh - 35rem)';
-
-  const cleanQuestion = DomPurify.sanitize(currentQuestion.question);
 
   return (
     <>
+      {/* ====================     TIMER COMPONENT     ==================== */}
       <Paper elevation={0} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '5rem' }}>
         <Typography variant='h5'>
           Time Remaining:{' '}
@@ -72,6 +80,8 @@ const Page2 = (props) => {
           End Exam
         </Button>
       </Paper>
+
+
       <Grid container spacing={5}>
         <Grid item xs={12} md={8}>
           <Paper elevation={2} style={{ height: paperHeight, padding: '5rem' }}>
@@ -79,8 +89,11 @@ const Page2 = (props) => {
               <Typography variant='p' marginRight={'3rem'}>{`Marks: ${3}`}</Typography>
               <Typography variant='p'>{`Negative Marks: ${1}`}</Typography>
             </div>
+
+
+            {/* ====================     MAIN QUESTION BODY    ==================== */}
             <div style={{ height: questionHeight, overflowY: 'auto' }}>
-              <div dangerouslySetInnerHTML={{ __html: cleanQuestion }} />
+              <div dangerouslySetInnerHTML={{ __html: QuestionStatement }} />
               <div style={{ marginTop: '2rem' }}>
                 {currentQuestion.type === 'multipleOptions' && (
                   <MCQMultiple
@@ -90,6 +103,7 @@ const Page2 = (props) => {
                     answer={answerObj[currentQuestion.id]?.answer}
                   />
                 )}
+
                 {currentQuestion.type === 'mcq' && (
                   <MCQSingle
                     options={currentQuestion.options}
@@ -98,6 +112,7 @@ const Page2 = (props) => {
                     answer={answerObj[currentQuestion.id]?.answer}
                   />
                 )}
+
                 {currentQuestion.type === 'fillInTheBlanks' && (
                   <FillBlanks
                     handleQAnswer={handleQAnswer}
@@ -107,6 +122,9 @@ const Page2 = (props) => {
                 )}
               </div>
             </div>
+
+
+            {/* ====================     SEVERAL BUTTONS    ==================== */}
             <div style={{ display: 'flex', paddingTop: '1rem' }}>
               <Button
                 variant='contained'
@@ -144,8 +162,11 @@ const Page2 = (props) => {
                 Clear
               </Button>
             </div>
+
           </Paper>
         </Grid>
+
+
         <Grid item xs={12} md={4}>
           <Paper elevation={2} style={{ height: paperHeight, padding: '5rem', overflowY: 'auto' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -153,6 +174,9 @@ const Page2 = (props) => {
                 <Button
                   className={classes.bubble}
                   variant='contained'
+                  // Set the current Ques from here
+                  // Trigger its corresponding STATE 
+                  // Render the JSX again.
                   onClick={() => setCurrentQuestion(q)}
                   style={{
                     background: getBubbleBackground(q.id),

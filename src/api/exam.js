@@ -56,6 +56,7 @@ export const getQuestionTypes = () => {
   return axios.get('/exam/question-types');
 };
 
+// Dummy Data
 export const getExamResult = (examId) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

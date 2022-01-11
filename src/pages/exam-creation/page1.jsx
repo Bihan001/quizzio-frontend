@@ -11,6 +11,7 @@ import { getExamTags, getExamTypes } from 'api/exam';
 import { csvToJSON } from 'utilities/functions';
 
 const Page1 = (props) => {
+
   const { examDetails, handleDetailsChange } = props;
   const [selectedTags, setSelectedTags] = useState([]);
   const [tags, setTags] = useState([]);

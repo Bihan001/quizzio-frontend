@@ -195,7 +195,6 @@ const Exam_Details = () => {
     );
   };
 
-
   const JoinRegisterSection = () => {
 
     if (!examData.startTime) return null;
@@ -282,7 +281,7 @@ const Exam_Details = () => {
       {/* -----------     Banner    ----------- */}
       <div
         style={{
-          height: '45rem',
+          height: '40rem',
           overflow: 'hidden',
           backgroundImage: `url(${examData.image})`,
           backgroundSize: 'cover',

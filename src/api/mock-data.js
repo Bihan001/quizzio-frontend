@@ -1,3 +1,4 @@
+
 export const examFetchedData = {
   success: true,
   status: 'success',
@@ -16,11 +17,11 @@ export const examFetchedData = {
         options: [
           {
             id: 1,
-            data: 'u',
+            data: 'uUUUUUUUUUUU',
           },
           {
             id: 0,
-            data: 'v',
+            data: 'VVVVVVVVVVVVVVVVVVVv',
           },
         ],
         type: 'multipleOptions',

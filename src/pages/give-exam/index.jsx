@@ -37,6 +37,7 @@ const GiveExam = () => {
     getExamData();
   }, []);
 
+
   useEffect(() => {
     if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null) {
       return;
@@ -69,6 +70,7 @@ const GiveExam = () => {
       clearInterval(timerInterval);
     };
   }, [remainingTime]);
+
 
   const EnterFullScreen = () => {
     documentElement
@@ -140,22 +142,26 @@ const GiveExam = () => {
     <div style={{ width: '100%', height: '100vh' }}>
       {false && !isFullScreen ? (
         <RequestFullScreen EnterFullScreen={EnterFullScreen} />
-      ) : (
-        <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
-          {page === 1 && <Page1 handlePageNext={handleViewQuestions} examData={examData} />}
-          {page === 2 && (
-            <Page2
-              questions={questions}
-              answerObj={answer}
-              handleQAnswer={handleQAnswer}
-              questionsStatus={questionsStatus}
-              handleQStatus={handleQStatus}
-              handleEndExam={handleEndExam}
-              remainingTime={remainingTime}
-            />
-          )}
-        </Container>
-      )}
+      )
+
+        :
+
+        (
+          <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
+            {page === 1 && <Page1 handlePageNext={handleViewQuestions} examData={examData} />}
+            {page === 2 && (
+              <Page2
+                questions={questions}
+                answerObj={answer}
+                handleQAnswer={handleQAnswer}
+                questionsStatus={questionsStatus}
+                handleQStatus={handleQStatus}
+                handleEndExam={handleEndExam}
+                remainingTime={remainingTime}
+              />
+            )}
+          </Container>
+        )}
     </div>
   );
 };
