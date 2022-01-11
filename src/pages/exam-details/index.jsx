@@ -7,6 +7,7 @@ import About from './tab-content/about';
 import useStyles from './styles';
 import { getExamDetails, registerInExam, getUserExamRegisterStatus } from 'api/exam';
 import DomPurify from 'dompurify';
+import { getUnitsFromDuration } from 'utilities/functions';
 
 let timerInterval;
 
@@ -101,18 +102,6 @@ const Exam_Details = () => {
     checkRegisterStatus();
     window.scrollTo(0, 0);
   }, []);
-
-  const getUnitsFromDuration = (duration) => {
-    duration = duration / 1000;
-    const days = Math.floor(duration / 86400);
-    duration -= days * 86400;
-    const hours = Math.floor(duration / 3600) % 24;
-    duration -= hours * 3600;
-    const minutes = Math.floor(duration / 60) % 60;
-    duration -= minutes * 60;
-    const seconds = Math.floor(duration % 60);
-    return { days, hours, minutes, seconds };
-  };
 
   const checkRegisterStatus = async () => {
     try {
