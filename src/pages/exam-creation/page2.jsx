@@ -110,7 +110,7 @@ const Page2 = (props) => {
                 placeholder={2}
                 required
                 value={currentQuestion.marks}
-                onChange={(e) => setCurrentQuestion((q) => ({ ...q, marks: e.target.value }))}
+                onChange={(e) => setCurrentQuestion((q) => ({ ...q, marks: +e.target.value < 0 ? 0 : +e.target.value }))}
               />
             </Grid>
             <Grid item lg={4}>
@@ -121,7 +121,7 @@ const Page2 = (props) => {
                 placeholder={1}
                 required
                 value={currentQuestion.negMarks}
-                onChange={(e) => setCurrentQuestion((q) => ({ ...q, negMarks: e.target.value }))}
+                onChange={(e) => setCurrentQuestion((q) => ({ ...q, negMarks: +e.target.value < 0 ? 0 : +e.target.value }))}
               />
             </Grid>
           </Grid>

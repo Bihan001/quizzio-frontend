@@ -53,8 +53,17 @@ const GiveExam = () => {
     }
   };
 
+  const getQuestionFromId = (id) => {
+    return questions.find((q) => q.id === id);
+  };
+
+  const getQuestionType = (q) => {
+    if (q) return q.type;
+    return '';
+  };
+
   const handleQAnswer = (qId, ans) => {
-    setAnswer((a) => ({ ...a, [qId]: ans }));
+    setAnswer((a) => ({ ...a, [qId]: { type: getQuestionType(getQuestionFromId(qId)), answer: ans } }));
   };
 
   const handleQStatus = (qId, status) => {

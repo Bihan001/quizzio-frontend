@@ -1,10 +1,10 @@
-
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
   banner: {
     width: '100%',
     objectFit: 'cover',
+    objectPosition: 'center',
   },
   dp: {
     position: 'relative',

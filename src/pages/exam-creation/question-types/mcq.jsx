@@ -26,7 +26,7 @@ const MCQ = (props) => {
   const addCorrectOption = () => {
     if (!newCorrectOption || !newCorrectOption.trim()) return;
     if (currentQuestion.type === 'mcq' && currentQuestion.correctOption?.length >= 1) return;
-    setCurrentQuestion((q) => ({ ...q, correctOption: [...q.correctOption, newCorrectOption] }));
+    setCurrentQuestion((q) => ({ ...q, correctOption: [...q.correctOption, +newCorrectOption] }));
     setNewCorrectOption('');
   };
 

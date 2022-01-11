@@ -78,7 +78,7 @@ const ExamCreation = () => {
       formData.append('image', examDetails.image);
       const res = await uploadImages(formData);
       console.log(res);
-      return res.data.data[0].url;
+      return res.data.data.urls[0].url;
     } catch (err) {
       console.error(err);
       return ' ';

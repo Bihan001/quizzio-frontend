@@ -99,6 +99,7 @@ const Exam_Details = () => {
   useEffect(async () => {
     fetchExamDetails();
     checkRegisterStatus();
+    window.scrollTo(0, 0);
   }, []);
 
   const getUnitsFromDuration = (duration) => {
@@ -209,7 +210,6 @@ const Exam_Details = () => {
     );
     // If days,hours,minutes,seconds are zeros, then remain = 0, and startTime - remain = 0, so currentTime should be Date.now()
     const currentTime = remain === 0 ? Date.now() : +startTime - remain;
-    console.log(remain, currentTime, +startTime, +endTime);
     if (currentTime < startTime) {
       // before exam
       if (!user) {
@@ -230,7 +230,7 @@ const Exam_Details = () => {
         } else {
           return (
             <>
-              {getTypography('You have already registered')}
+              {getTypography('You have registered')}
               <CountdownTimer />
             </>
           );
@@ -248,7 +248,7 @@ const Exam_Details = () => {
       }
     } else if (currentTime >= endTime) {
       // after exam
-      return getTypography('!! Exam has ended !! ', { color: "crimson", fontWeight: "900" });
+      return getTypography('Exam has ended', { color: 'crimson', fontWeight: '900' });
     }
   };
 
@@ -279,9 +279,9 @@ const Exam_Details = () => {
   return (
     <>
       {/* -----------     Banner    ----------- */}
-      <section style={{ maxHeight: '45rem' }}>
+      <section style={{ height: '45rem', overflow: 'hidden' }}>
         <img
-          src='https://media-fastly.hackerearth.com/media/hackathon/bial-superapp-hackathon/images/7c1ad88a32-new_cover_2.png'
+          src={examData.image}
           // src={examData.image}
           className={classes.banner}
         />
@@ -289,7 +289,6 @@ const Exam_Details = () => {
 
       <Container maxWidth='xl'>
         <div style={{ display: 'flex' }}>
-
           <img src={examData.user?.image} className={classes.dp} />
 
           <div style={{ marginLeft: '3rem', width: '100%' }}>
@@ -297,23 +296,19 @@ const Exam_Details = () => {
               <Typography variant='h4' fontSize='3rem'>
                 {examData.name !== null ? examData.name : '-'}
               </Typography>
-              <Typography variant='p' style={{ fontWeight: '500' }}  > Contributor : {examData.user?.name}</Typography>
+              <Typography variant='p' style={{ fontWeight: '500' }}>
+                {' '}
+                Contributor : {examData.user?.name}
+              </Typography>
             </div>
-
 
             <div style={{ display: 'flex' }}>
               {/*-------------------------------------------------- */}
               {/*                INFORMATION                        */}
               {/*-------------------------------------------------- */}
               <div className={classes.examInfo}>
-                <TextPair
-                  heading='Exam Type'
-                  value={examData.isPrivate ? 'Private' : 'Public'}
-                />
-                <TextPair
-                  heading='starts on'
-                  value={new Date(examData.startTime).toDateString() || '-'}
-                />
+                <TextPair heading='Exam Type' value={examData.isPrivate ? 'Private' : 'Public'} />
+                <TextPair heading='starts on' value={new Date(examData.startTime).toDateString() || '-'} />
                 <TextPair
                   heading='Number of Participants'
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}

@@ -83,7 +83,7 @@ const Page2 = (props) => {
                     options={currentQuestion.options}
                     handleQAnswer={handleQAnswer}
                     questionId={currentQuestion.id}
-                    answer={answerObj[currentQuestion.id]}
+                    answer={answerObj[currentQuestion.id]?.answer}
                   />
                 )}
                 {currentQuestion.type === 'mcq' && (
@@ -91,11 +91,15 @@ const Page2 = (props) => {
                     options={currentQuestion.options}
                     handleQAnswer={handleQAnswer}
                     questionId={currentQuestion.id}
-                    answer={answerObj[currentQuestion.id]}
+                    answer={answerObj[currentQuestion.id]?.answer}
                   />
                 )}
                 {currentQuestion.type === 'fillInTheBlanks' && (
-                  <FillBlanks handleQAnswer={handleQAnswer} questionId={currentQuestion.id} answer={answerObj[currentQuestion.id]} />
+                  <FillBlanks
+                    handleQAnswer={handleQAnswer}
+                    questionId={currentQuestion.id}
+                    answer={answerObj[currentQuestion.id]?.answer}
+                  />
                 )}
               </div>
             </div>
