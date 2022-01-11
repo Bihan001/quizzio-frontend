@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { makeStyles, useTheme } from '@mui/styles';
 import { getExamResult } from 'api/exam';
-import MCQSingle from 'pages/give-exam/question-options/mcq-single';
-import MCQMultiple from 'pages/give-exam/question-options/mcq-multiple';
-import FillBlanks from 'pages/give-exam/question-options/fill-blanks';
+import MCQSingle from './questionType-result/mcq-single';
+import MCQMultiple from './questionType-result/mcq-multiple';
+import FillBlanks from './questionType-result/fill-blanks';
 import DomPurify from 'dompurify';
 
 
@@ -85,17 +85,17 @@ const Result = (props) => {
                                 {ques.type === 'mcq' && (
                                     <MCQSingle
                                         options={ques.options}
-                                        // handleQAnswer={handleQAnswer}
+                                        correctAnswer={ques.correctOption}
                                         questionId={ques.id}
-                                        answer={ques.givenOption}
+                                        userAnswer={ques.givenOption}
                                     />
                                 )}
 
                                 {ques.type === 'fillInTheBlanks' && (
                                     <FillBlanks
-                                        // handleQAnswer={handleQAnswer}
+                                        correctAnswer={ques.correctOption}
                                         questionId={ques.id}
-                                        answer={ques.givenOption}
+                                        userAnswer={ques.givenOption}
                                     />
                                 )}
                             </div>

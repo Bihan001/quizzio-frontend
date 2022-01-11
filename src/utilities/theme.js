@@ -36,7 +36,7 @@ const getDesignTokens = (mode) => ({
         },
         divider: PRIMARY_COLOR,
         background: {
-          default: '#f9f9f9',
+          default: '#fff',
         },
       }
 
