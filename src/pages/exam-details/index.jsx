@@ -262,7 +262,7 @@ const Exam_Details = () => {
 
   const getExamDurationFormatted = () => {
     if (!examData.duration) return null;
-    const { days, hours, minutes } = getUnitsFromDuration(examData.duration);
+    const { days, hours, minutes, seconds } = getUnitsFromDuration(examData.duration);
     let duration = '';
     if (days > 0) {
       duration += days === 1 ? `${days} day ` : `${days} days `;
@@ -273,19 +273,25 @@ const Exam_Details = () => {
     if (minutes > 0) {
       duration += minutes === 1 ? `${minutes} minute ` : `${minutes} minutes `;
     }
+    if (seconds > 0) {
+      duration += seconds === 1 ? `${seconds} second ` : `${seconds} seconds `;
+    }
     return duration;
   };
 
   return (
     <>
       {/* -----------     Banner    ----------- */}
-      <section style={{ height: '45rem', overflow: 'hidden' }}>
-        <img
-          src={examData.image}
-          // src={examData.image}
-          className={classes.banner}
-        />
-      </section>
+      <div
+        style={{
+          height: '45rem',
+          overflow: 'hidden',
+          backgroundImage: `url(${examData.image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      ></div>
 
       <Container maxWidth='xl'>
         <div style={{ display: 'flex' }}>
