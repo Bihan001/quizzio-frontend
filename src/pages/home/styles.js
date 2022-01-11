@@ -24,7 +24,8 @@ export default makeStyles((theme) => ({
     border: '0px solid red',
     margin: '1rem auto',
     fontWeight: '600',
-    color: theme.palette.grey[600],
+    // color: theme.palette.grey[600],
+    color: theme.palette.primary.main,
   },
   carouselSection: {
     padding: '4rem',
