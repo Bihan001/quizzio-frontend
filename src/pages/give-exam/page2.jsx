@@ -35,6 +35,7 @@ const Page2 = (props) => {
     questionsStatus = {},
     handleQStatus = () => {},
     handleEndExam = () => {},
+    remainingTime = {},
   } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -63,7 +64,10 @@ const Page2 = (props) => {
   return (
     <>
       <Paper elevation={0} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '5rem' }}>
-        <Typography variant='h5'>Time Remaining: </Typography>
+        <Typography variant='h5'>
+          Time Remaining:{' '}
+          {`${remainingTime.days} days ${remainingTime.hours} hours ${remainingTime.minutes} minutes ${remainingTime.seconds} seconds`}
+        </Typography>
         <Button variant='contained' color='error' onClick={() => handleEndExam()}>
           End Exam
         </Button>
