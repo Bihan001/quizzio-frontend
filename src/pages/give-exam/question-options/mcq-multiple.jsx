@@ -18,7 +18,12 @@ const MCQMultiple = (props) => {
     <FormGroup>
       {options.map((o) => (
         <FormControlLabel
-          control={<Checkbox checked={!!answer ? answer.includes(o.id) : false} onChange={(e) => handleOptionChange(e, o.id)} />}
+          control={
+            <Checkbox
+              checked={!!answer ? answer.includes(o.id) : false}
+              onChange={(e) => handleOptionChange(e, o.id)}
+            />
+          }
           label={o.data}
         />
       ))}

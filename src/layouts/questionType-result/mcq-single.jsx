@@ -24,7 +24,7 @@ const MCQSingle = (props) => {
         Your Answer
       </Typography>
 
-      <FormControl component='fieldset'>
+      <FormControl component='fieldset' style={{ width: '46%' }} >
         <RadioGroup value={userAnswer ? userAnswer[0] : null} >
           {options.map((o) => (
             <FormControlLabel

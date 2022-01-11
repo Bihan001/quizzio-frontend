@@ -76,9 +76,9 @@ const Result = (props) => {
                                 {ques.type === 'multipleOptions' && (
                                     <MCQMultiple
                                         options={ques.options}
-                                        // handleQAnswer={handleQAnswer}
                                         questionId={ques.id}
-                                        answer={ques.givenOption}
+                                        correctAnswer={ques.correctOption}
+                                        userAnswer={ques.givenOption}
                                     />
                                 )}
 

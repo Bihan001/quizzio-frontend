@@ -1,12 +1,22 @@
 
 import TextInputField from 'components/text-input-field';
 import { Typography, Alert, AlertTitle } from '@mui/material/';
-import { useTheme } from '@mui/styles';
+import { useTheme, makeStyles } from '@mui/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+  incorrectText: {
+    textFillColor: "crimson !important",
+    fontWeight: 500,
+    color: 'crimson',
+  },
+}));
 
 const FillBlanks = (props) => {
 
   const { questionId, userAnswer, correctAnswer } = props;
   const theme = useTheme();
+  const classes = useStyles();
 
   return (
     <>
@@ -20,12 +30,12 @@ const FillBlanks = (props) => {
         value={userAnswer || ''}
         variant='standard'
         disabled={true}
-        // onChange={(e) => handleQAnswer(questionId, e.target.value)}
-        style={{ width: "36rem" }}
+        style={{ width: "36rem", }}
+        className={classes.incorrectText}
       />
 
       {correctAnswer !== userAnswer &&
-        (<Alert severity="success" style={{ marginTop: "2rem" }}>
+        (<Alert severity="success" style={{ marginTop: "2rem", width: "46%" }}>
           <AlertTitle> Correct Answer :  {correctAnswer} </AlertTitle>
         </Alert>
         )}

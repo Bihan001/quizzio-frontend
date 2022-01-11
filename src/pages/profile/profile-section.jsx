@@ -76,7 +76,9 @@ const Profile = () => {
     <>
       {/* -----------------------------        EDIT PROFILE MODAL PART         ---------------------------------------------- */}
       <Dialog open={editDialogOpen} handleClose={handleEditDialogClose} maxWidth='xs' style={{ padding: '3rem' }}>
-        <DialogTitle>Edit Profile</DialogTitle>
+
+        <DialogTitle style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: 'bold' }} > Edit Profile </DialogTitle>
+
         <DialogContent>
           <Grid container spacing={1}>
             <Grid item xs={12} lg={12} md={12}>
@@ -129,7 +131,7 @@ const Profile = () => {
               md={12}
               style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-evenly', width: '100%' }}
             >
-              <Button onClick={() => handleEditDialogClose()} variant='outlined'>
+              <Button onClick={() => handleEditDialogClose()} variant='outlined' color='error' >
                 Cancel
               </Button>
               <Button variant='contained'>Save</Button>
@@ -181,40 +183,40 @@ const Profile = () => {
         </Typography>
 
         <Grid container spacing={2} style={{ marginTop: '1rem' }} direction='row' alignItems='center'>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleKey}>Bio:</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleValue}>{user.bio}</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleKey}>Gender:</Typography>
           </Grid>
-          <Grid item md={6}>
-            <Typography className={classes.subTitleValue}>{user.gender}</Typography>
+          <Grid item md={6} lg={6}>
+            <Typography className={classes.subTitleValue} style={{ textTransform: "capitalize" }}> {user.gender} </Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleKey}>School/College:</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleValue}>{user.institution}</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleKey}>Phone:</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleValue}>{user.phoneNumber}</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleKey}>Date of Birth:</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleValue}>{new Date(user.dob)?.toDateString()}</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleKey}>Address:</Typography>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} lg={6}>
             <Typography className={classes.subTitleValue}>{user.address}</Typography>
           </Grid>
         </Grid>

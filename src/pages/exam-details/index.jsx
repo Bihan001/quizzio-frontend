@@ -296,7 +296,7 @@ const Exam_Details = () => {
 
           <div style={{ marginLeft: '3rem', width: '100%' }}>
             <div style={{ padding: '1rem 0rem 3rem 0rem' }}>
-              <Typography variant='h4' fontSize='3rem'>
+              <Typography variant='h4' fontWeight="500" fontSize='3rem'>
                 {examData.name !== null ? examData.name : '-'}
               </Typography>
               <Typography variant='p' style={{ fontWeight: '500' }}>
@@ -355,11 +355,11 @@ const Exam_Details = () => {
             <Tab label="FAQ's" {...a11yProps(3)} />
             <Tab label='Discussions' {...a11yProps(4)} />
           </Tabs>
-          <TabPanel value={value} index={0}>
+          <TabPanel value={value} index={0} style={{ width: '100%' }}>
             <About content={cleanDescription} />
           </TabPanel>
 
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={1} style={{ width: '100%' }} >
             <Result content={cleanDescription} />
           </TabPanel>
 

@@ -21,7 +21,6 @@ const genders = [
   { label: 'Other', value: 'other' },
 ];
 
-
 const useStyles = makeStyles((theme) => ({
   MaxWidth: {
     maxWidth: '600px !important',
