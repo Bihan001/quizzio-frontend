@@ -1,3 +1,4 @@
+
 export const csvToJSON = (csv) => {
   let lines = csv.split('\n');
   let result = [];

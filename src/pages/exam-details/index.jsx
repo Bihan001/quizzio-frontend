@@ -1,13 +1,16 @@
+
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import About from './tab-content/about';
 import useStyles from './styles';
 import { getExamDetails, registerInExam, getUserExamRegisterStatus } from 'api/exam';
 import DomPurify from 'dompurify';
 import { getUnitsFromDuration } from 'utilities/functions';
+import About from './tab-content/about';
+import Result from 'layouts/result';
+
 
 let timerInterval;
 
@@ -31,6 +34,7 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
+
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -94,6 +98,7 @@ const Exam_Details = () => {
     };
   }, [remainingTime]);
 
+
   // -------------------------------------
   //      FETCH ALL EXAMS DATA
   // -------------------------------------
@@ -102,6 +107,7 @@ const Exam_Details = () => {
     checkRegisterStatus();
     window.scrollTo(0, 0);
   }, []);
+
 
   const checkRegisterStatus = async () => {
     try {
@@ -174,6 +180,7 @@ const Exam_Details = () => {
     );
   };
 
+
   const getButton = (text = '', type = '') => {
     return (
       <Button
@@ -188,7 +195,9 @@ const Exam_Details = () => {
     );
   };
 
+
   const JoinRegisterSection = () => {
+
     if (!examData.startTime) return null;
     if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null)
       return null;
@@ -293,7 +302,7 @@ const Exam_Details = () => {
               </Typography>
               <Typography variant='p' style={{ fontWeight: '500' }}>
                 {' '}
-                Contributor : {examData.user?.name}
+                Author : {examData.user?.name}
               </Typography>
             </div>
 
@@ -309,6 +318,7 @@ const Exam_Details = () => {
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
                 />
               </div>
+
 
               {/*-------------------------------------------------- */}
               {/*             EXAM  TIME  DISPLAY  CARD             */}
@@ -327,6 +337,7 @@ const Exam_Details = () => {
             </div>
           </div>
         </div>
+
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
@@ -348,18 +359,23 @@ const Exam_Details = () => {
           <TabPanel value={value} index={0}>
             <About content={cleanDescription} />
           </TabPanel>
+
           <TabPanel value={value} index={1}>
-            Rules
+            <Result content={cleanDescription} />
           </TabPanel>
+
           <TabPanel value={value} index={2}>
             Teams
           </TabPanel>
+
           <TabPanel value={value} index={3}>
             FAQ's
           </TabPanel>
+
           <TabPanel value={value} index={4}>
             Discussions
           </TabPanel>
+
         </div>
       </Container>
     </>
