@@ -138,7 +138,7 @@ const GiveExam = () => {
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>
-      {!isFullScreen ? (
+      {false && !isFullScreen ? (
         <RequestFullScreen EnterFullScreen={EnterFullScreen} />
       ) : (
         <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
