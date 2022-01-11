@@ -26,7 +26,6 @@ const Result = (props) => {
     const classes = useStyles();
     const theme = useTheme();
     const [resultDetails, setResultDetails] = useState(null);
-    const [answer, setAnswer] = useState({});
 
     const fetchResult = async () => {
         try {
@@ -39,22 +38,8 @@ const Result = (props) => {
     };
 
     useEffect(() => {
-        fetchResult();
+        fetchResult();  //  Fetch all Result
     }, [])
-
-    const getQuestionFromId = (id) => {
-        return resultDetails.find((q) => q.id === id);
-    };
-
-    const getQuestionType = (q) => {
-        if (q) return q.type;
-        return '';
-    };
-
-    const handleQAnswer = (qId, ans) => {
-        setAnswer((a) => ({ ...a, [qId]: { type: getQuestionType(getQuestionFromId(qId)), answer: ans } }));
-    };
-
 
 
     return (
