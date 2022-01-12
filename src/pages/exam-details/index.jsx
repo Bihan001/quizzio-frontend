@@ -33,7 +33,6 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
-
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -110,7 +109,7 @@ const Exam_Details = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const fetchResult = async (examId) => {
+  const fetchResult = async () => {
     try {
       const res = await getExamResult(examId);
       console.log(res);
@@ -120,9 +119,9 @@ const Exam_Details = () => {
     }
   };
 
-  const fetchScores = async (examId) => {
+  const fetchScores = async () => {
     try {
-      const res = await getExamScores();
+      const res = await getExamScores(examId);
       setExamScores(res.data.data);
     } catch (err) {
       console.log(err);
@@ -294,8 +293,6 @@ const Exam_Details = () => {
     return duration;
   };
 
-
-
   return (
     <>
       {/* -----------     Banner    ----------- */}
@@ -325,7 +322,6 @@ const Exam_Details = () => {
               </Typography>
             </div>
 
-
             <div style={{ display: 'flex' }}>
               {/*-------------------------------------------------- */}
               {/*                INFORMATION                        */}
@@ -338,7 +334,6 @@ const Exam_Details = () => {
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
                 />
               </div>
-
 
               {/*-------------------------------------------------- */}
               {/*             EXAM  TIME  DISPLAY  CARD             */}
@@ -357,7 +352,6 @@ const Exam_Details = () => {
             </div>
           </div>
         </div>
-
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
