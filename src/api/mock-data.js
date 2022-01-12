@@ -1,4 +1,3 @@
-
 export const examFetchedData = {
   success: true,
   status: 'success',
@@ -102,3 +101,15 @@ export const examResult = [
     correctOption: 'System.out.println',
   },
 ];
+
+export const examScores = {
+  userId: '',
+  rank: 5,
+  finishTime: 1634939030,
+  totalScore: 100,
+  topPerformers: [
+    { userId: '', rank: 1, finishTime: 1634939030, totalScore: 100 },
+    { userId: '', rank: 1, finishTime: 1634939030, totalScore: 100 },
+    { userId: '', rank: 1, finishTime: 1634939030, totalScore: 100 },
+  ],
+};

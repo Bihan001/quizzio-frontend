@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { SnackbarProvider } from 'notistack';
 import CreateExam from 'pages/exam-creation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Paper } from '@mui/material';
+import { CssBaseline, Paper, Slide } from '@mui/material';
 import Navbar from 'components/navbar';
 import Register from 'layouts/register';
 import Login from 'layouts/login';
@@ -14,6 +15,7 @@ import ExamDetails from 'pages/exam-details';
 import getDesignTokens from 'utilities/theme';
 import { getCurrentUser } from 'api/user';
 import { setUserAndToken } from 'redux/slices/auth';
+import ConfirmationDialog from 'components/dialog/confirmation';
 
 const App = () => {
   const location = useLocation();
@@ -53,20 +55,30 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Paper elevation={0} style={{ width: '100%', minHeight: '100vh', height: '100%' }}>
-        {!location.pathname.includes('/give') && <Navbar toggleTheme={toggleTheme} />}
-        <Login />
-        <Register />
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/create-exam' component={CreateExam} />
-          <Route exact path='/profile' component={User} />
-          <Route exact path='/exam/:id' component={ExamDetails} /> {/*  /exam/:id  */}
-          <Route exact path='/exam/:id/give' component={GiveExam} />
-          <Redirect to='/' />
-        </Switch>
-      </Paper>
+      <SnackbarProvider
+        maxSnack={10}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        TransitionComponent={Slide}
+      >
+        <CssBaseline />
+        <Paper elevation={0} style={{ width: '100%', minHeight: '100vh', height: '100%' }}>
+          {!location.pathname.includes('/give') && <Navbar toggleTheme={toggleTheme} />}
+          <Login />
+          <Register />
+          <ConfirmationDialog />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/create-exam' component={CreateExam} />
+            <Route exact path='/profile' component={User} />
+            <Route exact path='/exam/:id' component={ExamDetails} /> {/*  /exam/:id  */}
+            <Route exact path='/exam/:id/give' component={GiveExam} />
+            <Redirect to='/' />
+          </Switch>
+        </Paper>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };

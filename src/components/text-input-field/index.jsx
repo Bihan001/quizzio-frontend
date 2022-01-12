@@ -9,6 +9,7 @@ const TextInputField = ({
   required,
   name,
   type,
+  color,
   onChange,
   value,
   fullWidth,
@@ -22,21 +23,16 @@ const TextInputField = ({
   variant,
   showActionBtn = false,
   actionBtnText = '',
-  actionOnClick = () => { },
+  actionOnClick = () => {},
   endIcon,
   startIcon,
-  endIconOnClick = () => { },
-  startIconOnClick = () => { },
+  endIconOnClick = () => {},
+  startIconOnClick = () => {},
+  InputPropsStyle = {},
 }) => {
   return (
     <div>
-      <Typography
-        align='left'
-        variant='p'
-        style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }}
-        className={labelClassName}
-        sx={{}}
-      >
+      <Typography align='left' variant='p' style={{ color: disabled ? '#D9D7D7' : null, ...labelStyle }} className={labelClassName} sx={{}}>
         {label}
         {required ? <span style={{ color: 'red' }}>*</span> : null}
       </Typography>
@@ -49,6 +45,7 @@ const TextInputField = ({
           disabled={disabled}
           required={required}
           size='small'
+          color={color}
           variant={variant || 'outlined'}
           placeholder={placeholder}
           onChange={onChange}
@@ -59,6 +56,7 @@ const TextInputField = ({
           style={{ marginRight: showActionBtn ? '1rem' : 0, ...style }}
           className={className}
           InputProps={{
+            style: InputPropsStyle,
             startAdornment: startIcon && (
               <InputAdornment position='start'>
                 <IconButton fullWidth edge='start' onClick={(e) => startIconOnClick(e)}>

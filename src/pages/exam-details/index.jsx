@@ -1,16 +1,15 @@
-
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-import { getExamDetails, registerInExam, getUserExamRegisterStatus } from 'api/exam';
+import { getExamDetails, registerInExam, getUserExamRegisterStatus, getExamResult, getExamScores } from 'api/exam';
 import DomPurify from 'dompurify';
 import { getUnitsFromDuration } from 'utilities/functions';
 import About from './tab-content/about';
+import Scores from './tab-content/scores';
 import Result from 'layouts/result';
-
 
 let timerInterval;
 
@@ -34,7 +33,6 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
-
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -44,6 +42,8 @@ const Exam_Details = () => {
   const examId = location.pathname.split('/')[2];
   const [examData, setExamData] = useState({});
   const [registerStatus, setRegisterStatus] = useState(false);
+  const [resultDetails, setResultDetails] = useState(null);
+  const [examScores, setExamScores] = useState(null);
   const cleanDescription = DomPurify.sanitize(examData.description);
 
   // Timer states
@@ -98,16 +98,34 @@ const Exam_Details = () => {
     };
   }, [remainingTime]);
 
-
   // -------------------------------------
   //      FETCH ALL EXAMS DATA
   // -------------------------------------
   useEffect(async () => {
     fetchExamDetails();
     checkRegisterStatus();
+    fetchResult();
+    fetchScores();
     window.scrollTo(0, 0);
   }, []);
 
+  const fetchResult = async () => {
+    try {
+      const res = await getExamResult(examId);
+      if (res.data.data) setResultDetails(res.data.data.questions);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchScores = async () => {
+    try {
+      const res = await getExamScores(examId);
+      setExamScores(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const checkRegisterStatus = async () => {
     try {
@@ -180,7 +198,6 @@ const Exam_Details = () => {
     );
   };
 
-
   const getButton = (text = '', type = '') => {
     return (
       <Button
@@ -196,7 +213,6 @@ const Exam_Details = () => {
   };
 
   const JoinRegisterSection = () => {
-
     if (!examData.startTime) return null;
     if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null)
       return null;
@@ -296,7 +312,7 @@ const Exam_Details = () => {
 
           <div style={{ marginLeft: '3rem', width: '100%' }}>
             <div style={{ padding: '1rem 0rem 3rem 0rem' }}>
-              <Typography variant='h4' fontWeight="500" fontSize='3rem'>
+              <Typography variant='h4' fontWeight='500' fontSize='3rem'>
                 {examData.name !== null ? examData.name : '-'}
               </Typography>
               <Typography variant='p' style={{ fontWeight: '500' }}>
@@ -318,7 +334,6 @@ const Exam_Details = () => {
                 />
               </div>
 
-
               {/*-------------------------------------------------- */}
               {/*             EXAM  TIME  DISPLAY  CARD             */}
               {/*-------------------------------------------------- */}
@@ -337,7 +352,6 @@ const Exam_Details = () => {
           </div>
         </div>
 
-
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
         <div className={classes.root}>
@@ -350,8 +364,8 @@ const Exam_Details = () => {
             className={classes.tabVerticalLine}
           >
             <Tab label='Description' {...a11yProps(0)} />
-            <Tab label='Result' {...a11yProps(1)} />
-            <Tab label='Teams' {...a11yProps(2)} />
+            <Tab label='Scores' disabled={!examScores} {...a11yProps(2)} />
+            <Tab label='Result' disabled={!resultDetails} {...a11yProps(1)} />
             <Tab label="FAQ's" {...a11yProps(3)} />
             <Tab label='Discussions' {...a11yProps(4)} />
           </Tabs>
@@ -359,12 +373,12 @@ const Exam_Details = () => {
             <About content={cleanDescription} />
           </TabPanel>
 
-          <TabPanel value={value} index={1} style={{ width: '100%' }} >
-            <Result content={cleanDescription} />
+          <TabPanel value={value} index={1} style={{ width: '100%' }}>
+            <Scores examScores={examScores} />
           </TabPanel>
 
-          <TabPanel value={value} index={2}>
-            Teams
+          <TabPanel value={value} index={2} style={{ width: '100%' }}>
+            <Result result={resultDetails} />
           </TabPanel>
 
           <TabPanel value={value} index={3}>
@@ -374,7 +388,6 @@ const Exam_Details = () => {
           <TabPanel value={value} index={4}>
             Discussions
           </TabPanel>
-
         </div>
       </Container>
     </>

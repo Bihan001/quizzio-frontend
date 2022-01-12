@@ -1,5 +1,3 @@
-
-
 import { axios, getHeaders } from './config';
 import { examResult } from './mock-data';
 
@@ -58,10 +56,15 @@ export const getQuestionTypes = () => {
 
 // Dummy Data
 export const getExamResult = (examId) => {
+  return axios.get(`/exam/solution?examId=${examId}`, getHeaders());
+};
+
+export const getExamScores = (examId) => {
+  // return axios.get(`/exam/scores?examId=${examId}`, getHeaders());
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
-        data: examResult,
+        data: { data: examResult },
       });
     }, 1000);
   });

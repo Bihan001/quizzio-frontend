@@ -28,12 +28,12 @@ const ExamCreation = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [examDetails, setExamDetails] = useState({
     name: '',
-    description: ' ',
+    description: '',
     isPrivate: false,
     startTime: null,
     endTime: null,
-    image: ' ',
-    type: ' ',
+    image: '',
+    type: '',
     allowedUsers: [],
     tags: [],
   });
