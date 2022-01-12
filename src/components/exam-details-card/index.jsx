@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Box, Card, CardActions, CardContent, Button, Typography, Paper, Grid } from '@mui/material';
+import { Box, Card, CardContent, Button, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 

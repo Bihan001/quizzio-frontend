@@ -9,7 +9,7 @@ import DomPurify from 'dompurify';
 import { getUnitsFromDuration } from 'utilities/functions';
 import About from './tab-content/about';
 import Scores from './tab-content/scores';
-import Result from 'layouts/result';
+import Result from './tab-content/result';
 
 let timerInterval;
 
@@ -33,13 +33,15 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
+
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
   const theme = useTheme();
+  const examId = location.pathname.split('/')[2];
+
   const { user } = useSelector((state) => state.auth);
   const [value, setValue] = useState(0);
-  const examId = location.pathname.split('/')[2];
   const [examData, setExamData] = useState({});
   const [registerStatus, setRegisterStatus] = useState(false);
   const [resultDetails, setResultDetails] = useState(null);
@@ -293,6 +295,9 @@ const Exam_Details = () => {
     return duration;
   };
 
+
+
+
   return (
     <>
       {/* -----------     Banner    ----------- */}
@@ -322,6 +327,8 @@ const Exam_Details = () => {
               </Typography>
             </div>
 
+
+
             <div style={{ display: 'flex' }}>
               {/*-------------------------------------------------- */}
               {/*                INFORMATION                        */}
@@ -334,6 +341,8 @@ const Exam_Details = () => {
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
                 />
               </div>
+
+
 
               {/*-------------------------------------------------- */}
               {/*             EXAM  TIME  DISPLAY  CARD             */}
@@ -352,6 +361,8 @@ const Exam_Details = () => {
             </div>
           </div>
         </div>
+
+
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}

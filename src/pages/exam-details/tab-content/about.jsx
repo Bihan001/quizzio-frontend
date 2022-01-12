@@ -2,27 +2,22 @@
 import { useEffect, useState } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { makeStyles, useTheme } from '@mui/styles';
+import commonStyle from './common-style';
 
 const useStyles = makeStyles((theme) => ({
-  heading: {
-    fontSize: '2.6rem',
-    textAlign: 'center',
-    fontWeight: '600',
-    // color: theme.palette.grey[600],
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
 }));
 
 const About = (props) => {
 
   const { content = '' } = props;
   const classes = useStyles();
+  const classes2 = commonStyle();
   const theme = useTheme();
 
   return (
     <>
-      <Typography className={classes.heading} >  DESCRIPTION  </Typography>
+      <Typography className={classes2.heading} >  DESCRIPTION  </Typography>
 
       <div dangerouslySetInnerHTML={{ __html: content }}></div>
     </>
