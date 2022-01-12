@@ -11,8 +11,12 @@ const MCQMultiple = (props) => {
   //      LOGIC FOR THE COLOR OF THE CORRECT AND WRONG
   // --------------------------------------------------------
   const getBackgroundColor = (optionId) => {
-    if (correctAnswer.includes(optionId)) return 'rgb(237, 247, 237)';
-    if (userAnswer.includes(optionId)) return '#ffccd5';
+    if (correctAnswer.includes(optionId))
+      return 'rgb(237, 247, 237)';
+
+    if (userAnswer.includes(optionId))
+      return '#ffccd5';
+
     return theme.palette.background.default;
   };
 

@@ -1,5 +1,5 @@
 import { axios, getHeaders } from './config';
-import { examResult } from './mock-data';
+import { examScores } from './mock-data';
 
 // ------------------------------------------------
 // baseURL: 'http://localhost:5000'
@@ -54,17 +54,20 @@ export const getQuestionTypes = () => {
   return axios.get('/exam/question-types');
 };
 
-// Dummy Data
+
 export const getExamResult = (examId) => {
   return axios.get(`/exam/solution?examId=${examId}`, getHeaders());
 };
 
+
+
+// Dummy Data
 export const getExamScores = (examId) => {
   // return axios.get(`/exam/scores?examId=${examId}`, getHeaders());
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
-        data: { data: examResult },
+        data: { data: examScores },
       });
     }, 1000);
   });

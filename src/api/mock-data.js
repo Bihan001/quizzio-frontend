@@ -103,13 +103,45 @@ export const examResult = [
 ];
 
 export const examScores = {
-  userId: '',
-  rank: 5,
-  finishTime: 1634939030,
-  totalScore: 100,
+  participantId: "76fa9982-46e6-4bee-a9f8-0b0de03b3bbf",
+  rank: 2,
+  finishTime: 1641894484307,
+  totalScore: 1,
   topPerformers: [
-    { userId: '', rank: 1, finishTime: 1634939030, totalScore: 100 },
-    { userId: '', rank: 1, finishTime: 1634939030, totalScore: 100 },
-    { userId: '', rank: 1, finishTime: 1634939030, totalScore: 100 },
-  ],
+    {
+      participantId: "dc738946-5461-4e6a-bb4f-dc16d8a94e09",
+      totalScore: 4,
+      rank: 1,
+      finishTime: 1641894515349,
+      name: "Nero Devil Trigger"
+    },
+    {
+      participantId: "76fa9982-46e6-4bee-a9f8-0b0de03b3bbf",
+      totalScore: 1,
+      rank: 2,
+      finishTime: 1641894484307,
+      name: "Dante"
+    },
+    {
+      participantId: "dc738946-5461-4e6a-bb4f-dc16d8a94e09",
+      totalScore: 4,
+      rank: 1,
+      finishTime: 1641894515349,
+      name: "Nero Devil Trigger"
+    },
+    {
+      participantId: "dc738946-5461-4e6a-bb4f-dc16d8a94e09",
+      totalScore: 4,
+      rank: 1,
+      finishTime: 1641894515349,
+      name: "Nero Devil Trigger"
+    },
+    {
+      participantId: "dc738946-5461-4e6a-bb4f-dc16d8a94e09",
+      totalScore: 4,
+      rank: 1,
+      finishTime: 1641894515349,
+      name: "Nero Devil Trigger"
+    },
+  ]
 };

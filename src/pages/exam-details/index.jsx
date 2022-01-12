@@ -33,6 +33,7 @@ const a11yProps = (index) => {
 };
 
 const Exam_Details = () => {
+
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
@@ -109,18 +110,19 @@ const Exam_Details = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const fetchResult = async () => {
+  const fetchResult = async (examId) => {
     try {
       const res = await getExamResult(examId);
-      if (res.data.data) setResultDetails(res.data.data.questions);
+      console.log(res);
+      if (res.data.data) setResultDetails(res.data.data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const fetchScores = async () => {
+  const fetchScores = async (examId) => {
     try {
-      const res = await getExamScores(examId);
+      const res = await getExamScores();
       setExamScores(res.data.data);
     } catch (err) {
       console.log(err);
@@ -292,6 +294,8 @@ const Exam_Details = () => {
     return duration;
   };
 
+
+
   return (
     <>
       {/* -----------     Banner    ----------- */}
@@ -321,6 +325,7 @@ const Exam_Details = () => {
               </Typography>
             </div>
 
+
             <div style={{ display: 'flex' }}>
               {/*-------------------------------------------------- */}
               {/*                INFORMATION                        */}
@@ -333,6 +338,7 @@ const Exam_Details = () => {
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
                 />
               </div>
+
 
               {/*-------------------------------------------------- */}
               {/*             EXAM  TIME  DISPLAY  CARD             */}
@@ -351,6 +357,7 @@ const Exam_Details = () => {
             </div>
           </div>
         </div>
+
 
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
@@ -374,7 +381,7 @@ const Exam_Details = () => {
           </TabPanel>
 
           <TabPanel value={value} index={1} style={{ width: '100%' }}>
-            <Scores examScores={examScores} />
+            <Scores examScoresDetails={examScores} />
           </TabPanel>
 
           <TabPanel value={value} index={2} style={{ width: '100%' }}>
