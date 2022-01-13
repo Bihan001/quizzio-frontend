@@ -86,7 +86,7 @@ const Scores = (props) => {
                 <Box style={{ marginRight: 'auto' }}>
                   <Typography variant='subtitle2'> SCORE ACHIEVED </Typography>
                   <Typography variant='subtitle2' color='text.secondary'>
-                    {examScoresDetails.rank !== null ? examScoresDetails.rank : '-'}
+                    {examScoresDetails.totalScore !== null ? examScoresDetails.totalScore : '-'}
                   </Typography>
                 </Box>
               </Box>
