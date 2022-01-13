@@ -6,6 +6,7 @@ import Page2 from './page2';
 import Page3 from './page3';
 import { createExam } from 'api/exam';
 import { uploadImages } from 'api/utils';
+import { useSnackbar } from 'notistack';
 // import { makeStyles, useTheme } from '@mui/styles';
 
 const steps = ['Exam Details', 'Questions', 'Preview'];
@@ -25,6 +26,7 @@ const combineDateAndTime = (date, time) => {
 const ExamCreation = () => {
   // const classes = useStyles();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const [activeStep, setActiveStep] = useState(0);
   const [examDetails, setExamDetails] = useState({
     name: '',
@@ -68,7 +70,7 @@ const ExamCreation = () => {
       console.log('Exam data is : ', examData, ' res is : ', res);
       history.push('/');
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 
@@ -80,6 +82,7 @@ const ExamCreation = () => {
       console.log(res);
       return res.data.data.urls[0].url;
     } catch (err) {
+      // enqueueSnackbar(err.message, { variant: 'error' });
       console.error(err);
       return ' ';
     }

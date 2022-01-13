@@ -2,6 +2,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import tinymce from 'tinymce/tinymce';
 import { useTheme } from '@mui/material';
 import { uploadImages } from 'api/utils';
+import { useSnackbar } from 'notistack';
 // Theme
 import 'tinymce/themes/silver';
 import 'tinymce/themes/mobile';
@@ -53,6 +54,7 @@ const toolbar =
 
 const TinyEditor = (props) => {
   const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
   const { width = 700, height = 350, value, onChange } = props;
   const handleEditorChange = (e) => {
     console.log('Content was updated:', e.target.getContent());
@@ -83,7 +85,7 @@ const TinyEditor = (props) => {
         const { url, public_id } = res.data.data.urls[0];
         cb(url, { title: public_id });
       } catch (err) {
-        console.error(err);
+        enqueueSnackbar(err.message, { variant: 'error' });
       }
     };
     input.click();

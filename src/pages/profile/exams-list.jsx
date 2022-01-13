@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, Card, CardActions, CardContent, Button, Typography, Paper, Grid } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
 import TimePicker from 'components/date-time-picker/time';
@@ -19,6 +20,7 @@ const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 
 const ExamsList = (props) => {
   const { type } = props;
+  const { enqueueSnackbar } = useSnackbar();
   const [showFilters, setShowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     startDate: null,
@@ -38,7 +40,7 @@ const ExamsList = (props) => {
       if (type === 'given') res = await getGivenExams();
       setExams(res.data.data);
     } catch (err) {
-      console.error(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 

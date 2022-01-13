@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Typography, Button, Paper, Grid } from '@mui/material';
 import { makeStyles, useTheme } from '@mui/styles';
@@ -6,6 +5,8 @@ import MCQSingle from './question-options/mcq-single';
 import MCQMultiple from './question-options/mcq-multiple';
 import FillBlanks from './question-options/fill-blanks';
 import DomPurify from 'dompurify';
+import { useDispatch } from 'react-redux';
+import { showConfirmation } from 'redux/slices/confirmation-dialog';
 
 const qStatus = {
   notAttempted: 'not_attempted',
@@ -29,32 +30,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page2 = (props) => {
-
   const {
     questions = [],
     answerObj = {},
-    handleQAnswer = () => { },
+    handleQAnswer = () => {},
     questionsStatus = {},
-    handleQStatus = () => { },
-    handleEndExam = () => { },
+    handleQStatus = () => {},
+    handleEndExam = () => {},
     remainingTime = {},
   } = props;
 
   const classes = useStyles();
   const theme = useTheme();
+  const dispatch = useDispatch();
   const [currentQuestion, setCurrentQuestion] = useState({});
   const paperHeight = 'calc(100vh - 20rem)';
   const questionHeight = 'calc(100vh - 35rem)';
   const QuestionStatement = DomPurify.sanitize(currentQuestion.question);
 
-
   useEffect(() => {
     if (questions.length > 0) {
-      console.log("questions :: ", questions);
+      console.log('questions :: ', questions);
       setCurrentQuestion(questions[0]);
     }
   }, [questions]);
-
 
   // --------------------------------------------
   // FUnction for the Question Number Bubble  (returns the color)
@@ -67,7 +66,6 @@ const Page2 = (props) => {
     if (status === qStatus.review) return theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.main;
   };
 
-
   return (
     <>
       {/* ====================     TIMER COMPONENT     ==================== */}
@@ -76,11 +74,24 @@ const Page2 = (props) => {
           Time Remaining:{' '}
           {`${remainingTime.days} days ${remainingTime.hours} hours ${remainingTime.minutes} minutes ${remainingTime.seconds} seconds`}
         </Typography>
-        <Button variant='contained' color='error' onClick={() => handleEndExam()}>
-          End Exam
+        <Button
+          variant='contained'
+          color='error'
+          onClick={() =>
+            dispatch(
+              showConfirmation({
+                title: 'End Exam',
+                content: "Are you sure you want to submit and end the exam? (You won't be able to rejoin)",
+                primaryBtnText: 'Yes',
+                secondaryBtnText: 'No',
+                onPrimaryBtnClick: () => handleEndExam(),
+              })
+            )
+          }
+        >
+          Submit and End Exam
         </Button>
       </Paper>
-
 
       <Grid container spacing={5}>
         <Grid item xs={12} md={8}>
@@ -89,7 +100,6 @@ const Page2 = (props) => {
               <Typography variant='p' marginRight={'3rem'}>{`Marks: ${3}`}</Typography>
               <Typography variant='p'>{`Negative Marks: ${1}`}</Typography>
             </div>
-
 
             {/* ====================     MAIN QUESTION BODY    ==================== */}
             <div style={{ height: questionHeight, overflowY: 'auto' }}>
@@ -122,7 +132,6 @@ const Page2 = (props) => {
                 )}
               </div>
             </div>
-
 
             {/* ====================     SEVERAL BUTTONS    ==================== */}
             <div style={{ display: 'flex', paddingTop: '1rem' }}>
@@ -162,10 +171,8 @@ const Page2 = (props) => {
                 Clear
               </Button>
             </div>
-
           </Paper>
         </Grid>
-
 
         <Grid item xs={12} md={4}>
           <Paper elevation={2} style={{ height: paperHeight, padding: '5rem', overflowY: 'auto' }}>
@@ -175,7 +182,7 @@ const Page2 = (props) => {
                   className={classes.bubble}
                   variant='contained'
                   // Set the current Ques from here
-                  // Trigger its corresponding STATE 
+                  // Trigger its corresponding STATE
                   // Render the JSX again.
                   onClick={() => setCurrentQuestion(q)}
                   style={{

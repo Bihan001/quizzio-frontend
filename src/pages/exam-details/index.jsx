@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
 import { useTheme } from '@mui/styles';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './styles';
 import { getExamDetails, registerInExam, getUserExamRegisterStatus, getExamResult, getExamScores } from 'api/exam';
+import { showConfirmation } from 'redux/slices/confirmation-dialog';
 import DomPurify from 'dompurify';
+import { useSnackbar } from 'notistack';
 import { getUnitsFromDuration } from 'utilities/functions';
 import About from './tab-content/about';
 import Scores from './tab-content/scores';
@@ -29,15 +31,16 @@ const TabPanel = (props) => {
 const a11yProps = (index) => {
   return {
     id: `vertical-tab-${index}`,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   };
 };
 
 const Exam_Details = () => {
-
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const theme = useTheme();
   const examId = location.pathname.split('/')[2];
 
@@ -118,7 +121,7 @@ const Exam_Details = () => {
       console.log(res);
       if (res.data.data) setResultDetails(res.data.data);
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 
@@ -127,7 +130,7 @@ const Exam_Details = () => {
       const res = await getExamScores(examId);
       setExamScores(res.data.data);
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 
@@ -136,7 +139,7 @@ const Exam_Details = () => {
       const res = await getUserExamRegisterStatus(examId);
       setRegisterStatus(!!res.data.data.registered);
     } catch (err) {
-      console.error(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 
@@ -145,7 +148,7 @@ const Exam_Details = () => {
       const res = await getExamDetails(examId);
       setExamData(res.data.data);
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 
@@ -160,7 +163,7 @@ const Exam_Details = () => {
         setRegisterStatus(true);
       }
     } catch (err) {
-      console.error(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 
@@ -209,7 +212,29 @@ const Exam_Details = () => {
         size='large'
         variant='contained'
         color='info'
-        onClick={() => (type === 'register' ? registerUserInExam() : type === 'start' ? redirectToGiveExam() : null)}
+        onClick={() =>
+          type === 'register'
+            ? dispatch(
+                showConfirmation({
+                  title: 'Register in Exam',
+                  content: 'Are you sure you want to register in this exam?',
+                  primaryBtnText: 'Yes',
+                  secondaryBtnText: 'No',
+                  onPrimaryBtnClick: () => registerUserInExam(),
+                })
+              )
+            : type === 'start'
+            ? dispatch(
+                showConfirmation({
+                  title: 'Start Exam',
+                  content: 'Are you sure you want to start this exam?',
+                  primaryBtnText: 'Yes',
+                  secondaryBtnText: 'No',
+                  onPrimaryBtnClick: () => redirectToGiveExam(),
+                })
+              )
+            : null
+        }
       >
         {text}
       </Button>
@@ -296,9 +321,6 @@ const Exam_Details = () => {
     return duration;
   };
 
-
-
-
   return (
     <>
       {/* -----------     Banner    ----------- */}
@@ -328,8 +350,6 @@ const Exam_Details = () => {
               </Typography>
             </div>
 
-
-
             <div style={{ display: 'flex' }}>
               {/*-------------------------------------------------- */}
               {/*                INFORMATION                        */}
@@ -343,8 +363,6 @@ const Exam_Details = () => {
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
                 />
               </div>
-
-
 
               {/*-------------------------------------------------- */}
               {/*             EXAM  TIME  DISPLAY  CARD             */}
@@ -364,19 +382,10 @@ const Exam_Details = () => {
           </div>
         </div>
 
-
-
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
         <div className={classes.root}>
-          <Tabs
-            orientation='vertical'
-            variant='scrollable'
-            value={value}
-            onChange={handleChange}
-            aria-label='Vertical tabs example'
-            className={classes.tabVerticalLine}
-          >
+          <Tabs orientation='vertical' variant='scrollable' value={value} onChange={handleChange} className={classes.tabVerticalLine}>
             <Tab label='Description' {...a11yProps(0)} className={classes.sliderTitle} />
             <Tab label='Scores' disabled={!examScores} {...a11yProps(1)} className={classes.sliderTitle} />
             <Tab label='Result' disabled={!resultDetails} {...a11yProps(2)} className={classes.sliderTitle} />
