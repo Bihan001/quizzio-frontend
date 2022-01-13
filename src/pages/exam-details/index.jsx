@@ -29,6 +29,7 @@ const TabPanel = (props) => {
 const a11yProps = (index) => {
   return {
     id: `vertical-tab-${index}`,
+    fontWeight: "bold",
   };
 };
 
@@ -375,12 +376,13 @@ const Exam_Details = () => {
             aria-label='Vertical tabs example'
             className={classes.tabVerticalLine}
           >
-            <Tab label='Description' {...a11yProps(0)} />
-            <Tab label='Scores' disabled={!examScores} {...a11yProps(2)} />
-            <Tab label='Result' disabled={!resultDetails} {...a11yProps(1)} />
-            <Tab label="FAQ's" {...a11yProps(3)} />
-            <Tab label='Discussions' {...a11yProps(4)} />
+            <Tab label='Description' {...a11yProps(0)} className={classes.sliderTitle} />
+            <Tab label='Scores' disabled={!examScores} {...a11yProps(1)} className={classes.sliderTitle} />
+            <Tab label='Result' disabled={!resultDetails} {...a11yProps(2)} className={classes.sliderTitle} />
+            <Tab label="FAQ's" {...a11yProps(3)} className={classes.sliderTitle} />
+            <Tab label='Discussions' {...a11yProps(4)} className={classes.sliderTitle} />
           </Tabs>
+
           <TabPanel value={value} index={0} style={{ width: '100%' }}>
             <About content={cleanDescription} />
           </TabPanel>

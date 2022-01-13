@@ -15,6 +15,21 @@ export default makeStyles((theme) => ({
     height: 180,
     objectFit: 'cover',
   },
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    minHeight: '50rem',
+    paddingBottom: '10rem',
+    fontWeight: "600",
+  },
+  tabVerticalLine: {
+    borderRight: `1.2px solid ${theme.palette.divider}`,
+    overflow: 'visible !important',
+  },
+  sliderTitle: {
+    fontWeight: 'bold',
+  },
   examInfo: {
     // padding: '1.6rem',
     width: '75%',
@@ -39,16 +54,5 @@ export default makeStyles((theme) => ({
     fontWeight: '600',
     textTransform: 'uppercase',
     textAlign: 'center',
-  },
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex',
-    minHeight: '50rem',
-    paddingBottom: '10rem',
-  },
-  tabVerticalLine: {
-    borderRight: `1.2px solid ${theme.palette.divider}`,
-    overflow: 'visible !important',
   },
 }));
