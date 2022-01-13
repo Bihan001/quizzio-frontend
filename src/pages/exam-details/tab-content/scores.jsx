@@ -15,10 +15,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2rem",
     paddingBottom: "2rem",
     marginTop: "2.6rem",
-    width: "54%",
-    alignItem: "center",
     textAlign: "center",
-    justifyContent: "center",
   },
 }));
 
@@ -40,7 +37,7 @@ const Scores = (props) => {
     <>
       <Typography className={classes2.heading}> SCORES </Typography>
 
-      <div>
+      {/* <div>
         <button
           onClick={() =>
             dispatch(
@@ -60,12 +57,12 @@ const Scores = (props) => {
         <button onClick={() => enqueueSnackbar('This is a snackbar', { variant: 'success' })}>open notification</button>
         <button onClick={() => enqueueSnackbar('This is a snackbar', { variant: 'warning' })}>open notification</button>
         <button onClick={() => enqueueSnackbar('This is a snackbar', { variant: 'error' })}>open notification</button>
-      </div>
+      </div> */}
 
 
       <div className={classes.card} >
-        <Paper elevation={2} >
-          <Card sx={{ minWidth: '50%', cursor: 'pointer' }} >
+        <Paper elevation={2} style={{ width: "54%", margin: "auto" }} >
+          <Card sx={{ cursor: 'pointer' }} >
             <CardContent>
               <Typography variant='h5' style={{ fontWeight: 'bold', color: theme.palette.primary.grey, letterSpacing: '0.4px' }}>
                 Your Score
@@ -100,7 +97,10 @@ const Scores = (props) => {
 
 
       <Typography variant='h5' style={{ fontWeight: 'bold', color: theme.palette.primary.grey, letterSpacing: '0.4px', marginBottom: ' 1rem' }}>
-        <img style={{ width: "4rem", height: "4rem" }} src={crown} />   Top 5 Participants
+        <img src={crown}
+          style={{ width: "4rem", height: "4rem", transform: 'translate(0px , 8px)', marginRight: "1.4rem " }}
+        />
+        Top 5 Performers
       </Typography>
 
 
@@ -111,7 +111,7 @@ const Scores = (props) => {
               <TableCell align="center">Rank </TableCell>
               <TableCell align="center">Name </TableCell>
               <TableCell align="center"> Achieved Score </TableCell>
-              <TableCell align="center">Completed At&nbsp;( hrs ) </TableCell>
+              <TableCell align="center">Completed At&nbsp; </TableCell>
             </TableRow>
           </TableHead>
 

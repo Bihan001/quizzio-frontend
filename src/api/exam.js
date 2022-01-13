@@ -60,10 +60,18 @@ export const getExamResult = (examId) => {
 };
 
 
-
-// Dummy Data
 export const getExamScores = (examId) => {
-  // return axios.get(`/exam/scores?examId=${examId}`, getHeaders());
+  return axios.get(`/exam/scores?examId=${examId}`, getHeaders());
+};
+
+
+
+
+// -----------------------
+// DUMMY DATA FORMAT
+// -----------------------
+/* export const getExamScores = (examId) => {
+  return axios.get(`/exam/scores?examId=${examId}`, getHeaders());
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
@@ -71,4 +79,4 @@ export const getExamScores = (examId) => {
       });
     }, 1000);
   });
-};
+}; */

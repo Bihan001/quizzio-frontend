@@ -35,7 +35,7 @@ function ConfirmationDialog(props) {
 
   return (
     <Dialog {...rest} maxWidth='lg' open={open} handleClose={() => handleClose()}>
-      <DialogTitle style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: '600' }} >
+      <DialogTitle style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: '500' }} >
         {title}
       </DialogTitle>
       <DialogContent>

@@ -58,6 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar(props) {
+
   const { toggleTheme } = props;
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ export default function Navbar(props) {
               to='/'
               style={{ display: { xs: 'none', sm: 'block' }, textDecoration: 'none', color: theme.palette.common.white }}
             >
-              EXAM SIMULATOR
+              Quizzio
             </Typography>
             <Search>
               <SearchIconWrapper>
