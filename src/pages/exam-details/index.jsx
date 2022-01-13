@@ -121,7 +121,8 @@ const Exam_Details = () => {
       console.log(res);
       if (res.data.data) setResultDetails(res.data.data);
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' });
+      // enqueueSnackbar(err.message, { variant: 'error' });
+      console.error(err);
     }
   };
 
@@ -130,7 +131,8 @@ const Exam_Details = () => {
       const res = await getExamScores(examId);
       setExamScores(res.data.data);
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' });
+      // enqueueSnackbar(err.message, { variant: 'error' });
+      console.error(err);
     }
   };
 
