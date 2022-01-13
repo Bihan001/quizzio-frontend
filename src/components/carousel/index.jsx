@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -11,12 +10,10 @@ import useStyles from './styles';
 import ExamBanner from 'components/exam-banner';
 import { ClassNames } from '@emotion/react';
 
-
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 console.log(AutoPlaySwipeableViews);
 
 const Carousel = ({ data, type }) => {
-
   const theme = useTheme();
   const classes = useStyles();
   //Carousel States===========
@@ -24,21 +21,14 @@ const Carousel = ({ data, type }) => {
   const [maxSteps, setMaxSteps] = useState(0);
   //==========================
 
-
   // Map and send each data Object
   const Cards = {
-    'exam-banner': data.map((examDetail, index) => (
-      <ExamBanner
-        key={index}
-        data={examDetail}
-      />
-    )),
+    'exam-banner': data.map((examDetail, index) => <ExamBanner key={index} data={examDetail} />),
   };
 
   useEffect(() => {
     setMaxSteps(data.length);
   }, [data]);
-
 
   //Carousel Config functions-==============
   const handleNext = () => {
@@ -67,29 +57,17 @@ const Carousel = ({ data, type }) => {
       <MobileStepper
         className={classes.stepper}
         steps={maxSteps}
-        position="static"
+        position='static'
         activeStep={activeStep}
         nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
-          >
+          <Button size='small' onClick={handleNext} disabled={activeStep === maxSteps - 1}>
             Next
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft />
-            ) : (
-              <KeyboardArrowRight />
-            )}
+            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
+          <Button size='small' onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             Back
           </Button>
         }

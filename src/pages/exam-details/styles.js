@@ -1,4 +1,3 @@
-
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
@@ -21,7 +20,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     minHeight: '50rem',
     paddingBottom: '10rem',
-    fontWeight: "600",
+    fontWeight: '600',
   },
   tabVerticalLine: {
     borderRight: `2px solid ${theme.palette.divider}`,

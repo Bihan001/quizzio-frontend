@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
@@ -7,11 +6,12 @@ import { dialogNames, hideVisibility } from 'redux/slices/dialog-visibility';
 import { setUserAndToken } from 'redux/slices/auth';
 import TextInputField from 'components/text-input-field';
 import { loginWithEmailAndPassword } from 'api/user';
+import { useSnackbar } from 'notistack';
 import './a.css';
 
 const Login = () => {
-
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const { [dialogNames.login]: loginVisibility } = useSelector((state) => state.dialogVisibility);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,15 +27,13 @@ const Login = () => {
       dispatch(setUserAndToken({ user: res.data.data.user, token: res.data.data.token }));
       handleClose();
     } catch (err) {
-      console.error(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   };
 
   return (
     <Dialog open={loginVisibility} maxWidth='lg' handleClose={() => handleClose()}>
-      <DialogTitle style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: 'bold' }} >
-        Welcome Back!
-      </DialogTitle>
+      <DialogTitle style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: 'bold' }}>Welcome Back!</DialogTitle>
 
       <DialogContent>
         <TextInputField
@@ -61,7 +59,6 @@ const Login = () => {
             Login
           </Button>
         </DialogActions>
-
       </DialogContent>
     </Dialog>
   );

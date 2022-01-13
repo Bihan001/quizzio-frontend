@@ -21,7 +21,7 @@ const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const [themeMode, setThemeMode] = useState('light');
+  const [themeMode, setThemeMode] = useState(localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
     fetchCurrentUser();
@@ -47,7 +47,11 @@ const App = () => {
   );
 
   const toggleTheme = () => {
-    setThemeMode((t) => (t === 'light' ? 'dark' : 'light'));
+    setThemeMode((t) => {
+      const newMode = t === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newMode);
+      return newMode;
+    });
   };
 
   // Update the theme only if the mode changes

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Container } from '@mui/material';
@@ -9,6 +8,7 @@ import Carousel from 'components/carousel';
 import ExamDetailsCard from 'components/exam-details-card';
 import announcementWhite from 'assets/icons/announcementWhite.png';
 import announcementBlack from 'assets/icons/announcementBlack.png';
+import { useSnackbar } from 'notistack';
 
 const examVisibilities = [
   { label: 'Public', value: 'public' },
@@ -18,59 +18,46 @@ const examVisibilities = [
 const examStatuses = ['Scheduled', 'Ongoing', 'Finished'];
 
 const Home = () => {
-
   const [fetchAllExam, setFetchAllExam] = useState([]);
   const theme = useTheme();
   const classes = useStyles();
-
+  const { enqueueSnackbar } = useSnackbar();
 
   // -------------------------------------
-  //      FETCH ALL EXAMS DATA 
+  //      FETCH ALL EXAMS DATA
   // -------------------------------------
   useEffect(async () => {
     try {
       const res = await getExams({});
-      console.log("ALL EXAMS : ", res);
+      console.log('ALL EXAMS : ', res);
       setFetchAllExam(res.data.data);
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   }, []);
 
-
   return (
     <div className={classes.homePage}>
-
       {/* -------------     CAROUSAL PART    -------------------- */}
       <section className={classes.carouselSection}>
-        <Carousel
-          data={fetchAllExam}
-          type='exam-banner'
-        />
+        <Carousel data={fetchAllExam} type='exam-banner' />
       </section>
-
 
       {/* -------------     SECOND  PART    -------------------- */}
       <section className={classes.examListSection}>
         <Container style={{ border: '0px solid blue', width: '100%' }}>
           <div className={classes.sectionHeading}>Events and Contests</div>
-          <ExamsListWithFilter
-            allData={fetchAllExam}
-          />
+          <ExamsListWithFilter allData={fetchAllExam} />
         </Container>
       </section>
-
 
       {/* -------------     THIRD PART    -------------------- */}
       <section className={classes.examListSection}>
         <Container style={{ border: '0px solid blue', width: '100%' }}>
           <div className={classes.sectionHeading}>More Exams</div>
-          <ExamsListWithFilter
-            allData={fetchAllExam}
-          />
+          <ExamsListWithFilter allData={fetchAllExam} />
         </Container>
       </section>
-
 
       {/* -------------------   LAST ANNOUNCEMENT SECTION    ------------------- */}
       <section className={classes.announcementSection}>
@@ -104,11 +91,7 @@ const Home = () => {
 };
 export default Home;
 
-
-
-
 const ExamsListWithFilter = ({ allData }) => {
-
   const [showFilters, setShowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     startDate: null,
@@ -137,17 +120,18 @@ const ExamsListWithFilter = ({ allData }) => {
           }}
         >
           {/*  array.map(()  =>  {}) */}
-          {allData && allData.map((Obj, i) => (
-            <ExamDetailsCard
-              style={{
-                marginBottom: i === 4 ? '0.3rem' : '2rem',
-                borderRadius: 0,
-              }}
-              data={{ name: 'asd', email: 'ankur' }}
-              cardDetails={Obj}
-              fullWidth
-            />
-          ))}
+          {allData &&
+            allData.map((Obj, i) => (
+              <ExamDetailsCard
+                style={{
+                  marginBottom: i === 4 ? '0.3rem' : '2rem',
+                  borderRadius: 0,
+                }}
+                data={{ name: 'asd', email: 'ankur' }}
+                cardDetails={Obj}
+                fullWidth
+              />
+            ))}
         </Box>
       </Box>
     </>

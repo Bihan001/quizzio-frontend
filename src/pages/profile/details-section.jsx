@@ -21,7 +21,8 @@ const a11yProps = (index) => {
   };
 };
 
-const tabs = ['Performance', 'Exams Hosted', 'Exams Given'];
+// const tabs = ['Performance', 'Exams Hosted', 'Exams Given'];
+const tabs = ['Exams Hosted', 'Exams Given'];
 
 const Details = () => {
   const [currentTab, setCurrentTab] = useState(0);
@@ -39,12 +40,9 @@ const Details = () => {
           </Tabs>
         </Box>
         <TabPanel value={currentTab} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={currentTab} index={1}>
           <ExamsList type='hosted' />
         </TabPanel>
-        <TabPanel value={currentTab} index={2}>
+        <TabPanel value={currentTab} index={1}>
           <ExamsList type='given' />
         </TabPanel>
       </Paper>

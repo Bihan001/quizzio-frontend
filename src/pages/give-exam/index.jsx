@@ -6,12 +6,14 @@ import Page1 from './page1';
 import Page2 from './page2';
 import RequestFullScreen from 'layouts/request-full-screen';
 import { getUnitsFromDuration } from 'utilities/functions';
+import { useSnackbar } from 'notistack';
 
 let timerInterval;
 
 const GiveExam = () => {
   const location = useLocation();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const examId = location.pathname.split('/')[2];
   const [examData, setExamData] = useState({});
   const [answer, setAnswer] = useState({});
@@ -36,7 +38,6 @@ const GiveExam = () => {
     });
     getExamData();
   }, []);
-
 
   useEffect(() => {
     if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null) {
@@ -71,19 +72,18 @@ const GiveExam = () => {
     };
   }, [remainingTime]);
 
-
   const EnterFullScreen = () => {
     documentElement
       .requestFullscreen()
       .then(() => console.log('entered full screen'))
-      .catch((err) => console.error(err));
+      .catch((err) => enqueueSnackbar(err.message, { variant: 'error' }));
   };
 
   const ExitFullScreen = () => {
     document
       .exitFullscreen()
       .then(() => console.log('exited full screen'))
-      .catch((err) => console.error(err));
+      .catch((err) => enqueueSnackbar(err.message, { variant: 'error' }));
   };
 
   const getExamData = async () => {
@@ -92,7 +92,7 @@ const GiveExam = () => {
       if (res) setExamData(res.data.data);
       else console.log('Error occured !', res);
     } catch (err) {
-      console.error(err);
+      enqueueSnackbar(err.message, { variant: 'error' });
       history.push(`/exam/${examId}`);
     }
   };
@@ -142,26 +142,22 @@ const GiveExam = () => {
     <div style={{ width: '100%', height: '100vh' }}>
       {false && !isFullScreen ? (
         <RequestFullScreen EnterFullScreen={EnterFullScreen} />
-      )
-
-        :
-
-        (
-          <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
-            {page === 1 && <Page1 handlePageNext={handleViewQuestions} examData={examData} />}
-            {page === 2 && (
-              <Page2
-                questions={questions}
-                answerObj={answer}
-                handleQAnswer={handleQAnswer}
-                questionsStatus={questionsStatus}
-                handleQStatus={handleQStatus}
-                handleEndExam={handleEndExam}
-                remainingTime={remainingTime}
-              />
-            )}
-          </Container>
-        )}
+      ) : (
+        <Container maxWidth='xl' style={{ padding: '5rem 0' }}>
+          {page === 1 && <Page1 handlePageNext={handleViewQuestions} examData={examData} />}
+          {page === 2 && (
+            <Page2
+              questions={questions}
+              answerObj={answer}
+              handleQAnswer={handleQAnswer}
+              questionsStatus={questionsStatus}
+              handleQStatus={handleQStatus}
+              handleEndExam={handleEndExam}
+              remainingTime={remainingTime}
+            />
+          )}
+        </Container>
+      )}
     </div>
   );
 };
