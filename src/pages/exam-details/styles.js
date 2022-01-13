@@ -24,7 +24,7 @@ export default makeStyles((theme) => ({
     fontWeight: "600",
   },
   tabVerticalLine: {
-    borderRight: `1.2px solid ${theme.palette.divider}`,
+    borderRight: `2px solid ${theme.palette.divider}`,
     overflow: 'visible !important',
   },
   sliderTitle: {

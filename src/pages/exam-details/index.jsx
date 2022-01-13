@@ -336,9 +336,10 @@ const Exam_Details = () => {
               {/*-------------------------------------------------- */}
               <div className={classes.examInfo}>
                 <TextPair heading='Exam Type' value={examData.isPrivate ? 'Private' : 'Public'} />
+                <TextPair heading='Total Marks' value={examData.totalMarks ? examData.totalMarks : '-'} />
                 <TextPair heading='starts on' value={new Date(examData.startTime).toDateString() || '-'} />
                 <TextPair
-                  heading='Number of Participants'
+                  heading='Registered Participants'
                   value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
                 />
               </div>
