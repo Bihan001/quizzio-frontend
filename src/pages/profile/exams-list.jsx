@@ -1,5 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Box, Card, CardActions, CardContent, Button, Typography, Paper, Grid } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  Paper,
+  Grid,
+} from '@mui/material';
 import { useSnackbar } from 'notistack';
 import TextInputField from 'components/text-input-field';
 import DatePicker from 'components/date-time-picker/date';
@@ -7,8 +16,14 @@ import TimePicker from 'components/date-time-picker/time';
 import MultiSelect from 'components/multi-select-dropdown';
 import DropdownField from 'components/dropdown-field';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { DialogActions, DialogContent, DialogTitle, Dialog } from 'components/dialog';
+import {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Dialog,
+} from 'components/dialog';
 import ExamDetailsCard from 'components/exam-details-card';
+import ExamDetailsCard2 from 'components/exam-details-card2';
 import { getHostedExams, getGivenExams } from 'api/user';
 
 const examVisibilities = [
@@ -44,40 +59,46 @@ const ExamsList = (props) => {
     }
   };
 
-  const handleFilterChange = (e) => setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const handleFilterChange = (e) =>
+    setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const hideFilters = () => setShowFilters(false);
   return (
     <>
-      <Dialog open={showFilters} handleClose={hideFilters} style={{ padding: '2rem' }} maxWidth='md'>
+      <Dialog
+        open={showFilters}
+        handleClose={hideFilters}
+        style={{ padding: '2rem' }}
+        maxWidth="md"
+      >
         <DialogTitle>Filters</DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item md={6}>
               <DatePicker
                 fullWidth
-                label='Start Date'
-                name='startDate'
+                label="Start Date"
+                name="startDate"
                 value={selectedFilters.startDate}
                 onChange={(e) => handleFilterChange(e)}
               />
             </Grid>
             <Grid item md={6}>
               <DropdownField
-                label='Exam Visibility'
+                label="Exam Visibility"
                 fullWidth
                 options={examVisibilities}
-                name='examVisibility'
+                name="examVisibility"
                 value={selectedFilters.examVisibility}
                 handler={(e) => handleFilterChange(e)}
               />
             </Grid>
             <Grid item md={6}>
               <DropdownField
-                label='Status'
+                label="Status"
                 fullWidth
                 options={examStatuses}
-                name='examStatus'
+                name="examStatus"
                 value={selectedFilters.examStatus}
                 handler={(e) => handleFilterChange(e)}
               />
@@ -91,14 +112,19 @@ const ExamsList = (props) => {
               justifyContent: 'flex-end',
             }}
           >
-            <Button size='small' onClick={(e) => hideFilters(e)}>
+            <Button size="small" onClick={(e) => hideFilters(e)}>
               Apply
             </Button>
           </Box>
         </DialogContent>
       </Dialog>
       <Box style={{ display: 'flex', flexDirection: 'column' }}>
-        <TextInputField placeholder='Search Exams' fullWidth endIcon={<FilterListIcon />} endIconOnClick={() => setShowFilters(true)} />
+        <TextInputField
+          placeholder="Search Exams"
+          fullWidth
+          endIcon={<FilterListIcon />}
+          endIconOnClick={() => setShowFilters(true)}
+        />
         <Box
           style={{
             marginTop: '1rem',
@@ -106,6 +132,16 @@ const ExamsList = (props) => {
             overflowY: 'auto',
           }}
         >
+          {exams.map((exam, i) => (
+            <ExamDetailsCard2
+              cardDetails={exam}
+              style={{
+                marginBottom: i === 4 ? '0.3rem' : '2rem',
+                width: '40rem',
+              }}
+              data={{ name: 'asd', email: 'ankur' }}
+            />
+          ))}
           {exams.map((exam, i) => (
             <ExamDetailsCard
               cardDetails={exam}

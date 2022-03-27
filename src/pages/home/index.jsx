@@ -5,7 +5,7 @@ import { Box, Button } from '@mui/material';
 import useStyles from './styles';
 import { getExams } from 'api/exam';
 import Carousel from 'components/carousel';
-import ExamDetailsCard from 'components/exam-details-card';
+import ExamDetailsCard2 from 'components/exam-details-card2';
 import announcementWhite from 'assets/icons/announcementWhite.png';
 import announcementBlack from 'assets/icons/announcementBlack.png';
 import { useSnackbar } from 'notistack';
@@ -40,7 +40,7 @@ const Home = () => {
     <div className={classes.homePage}>
       {/* -------------     CAROUSAL PART    -------------------- */}
       <section className={classes.carouselSection}>
-        <Carousel data={fetchAllExam} type='exam-banner' />
+        <Carousel data={fetchAllExam} type="exam-banner" />
       </section>
 
       {/* -------------     SECOND  PART    -------------------- */}
@@ -71,16 +71,24 @@ const Home = () => {
                   alignItems: 'center',
                 }}
               >
-                <img className={classes.imgSize} src={theme.palette.mode == 'dark' ? announcementWhite : announcementBlack} />{' '}
+                <img
+                  className={classes.imgSize}
+                  src={
+                    theme.palette.mode == 'dark'
+                      ? announcementWhite
+                      : announcementBlack
+                  }
+                />{' '}
                 <h1 style={{ marginRight: '4rem' }}>New Exam</h1>
                 <div>{new Date().toDateString()}</div>
               </div>
               <div className={classes.announcementCardDesc}>
-                Registrations for the 1st stages of the Indian Computing Olympiad 2022 - ZIO (Zonal Informatics Olympiad) & ZCO (Zonal
+                Registrations for the 1st stages of the Indian Computing
+                Olympiad 2022 - ZIO (Zonal Informatics Olympiad) & ZCO (Zonal
                 Computing Olympiad) are ongoing.
               </div>
               <div className={classes.announcementCardButtonDiv}>
-                <Button variant='outlined'>Check Details</Button>
+                <Button variant="outlined">Check Details</Button>
               </div>
             </div>
           ))}
@@ -99,7 +107,8 @@ const ExamsListWithFilter = ({ allData }) => {
     examStatus: null,
   });
 
-  const handleFilterChange = (e) => setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const handleFilterChange = (e) =>
+    setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
   const hideFilters = () => setShowFilters(false);
 
   return (
@@ -107,29 +116,29 @@ const ExamsListWithFilter = ({ allData }) => {
       <Box
         style={{
           display: 'flex',
-          flexDirection: 'column',
-          border: '0px solid red',
           alignItems: 'center',
         }}
       >
         <Box
           style={{
             marginTop: '1rem',
-            border: '0px solid green',
-            width: '85%',
+            width: '100%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
           }}
         >
           {/*  array.map(()  =>  {}) */}
           {allData &&
             allData.map((Obj, i) => (
-              <ExamDetailsCard
+              <ExamDetailsCard2
+                cardDetails={Obj}
                 style={{
                   marginBottom: i === 4 ? '0.3rem' : '2rem',
-                  borderRadius: 0,
+                  width: '40rem',
+                  height: 'fit-content',
                 }}
                 data={{ name: 'asd', email: 'ankur' }}
-                cardDetails={Obj}
-                fullWidth
               />
             ))}
         </Box>

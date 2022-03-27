@@ -6,12 +6,17 @@ const ExamBanner = ({ data }) => {
   const classes = useStyles();
   const [cardHover, setCardHover] = useState(false);
 
+  console.log('data is : ', data);
+
   return (
     <>
       <Box
         onMouseEnter={() => setCardHover(true)}
         onMouseLeave={() => setCardHover(false)}
-        style={{ backgroundImage: `linear-gradient(rgba(28, 40, 51,.5), rgba(28, 40, 51,.5)),url(${data.image})`, color: 'white' }}
+        style={{
+          backgroundImage: `linear-gradient(rgba(28, 40, 51,.5), rgba(28, 40, 51,.5)),url(${data.image})`,
+          color: 'white',
+        }}
         className={classes.examBanner}
       >
         <div
@@ -27,7 +32,9 @@ const ExamBanner = ({ data }) => {
           }}
         >
           <div>{data.name}</div>
-          <div className={data.ongoing ? classes.ongoing : classes.upcoming}>{data.ongoing ? 'ongoing' : 'upcoming'}</div>
+          <div className={data.ongoing ? classes.ongoing : classes.upcoming}>
+            {data.ongoing ? 'ongoing' : 'upcoming'}
+          </div>
         </div>
 
         <div
@@ -42,7 +49,10 @@ const ExamBanner = ({ data }) => {
           Registered : {data.numberOfParticipants}
         </div>
 
-        <div className={classes.show} style={{ display: 'flex', margin: '3rem' }}>
+        <div
+          className={classes.show}
+          style={{ display: 'flex', margin: '3rem' }}
+        >
           {data.tags.map((tag) => (
             <div style={{ margin: '1rem' }}>{tag}</div>
           ))}
