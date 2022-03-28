@@ -14,12 +14,17 @@ const ExamDetailsCard2 = (props) => {
   }, [cardDetails]);
 
   return (
-    <Card
-      sx={{ minWidth: fullWidth ? '100%' : width || 300, cursor: 'pointer' }}
-      {...rest}
-    >
+    <Card sx={{ cursor: 'pointer', height: '47rem !important' }} {...rest}>
       {examDetails && examDetails.tags && (
-        <CardContent>
+        <CardContent
+          style={{
+            border: '0px solid blue',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            position: 'relative',
+          }}
+        >
           <Box
             style={{
               width: 'fit-content',
@@ -50,6 +55,11 @@ const ExamDetailsCard2 = (props) => {
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'center',
+              border: '0px solid red',
+              height: 'fit-content',
+              position: 'absolute',
+              bottom: '2rem',
+              right: '2rem',
             }}
           >
             <Box

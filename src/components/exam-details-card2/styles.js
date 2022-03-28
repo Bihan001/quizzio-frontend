@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 export default makeStyles((theme) => ({
   img: {
     width: '100%',
-    height: '100%',
+    height: '20.7rem',
     borderRadius: '1rem',
     transition: '0.3s all ease',
     '&:hover': {

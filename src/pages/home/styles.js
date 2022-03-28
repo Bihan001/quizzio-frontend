@@ -1,4 +1,3 @@
-
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
@@ -26,6 +25,7 @@ export default makeStyles((theme) => ({
     fontWeight: '600',
     // color: theme.palette.grey[600],
     color: theme.palette.primary.main,
+    border: '0px solid red',
   },
   carouselSection: {
     padding: '4rem',
@@ -38,6 +38,8 @@ export default makeStyles((theme) => ({
   examListSection: {
     paddingTop: '4rem',
     paddingBottom: '4rem',
+    border: '0px solid red',
+    padding: '4rem',
     backgroundColor:
       theme.palette.mode === 'dark'
         ? theme.palette.grey[900]
@@ -51,14 +53,16 @@ export default makeStyles((theme) => ({
   },
   announcementCard: {
     padding: '1rem',
-    borderTop: `0px solid ${theme.palette.mode === 'dark'
-      ? theme.palette.common.black
-      : theme.palette.grey[300]
-      }`,
-    borderBottom: `2px solid ${theme.palette.mode === 'dark'
-      ? theme.palette.common.black
-      : theme.palette.grey[300]
-      }`,
+    borderTop: `0px solid ${
+      theme.palette.mode === 'dark'
+        ? theme.palette.common.black
+        : theme.palette.grey[300]
+    }`,
+    borderBottom: `2px solid ${
+      theme.palette.mode === 'dark'
+        ? theme.palette.common.black
+        : theme.palette.grey[300]
+    }`,
     margin: '1rem',
   },
   announcementContainer: {
@@ -66,16 +70,18 @@ export default makeStyles((theme) => ({
     paddingTop: '2rem',
     '& > div': { width: '85%', margin: '0 auto', marginTop: '3rem' },
     '& > :nth-child(2)': {
-      borderTop: `0px solid ${theme.palette.mode === 'dark'
-        ? theme.palette.common.black
-        : theme.palette.grey[300]
-        } !important`,
+      borderTop: `0px solid ${
+        theme.palette.mode === 'dark'
+          ? theme.palette.common.black
+          : theme.palette.grey[300]
+      } !important`,
     },
     '& > :last-child': {
-      borderBottom: `0px solid ${theme.palette.mode === 'dark'
-        ? theme.palette.common.black
-        : theme.palette.grey[300]
-        } !important`,
+      borderBottom: `0px solid ${
+        theme.palette.mode === 'dark'
+          ? theme.palette.common.black
+          : theme.palette.grey[300]
+      } !important`,
     },
   },
   announcementCardDesc: {

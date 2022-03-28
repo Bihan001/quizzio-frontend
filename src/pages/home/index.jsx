@@ -5,10 +5,10 @@ import { Box, Button } from '@mui/material';
 import useStyles from './styles';
 import { getExams } from 'api/exam';
 import Carousel from 'components/carousel';
-import ExamDetailsCard2 from 'components/exam-details-card2';
 import announcementWhite from 'assets/icons/announcementWhite.png';
 import announcementBlack from 'assets/icons/announcementBlack.png';
 import { useSnackbar } from 'notistack';
+import ExamsHorizontalScroll from './exams-horizontal-scroll-section';
 
 const examVisibilities = [
   { label: 'Public', value: 'public' },
@@ -45,18 +45,15 @@ const Home = () => {
 
       {/* -------------     SECOND  PART    -------------------- */}
       <section className={classes.examListSection}>
-        <Container style={{ border: '0px solid blue', width: '100%' }}>
-          <div className={classes.sectionHeading}>Events and Contests</div>
-          <ExamsListWithFilter allData={fetchAllExam} />
-        </Container>
+        <div className={classes.sectionHeading}>Events and Contests</div>
+        <ExamsHorizontalScroll allData={fetchAllExam} />
       </section>
 
       {/* -------------     THIRD PART    -------------------- */}
       <section className={classes.examListSection}>
-        <Container style={{ border: '0px solid blue', width: '100%' }}>
-          <div className={classes.sectionHeading}>More Exams</div>
-          <ExamsListWithFilter allData={fetchAllExam} />
-        </Container>
+        <div className={classes.sectionHeading}>More Exams</div>
+
+        <ExamsHorizontalScroll allData={fetchAllExam} />
       </section>
 
       {/* -------------------   LAST ANNOUNCEMENT SECTION    ------------------- */}
@@ -98,51 +95,3 @@ const Home = () => {
   );
 };
 export default Home;
-
-const ExamsListWithFilter = ({ allData }) => {
-  const [showFilters, setShowFilters] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState({
-    startDate: null,
-    examVisibility: null,
-    examStatus: null,
-  });
-
-  const handleFilterChange = (e) =>
-    setSelectedFilters((f) => ({ ...f, [e.target.name]: e.target.value }));
-  const hideFilters = () => setShowFilters(false);
-
-  return (
-    <>
-      <Box
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <Box
-          style={{
-            marginTop: '1rem',
-            width: '100%',
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
-          }}
-        >
-          {/*  array.map(()  =>  {}) */}
-          {allData &&
-            allData.map((Obj, i) => (
-              <ExamDetailsCard2
-                cardDetails={Obj}
-                style={{
-                  marginBottom: i === 4 ? '0.3rem' : '2rem',
-                  width: '40rem',
-                  height: 'fit-content',
-                }}
-                data={{ name: 'asd', email: 'ankur' }}
-              />
-            ))}
-        </Box>
-      </Box>
-    </>
-  );
-};
