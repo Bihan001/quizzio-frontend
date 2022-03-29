@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react';
 import { Box, Card, CardContent, Button, Typography } from '@mui/material';
 import useStyles from './styles';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { useHistory } from 'react-router-dom';
 
 const ExamDetailsCard2 = (props) => {
+  const history = useHistory();
   const classes = useStyles();
   const { fullWidth, width, data, cardDetails, ...rest } = props;
 
-  const [examDetails, setExamDetails] = useState(null);
-
-  useEffect(() => {
-    if (cardDetails) setExamDetails({ ...cardDetails });
-  }, [cardDetails]);
-
   return (
-    <Card sx={{ cursor: 'pointer', height: '47rem !important' }} {...rest}>
-      {examDetails && examDetails.tags && (
+    <Card
+      sx={{ cursor: 'pointer', height: '47rem !important' }}
+      {...rest}
+      onClick={() => history.push(`/exam/${cardDetails.id}`)}
+    >
+      {cardDetails && (
         <CardContent
           style={{
             border: '0px solid blue',
@@ -31,11 +31,11 @@ const ExamDetailsCard2 = (props) => {
               height: 'fit-content',
             }}
           >
-            <img src={examDetails.image} className={classes.img} />
+            <img src={cardDetails.image} className={classes.img} />
           </Box>
           <Box style={{ marginLeft: '1rem', marginBottom: '1rem' }}>
             <Typography variant="h6">
-              {examDetails.name !== null ? examDetails.name : '-'}{' '}
+              {cardDetails.name !== null ? cardDetails.name : '-'}{' '}
             </Typography>
           </Box>
           <Box
@@ -46,7 +46,7 @@ const ExamDetailsCard2 = (props) => {
               marginBottom: '2rem',
             }}
           >
-            {examDetails.tags.slice(0, 3).map((tag) => (
+            {cardDetails.tags.slice(0, 3).map((tag) => (
               <Tag tag={tag} />
             ))}
           </Box>
@@ -69,7 +69,7 @@ const ExamDetailsCard2 = (props) => {
               }}
             >
               <AccessTimeIcon style={{ marginRight: '.5rem' }} />
-              {new Date(examDetails.startTime).toDateString()}
+              {new Date(cardDetails.startTime).toDateString()}
             </Box>
           </Box>
         </CardContent>

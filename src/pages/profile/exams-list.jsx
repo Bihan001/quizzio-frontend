@@ -132,7 +132,7 @@ const ExamsList = (props) => {
             overflowY: 'auto',
           }}
         >
-          {exams.map((exam, i) => (
+          {/* {exams.map((exam, i) => (
             <ExamDetailsCard2
               cardDetails={exam}
               style={{
@@ -141,7 +141,7 @@ const ExamsList = (props) => {
               }}
               data={{ name: 'asd', email: 'ankur' }}
             />
-          ))}
+          ))} */}
           {exams.map((exam, i) => (
             <ExamDetailsCard
               cardDetails={exam}
