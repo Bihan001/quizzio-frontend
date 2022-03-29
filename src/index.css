@@ -19,3 +19,8 @@ html {
   border-radius: 10px;
   background-color: rgb(211, 211, 211);
 }
+
+
+.basicStyle {
+  margin: 2rem;
+}

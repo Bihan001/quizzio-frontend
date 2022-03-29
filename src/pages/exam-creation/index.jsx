@@ -60,15 +60,19 @@ const ExamCreation = () => {
   const handleSubmitExamData = async () => {
     try {
       const examData = JSON.parse(JSON.stringify(examDetails));
+
       examData.questions = questions;
       examData.duration = +new Date(examData.endTime) - +new Date(examData.startTime);
       examData.startTime = +new Date(examData.startTime);
       delete examData.endTime;
+
       examData.image = await handleUploadBannerImage();
       console.log(examData.image);
+
+      //  Final Creation of Question Set with
       const res = await createExam(examData);
-      console.log('Exam data is : ', examData, ' res is : ', res);
-      history.push('/');
+      console.log('Exam Data : ', examData, ' Response : ', res);
+      // history.push('/');
     } catch (err) {
       enqueueSnackbar(err.message, { variant: 'error' });
     }
@@ -102,7 +106,7 @@ const ExamCreation = () => {
 
       {activeStep === 0 && <Page1 examDetails={examDetails} handleDetailsChange={handleDetailsChange} />}
       {activeStep === 1 && <Page2 questions={questions} handleQuestionsChange={handleQuestionsChange} />}
-      {activeStep === 2 && <Page3 handleSubmitExamData={handleSubmitExamData} />}
+      {activeStep === 2 && <Page3 questions={questions} handleSubmitExamData={handleSubmitExamData} />}
     </Container>
   );
 };

@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FillBlanks = (props) => {
-  const { questionId, userAnswer, correctAnswer } = props;
+  const { questionId, userAnswer = '', correctAnswer } = props;
+
   const theme = useTheme();
   const classes = useStyles();
 
@@ -24,7 +25,13 @@ const FillBlanks = (props) => {
 
   return (
     <>
-      <Typography variant='subtitle2' style={{ fontWeight: 'bold', color: theme.palette.primary.grey, letterSpacing: '0.6px' }}>
+      <Typography
+        variant='subtitle2'
+        style={{
+          fontWeight: 'bold',
+          color: theme.palette.primary.grey,
+          letterSpacing: '0.6px',
+        }}>
         Your Answer
       </Typography>
 
@@ -36,7 +43,7 @@ const FillBlanks = (props) => {
         InputPropsStyle={getInputTextStyle(correctAnswer === userAnswer)}
       />
 
-      {correctAnswer !== userAnswer && (
+      {correctAnswer && correctAnswer !== userAnswer && (
         <Alert severity='success' style={{ marginTop: '2rem', width: '46%' }}>
           <AlertTitle> Correct Answer : {correctAnswer} </AlertTitle>
         </Alert>

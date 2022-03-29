@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
-import { Grid, Typography, Box, Button } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import TextEditor from 'components/text-editor';
 import TextInputField from 'components/text-input-field';
 import DropdownField from 'components/dropdown-field';
@@ -23,9 +22,9 @@ const actions = [
       alert(1);
     },
   },
-  { icon: <SaveIcon />, name: 'Save', onClick: () => { } },
-  { icon: <PrintIcon />, name: 'Print', onClick: () => { } },
-  { icon: <ShareIcon />, name: 'Share', onClick: () => { } },
+  { icon: <SaveIcon />, name: 'Save', onClick: () => {} },
+  { icon: <PrintIcon />, name: 'Print', onClick: () => {} },
+  { icon: <ShareIcon />, name: 'Share', onClick: () => {} },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -49,10 +48,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page2 = (props) => {
+  const { questions, handleQuestionsChange } = props;
 
   const classes = useStyles();
   const theme = useTheme();
-  const { questions, handleQuestionsChange } = props;
+
   console.log(questions);
   const [questionTypes, setQuestionTypes] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -67,7 +67,9 @@ const Page2 = (props) => {
   }, []);
 
   useEffect(() => {
-    if (currentQuestion && !isNaN(currentQuestion.id)) handleQuestionsChange(currentQuestion);
+    if (currentQuestion && !isNaN(currentQuestion.id)) {
+      handleQuestionsChange(currentQuestion);
+    }
   }, [currentQuestion]);
 
   const fetchQuestionTypes = async () => {
@@ -104,6 +106,7 @@ const Page2 = (props) => {
                 onChange={(e) => setCurrentQuestion((q) => ({ ...q, type: e.target.value }))}
               />
             </Grid>
+
             <Grid item lg={4}>
               <TextInputField
                 fullWidth
@@ -112,9 +115,15 @@ const Page2 = (props) => {
                 placeholder={2}
                 required
                 value={currentQuestion.marks}
-                onChange={(e) => setCurrentQuestion((q) => ({ ...q, marks: +e.target.value < 0 ? 0 : +e.target.value }))}
+                onChange={(e) =>
+                  setCurrentQuestion((q) => ({
+                    ...q,
+                    marks: +e.target.value < 0 ? 0 : +e.target.value,
+                  }))
+                }
               />
             </Grid>
+
             <Grid item lg={4}>
               <TextInputField
                 fullWidth
@@ -123,16 +132,17 @@ const Page2 = (props) => {
                 placeholder={1}
                 required
                 value={currentQuestion.negMarks}
-                onChange={(e) => setCurrentQuestion((q) => ({ ...q, negMarks: +e.target.value < 0 ? 0 : +e.target.value }))}
+                onChange={(e) =>
+                  setCurrentQuestion((q) => ({
+                    ...q,
+                    negMarks: +e.target.value < 0 ? 0 : +e.target.value,
+                  }))
+                }
               />
             </Grid>
           </Grid>
 
-          <TextEditor
-            width='100%'
-            value={currentQuestion.question}
-            onChange={(value) => setCurrentQuestion((q) => ({ ...q, question: value }))}
-          />
+          <TextEditor width='100%' value={currentQuestion.question} onChange={(value) => setCurrentQuestion((q) => ({ ...q, question: value }))} />
         </Grid>
       )}
 
@@ -142,9 +152,8 @@ const Page2 = (props) => {
           {(currentQuestion.type === 'mcq' || currentQuestion.type === 'multipleOptions') && (
             <MCQ currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
           )}
-          {currentQuestion.type === 'fillInTheBlanks' && (
-            <FillBlanks currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
-          )}
+
+          {currentQuestion.type === 'fillInTheBlanks' && <FillBlanks currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />}
         </Grid>
       )}
 
@@ -158,11 +167,11 @@ const Page2 = (props) => {
               onClick={() => setCurrentQuestion(ques)} // Set the current ques acc to the Index Number
               style={{
                 boxShadow: currentQuestion?.id === ques.id ? '0 0 3px 3px rgba(0,0,0,0.4)' : 'none',
-              }}
-            >
+              }}>
               {i + 1}
             </Button>
           ))}
+
           <Button className={classes.bubble} variant='contained' onClick={() => addNewQuestion()}>
             <AddIcon />
           </Button>

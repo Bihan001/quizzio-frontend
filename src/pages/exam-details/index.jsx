@@ -1,24 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Box, Tab, Tabs, Button, Paper } from '@mui/material';
-import { useTheme } from '@mui/styles';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import useStyles from './styles';
-import { getExamDetails, registerInExam, getUserExamRegisterStatus, getExamResult, getExamScores } from 'api/exam';
-import { showConfirmation } from 'redux/slices/confirmation-dialog';
-import DomPurify from 'dompurify';
-import { useSnackbar } from 'notistack';
-import { getUnitsFromDuration } from 'utilities/functions';
-import About from './tab-content/about';
-import Scores from './tab-content/scores';
-import Result from './tab-content/result';
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  Tab,
+  Tabs,
+  Button,
+  Paper,
+} from "@mui/material";
+import { useTheme } from "@mui/styles";
+import { useHistory, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import useStyles from "./styles";
+import {
+  getExamDetails,
+  registerInExam,
+  getUserExamRegisterStatus,
+  getExamResult,
+  getExamScores,
+} from "api/exam";
+import { showConfirmation } from "redux/slices/confirmation-dialog";
+import DomPurify from "dompurify";
+import { useSnackbar } from "notistack";
+import { getUnitsFromDuration } from "utilities/functions";
+import About from "./tab-content/about";
+import Scores from "./tab-content/scores";
+import Result from "./tab-content/result";
 
 let timerInterval;
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
   return (
-    <div role='tabpanel' hidden={value !== index} {...other}>
+    <div role="tabpanel" hidden={value !== index} {...other}>
       {value === index && (
         <Box p={3}>
           <Typography>{children}</Typography>
@@ -31,7 +46,7 @@ const TabPanel = (props) => {
 const a11yProps = (index) => {
   return {
     id: `vertical-tab-${index}`,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   };
 };
 
@@ -42,7 +57,7 @@ const Exam_Details = () => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const theme = useTheme();
-  const examId = location.pathname.split('/')[2];
+  const examId = location.pathname.split("/")[2];
 
   const { user } = useSelector((state) => state.auth);
   const [value, setValue] = useState(0);
@@ -68,11 +83,21 @@ const Exam_Details = () => {
     }
     const dd = getUnitsFromDuration(duration);
     console.log(duration, dd);
-    setRemainingTime({ days: dd.days, hours: dd.hours, minutes: dd.minutes, seconds: dd.seconds });
+    setRemainingTime({
+      days: dd.days,
+      hours: dd.hours,
+      minutes: dd.minutes,
+      seconds: dd.seconds,
+    });
   }, [examData.startTime]);
 
   useEffect(() => {
-    if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null) {
+    if (
+      remainingTime.days === null ||
+      remainingTime.hours === null ||
+      remainingTime.minutes === null ||
+      remainingTime.seconds === null
+    ) {
       return;
     }
 
@@ -88,13 +113,28 @@ const Exam_Details = () => {
               // Timer has finished
               clearInterval(timerInterval);
             } else {
-              setRemainingTime((t) => ({ ...t, days: t.days - 1, hours: 23, minutes: 59, seconds: 59 }));
+              setRemainingTime((t) => ({
+                ...t,
+                days: t.days - 1,
+                hours: 23,
+                minutes: 59,
+                seconds: 59,
+              }));
             }
           } else {
-            setRemainingTime((t) => ({ ...t, hours: t.hours - 1, minutes: 59, seconds: 59 }));
+            setRemainingTime((t) => ({
+              ...t,
+              hours: t.hours - 1,
+              minutes: 59,
+              seconds: 59,
+            }));
           }
         } else {
-          setRemainingTime((t) => ({ ...t, minutes: t.minutes - 1, seconds: 59 }));
+          setRemainingTime((t) => ({
+            ...t,
+            minutes: t.minutes - 1,
+            seconds: 59,
+          }));
         }
       }
     }, 1000);
@@ -141,7 +181,7 @@ const Exam_Details = () => {
       const res = await getUserExamRegisterStatus(examId);
       setRegisterStatus(!!res.data.data.registered);
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' });
+      enqueueSnackbar(err.message, { variant: "error" });
     }
   };
 
@@ -150,7 +190,7 @@ const Exam_Details = () => {
       const res = await getExamDetails(examId);
       setExamData(res.data.data);
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' });
+      enqueueSnackbar(err.message, { variant: "error" });
     }
   };
 
@@ -165,7 +205,7 @@ const Exam_Details = () => {
         setRegisterStatus(true);
       }
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' });
+      enqueueSnackbar(err.message, { variant: "error" });
     }
   };
 
@@ -176,68 +216,78 @@ const Exam_Details = () => {
   const TextPair = ({ heading, value }) => {
     return (
       <div>
-        <Typography variant='subtitle2' color={theme.palette.primary.grey} style={{ textTransform: 'uppercase' }}>
+        <Typography
+          variant="subtitle2"
+          color={theme.palette.primary.grey}
+          style={{ textTransform: "uppercase" }}>
           {heading}
         </Typography>
-        <Typography variant='p'>{value}</Typography>
+        <Typography variant="p">{value}</Typography>
       </div>
     );
   };
 
   const JoinCardText = ({ heading, value }) => {
     return (
-      <div style={{ display: 'flex', marginBottom: '1.3rem' }}>
+      <div style={{ display: "flex", marginBottom: "1.3rem" }}>
         <Grid item md={4}>
-          <Typography variant='subtitle2' style={{ textTransform: 'uppercase' }}>
+          <Typography
+            variant="subtitle2"
+            style={{ textTransform: "uppercase" }}>
             {heading}:
           </Typography>
         </Grid>
         <Grid item md={8}>
-          <Typography style={{ fontSize: '1.5rem', fontWeight: '600' }}>{value}</Typography>
+          <Typography style={{ fontSize: "1.5rem", fontWeight: "600" }}>
+            {value}
+          </Typography>
         </Grid>
       </div>
     );
   };
 
-  const getTypography = (text = '', style = {}) => {
+  const getTypography = (text = "", style = {}) => {
     return (
-      <Typography component='p' variant='p' style={style} className={classes.joinText}>
+      <Typography
+        component="p"
+        variant="p"
+        style={style}
+        className={classes.joinText}>
         {text}
       </Typography>
     );
   };
 
-  const getButton = (text = '', type = '') => {
+  const getButton = (text = "", type = "") => {
     return (
       <Button
         className={classes.joinButton}
-        size='large'
-        variant='contained'
-        color='info'
+        size="large"
+        variant="contained"
+        color="info"
         onClick={() =>
-          type === 'register'
+          type === "register"
             ? dispatch(
                 showConfirmation({
-                  title: 'Register in Exam',
-                  content: 'Are you sure you want to register in this exam?',
-                  primaryBtnText: 'Yes',
-                  secondaryBtnText: 'No',
+                  title: "Register in Exam",
+                  content: "Are you sure you want to register in this exam?",
+                  primaryBtnText: "Yes",
+                  secondaryBtnText: "No",
                   onPrimaryBtnClick: () => registerUserInExam(),
                 })
               )
-            : type === 'start'
+            : type === "start"
             ? dispatch(
                 showConfirmation({
-                  title: 'Start Exam',
-                  content: 'Are you sure you want to start this exam?',
-                  primaryBtnText: 'Yes',
-                  secondaryBtnText: 'No',
+                  title: "Start Exam",
+                  content: "Are you sure you want to start this exam?",
+                  primaryBtnText: "Yes",
+                  secondaryBtnText: "No",
                   onPrimaryBtnClick: () => redirectToGiveExam(),
                 })
               )
             : null
-        }
-      >
+        }>
         {text}
       </Button>
     );
@@ -245,12 +295,20 @@ const Exam_Details = () => {
 
   const JoinRegisterSection = () => {
     if (!examData.startTime) return null;
-    if (remainingTime.days === null || remainingTime.hours === null || remainingTime.minutes === null || remainingTime.seconds === null)
+    if (
+      remainingTime.days === null ||
+      remainingTime.hours === null ||
+      remainingTime.minutes === null ||
+      remainingTime.seconds === null
+    )
       return null;
     const startTime = new Date(examData.startTime);
     const endTime = new Date(+startTime + examData.duration);
     const remain = Math.abs(
-      remainingTime.days * 86400000 - remainingTime.hours * 3600000 - remainingTime.minutes * 60000 - remainingTime.seconds * 1000
+      remainingTime.days * 86400000 -
+        remainingTime.hours * 3600000 -
+        remainingTime.minutes * 60000 -
+        remainingTime.seconds * 1000
     );
     // If days,hours,minutes,seconds are zeros, then remain = 0, and startTime - remain = 0, so currentTime should be Date.now()
     const currentTime = remain === 0 ? Date.now() : +startTime - remain;
@@ -259,7 +317,7 @@ const Exam_Details = () => {
       if (!user) {
         return (
           <>
-            {getTypography('Login to register for exam')}
+            {getTypography("Login to register for exam")}
             <CountdownTimer />
           </>
         );
@@ -267,14 +325,14 @@ const Exam_Details = () => {
         if (!registerStatus) {
           return (
             <>
-              {getButton('Register', 'register')}
+              {getButton("Register", "register")}
               <CountdownTimer />
             </>
           );
         } else {
           return (
             <>
-              {getTypography('You have registered')}
+              {getTypography("You have registered")}
               <CountdownTimer />
             </>
           );
@@ -282,23 +340,26 @@ const Exam_Details = () => {
       }
     } else if (currentTime >= startTime && currentTime < endTime) {
       if (!user) {
-        return getTypography('Login to enter exam');
+        return getTypography("Login to enter exam");
       }
       // user has not registered
       else if (!registerStatus) {
-        return getTypography('You have not registered for this exam');
+        return getTypography("You have not registered for this exam");
       } else {
-        return getButton('Enter Exam', 'start');
+        return getButton("Enter Exam", "start");
       }
     } else if (currentTime >= endTime) {
       // after exam
-      return getTypography('Exam has ended', { color: 'crimson', fontWeight: '900' });
+      return getTypography("Exam has ended", {
+        color: "crimson",
+        fontWeight: "900",
+      });
     }
   };
 
   const CountdownTimer = () => {
     return (
-      <Typography component='p' variant='p' className={classes.joinText}>
+      <Typography component="p" variant="p" className={classes.joinText}>
         {`${remainingTime.days} days ${remainingTime.hours} hours ${remainingTime.minutes} minutes ${remainingTime.seconds} seconds`}
       </Typography>
     );
@@ -306,8 +367,10 @@ const Exam_Details = () => {
 
   const getExamDurationFormatted = () => {
     if (!examData.duration) return null;
-    const { days, hours, minutes, seconds } = getUnitsFromDuration(examData.duration);
-    let duration = '';
+    const { days, hours, minutes, seconds } = getUnitsFromDuration(
+      examData.duration
+    );
+    let duration = "";
     if (days > 0) {
       duration += days === 1 ? `${days} day ` : `${days} days `;
     }
@@ -328,41 +391,53 @@ const Exam_Details = () => {
       {/* -----------     Banner    ----------- */}
       <div
         style={{
-          height: '40rem',
-          overflow: 'hidden',
+          height: "40rem",
+          overflow: "hidden",
           backgroundImage: `url(${examData.image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      ></div>
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}></div>
 
-      <Container maxWidth='xl'>
-        <div style={{ display: 'flex' }}>
+      <Container maxWidth="xl">
+        <div style={{ display: "flex" }}>
           <img src={examData.user?.image} className={classes.dp} />
 
-          <div style={{ marginLeft: '3rem', width: '100%' }}>
-            <div style={{ padding: '1rem 0rem 3rem 0rem' }}>
-              <Typography variant='h4' fontWeight='500' fontSize='3rem'>
-                {examData.name !== null ? examData.name : '-'}
+          <div style={{ marginLeft: "3rem", width: "100%" }}>
+            <div style={{ padding: "1rem 0rem 3rem 0rem" }}>
+              <Typography variant="h4" fontWeight="500" fontSize="3rem">
+                {examData.name !== null ? examData.name : "-"}
               </Typography>
-              <Typography variant='p' style={{ fontWeight: '500' }}>
-                {' '}
+              <Typography variant="p" style={{ fontWeight: "500" }}>
+                {" "}
                 Author : {examData.user?.name}
               </Typography>
             </div>
 
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: "flex" }}>
               {/*-------------------------------------------------- */}
               {/*                INFORMATION                        */}
               {/*-------------------------------------------------- */}
               <div className={classes.examInfo}>
-                <TextPair heading='Exam Type' value={examData.isPrivate ? 'Private' : 'Public'} />
-                <TextPair heading='Total Marks' value={examData.totalMarks ? examData.totalMarks : '-'} />
-                <TextPair heading='starts on' value={new Date(examData.startTime).toDateString() || '-'} />
                 <TextPair
-                  heading='Registered Participants'
-                  value={isNaN(examData.numberOfParticipants) ? '-' : examData.numberOfParticipants}
+                  heading="Exam Type"
+                  value={examData.isPrivate ? "Private" : "Public"}
+                />
+                <TextPair
+                  heading="Total Marks"
+                  value={examData.totalMarks ? examData.totalMarks : "-"}
+                />
+                <TextPair
+                  heading="starts on"
+                  value={new Date(examData.startTime).toDateString() || "-"}
+                />
+                <TextPair
+                  heading="Registered Participants"
+                  value={
+                    isNaN(examData.numberOfParticipants)
+                      ? "-"
+                      : examData.numberOfParticipants
+                  }
                 />
               </div>
 
@@ -370,11 +445,24 @@ const Exam_Details = () => {
               {/*             EXAM  TIME  DISPLAY  CARD             */}
               {/*-------------------------------------------------- */}
               <Paper elevation={2} className={classes.joinCard}>
-                <JoinCardText heading='opens at' value={new Date(examData.startTime).toLocaleString() || '-'} />
+                <JoinCardText
+                  heading="opens at"
+                  value={new Date(examData.startTime).toLocaleString() || "-"}
+                />
                 <hr />
-                <JoinCardText heading='closes at' value={new Date(examData.startTime + examData.duration).toLocaleString() || '-'} />
+                <JoinCardText
+                  heading="closes at"
+                  value={
+                    new Date(
+                      examData.startTime + examData.duration
+                    ).toLocaleString() || "-"
+                  }
+                />
                 <hr />
-                <JoinCardText heading='duration' value={`${getExamDurationFormatted()}`} />
+                <JoinCardText
+                  heading="duration"
+                  value={`${getExamDurationFormatted()}`}
+                />
                 <hr />
 
                 {/* Timer Part */}
@@ -387,23 +475,50 @@ const Exam_Details = () => {
         {/*   SECTION - 2  */}
         {/*  Side Vertical Tabs  */}
         <div className={classes.root}>
-          <Tabs orientation='vertical' variant='scrollable' value={value} onChange={handleChange} className={classes.tabVerticalLine}>
-            <Tab label='Description' {...a11yProps(0)} className={classes.sliderTitle} />
-            <Tab label='Scores' disabled={!examScores} {...a11yProps(1)} className={classes.sliderTitle} />
-            <Tab label='Result' disabled={!resultDetails} {...a11yProps(2)} className={classes.sliderTitle} />
-            <Tab label="FAQ's" {...a11yProps(3)} className={classes.sliderTitle} />
-            <Tab label='Discussions' {...a11yProps(4)} className={classes.sliderTitle} />
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            value={value}
+            onChange={handleChange}
+            className={classes.tabVerticalLine}>
+            <Tab
+              label="Description"
+              {...a11yProps(0)}
+              className={classes.sliderTitle}
+            />
+            <Tab
+              label="Scores"
+              disabled={!examScores}
+              {...a11yProps(1)}
+              className={classes.sliderTitle}
+            />
+            <Tab
+              label="Result"
+              disabled={!resultDetails}
+              {...a11yProps(2)}
+              className={classes.sliderTitle}
+            />
+            <Tab
+              label="FAQ's"
+              {...a11yProps(3)}
+              className={classes.sliderTitle}
+            />
+            <Tab
+              label="Discussions"
+              {...a11yProps(4)}
+              className={classes.sliderTitle}
+            />
           </Tabs>
 
-          <TabPanel value={value} index={0} style={{ width: '100%' }}>
+          <TabPanel value={value} index={0} style={{ width: "100%" }}>
             <About content={cleanDescription} />
           </TabPanel>
 
-          <TabPanel value={value} index={1} style={{ width: '100%' }}>
+          <TabPanel value={value} index={1} style={{ width: "100%" }}>
             <Scores examScoresDetails={examScores} />
           </TabPanel>
 
-          <TabPanel value={value} index={2} style={{ width: '100%' }}>
+          <TabPanel value={value} index={2} style={{ width: "100%" }}>
             <Result result={resultDetails} />
           </TabPanel>
 

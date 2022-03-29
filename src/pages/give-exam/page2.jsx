@@ -56,12 +56,11 @@ const Page2 = (props) => {
   }, [questions]);
 
   // --------------------------------------------
-  // FUnction for the Question Number Bubble  (returns the color)
+  // Function for the Question Number Bubble  (returns the color)
   // --------------------------------------------
   const getBubbleBackground = (qId) => {
     const status = questionsStatus[qId];
-    if (!status || status === qStatus.notAttempted)
-      return theme.palette.mode === 'dark' ? theme.palette.grey[600] : theme.palette.grey[400];
+    if (!status || status === qStatus.notAttempted) return theme.palette.mode === 'dark' ? theme.palette.grey[600] : theme.palette.grey[400];
     if (status === qStatus.marked) return theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main;
     if (status === qStatus.review) return theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.main;
   };
@@ -69,7 +68,14 @@ const Page2 = (props) => {
   return (
     <>
       {/* ====================     TIMER COMPONENT     ==================== */}
-      <Paper elevation={0} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '5rem' }}>
+      <Paper
+        elevation={0}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingBottom: '5rem',
+        }}>
         <Typography variant='h5'>
           Time Remaining:{' '}
           {`${remainingTime.days} days ${remainingTime.hours} hours ${remainingTime.minutes} minutes ${remainingTime.seconds} seconds`}
@@ -87,8 +93,7 @@ const Page2 = (props) => {
                 onPrimaryBtnClick: () => handleEndExam(),
               })
             )
-          }
-        >
+          }>
           Submit and End Exam
         </Button>
       </Paper>
@@ -96,7 +101,12 @@ const Page2 = (props) => {
       <Grid container spacing={5}>
         <Grid item xs={12} md={8}>
           <Paper elevation={2} style={{ height: paperHeight, padding: '5rem' }}>
-            <div style={{ display: 'flex', width: 'fit-content', marginLeft: 'auto' }}>
+            <div
+              style={{
+                display: 'flex',
+                width: 'fit-content',
+                marginLeft: 'auto',
+              }}>
               <Typography variant='p' marginRight={'3rem'}>{`Marks: ${3}`}</Typography>
               <Typography variant='p'>{`Negative Marks: ${1}`}</Typography>
             </div>
@@ -124,11 +134,7 @@ const Page2 = (props) => {
                 )}
 
                 {currentQuestion.type === 'fillInTheBlanks' && (
-                  <FillBlanks
-                    handleQAnswer={handleQAnswer}
-                    questionId={currentQuestion.id}
-                    answer={answerObj[currentQuestion.id]?.answer}
-                  />
+                  <FillBlanks handleQAnswer={handleQAnswer} questionId={currentQuestion.id} answer={answerObj[currentQuestion.id]?.answer} />
                 )}
               </div>
             </div>
@@ -139,26 +145,26 @@ const Page2 = (props) => {
                 variant='contained'
                 color='primary'
                 style={{ marginRight: '1rem' }}
-                onClick={() => handleQStatus(currentQuestion.id, qStatus.marked)}
-              >
+                onClick={() => handleQStatus(currentQuestion.id, qStatus.marked)}>
                 Mark
               </Button>
+
               <Button
                 variant='contained'
                 color='warning'
                 style={{ marginRight: '1rem' }}
-                onClick={() => handleQStatus(currentQuestion.id, qStatus.notAttempted)}
-              >
+                onClick={() => handleQStatus(currentQuestion.id, qStatus.notAttempted)}>
                 UnMark
               </Button>
+
               <Button
                 variant='contained'
                 color='secondary'
                 style={{ marginRight: '1rem' }}
-                onClick={() => handleQStatus(currentQuestion.id, qStatus.review)}
-              >
+                onClick={() => handleQStatus(currentQuestion.id, qStatus.review)}>
                 Review
               </Button>
+
               <Button
                 variant='contained'
                 color='info'
@@ -166,8 +172,7 @@ const Page2 = (props) => {
                 onClick={() => {
                   handleQAnswer(currentQuestion.id, null);
                   handleQStatus(currentQuestion.id, qStatus.notAttempted);
-                }}
-              >
+                }}>
                 Clear
               </Button>
             </div>
@@ -188,8 +193,7 @@ const Page2 = (props) => {
                   style={{
                     background: getBubbleBackground(q.id),
                     boxShadow: currentQuestion.id === q.id ? '0 0 3px 3px rgba(0,0,0,0.4)' : 'none',
-                  }}
-                >
+                  }}>
                   {i + 1}
                 </Button>
               ))}
