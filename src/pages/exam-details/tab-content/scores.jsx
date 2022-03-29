@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Card, CardContent, Box, Typography } from '@mui/material';
 import { makeStyles, useTheme } from '@mui/styles';
-import commonStyle from './common-style';
+import commonStyle from '../../../common-style';
 import crown from '../../../assets/icons/crown.png';
 
 const useStyles = makeStyles((theme) => ({

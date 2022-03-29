@@ -5,7 +5,7 @@ import MCQSingle from 'layouts/questionType-result/mcq-single';
 import MCQMultiple from 'layouts/questionType-result/mcq-multiple';
 import FillBlanks from 'layouts/questionType-result/fill-blanks';
 import DomPurify from 'dompurify';
-import commonStyle from './common-style';
+import commonStyle from '../../../common-style';
 
 const useStyles = makeStyles((theme) => ({}));
 

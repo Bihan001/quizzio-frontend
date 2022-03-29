@@ -4,18 +4,16 @@ import { pink } from '@mui/material/colors';
 import { useTheme } from '@mui/styles';
 
 const MCQMultiple = (props) => {
-  const { questionId, options, userAnswer, correctAnswer } = props;
+  const { questionId, options, userAnswer = '', correctAnswer } = props;
   const theme = useTheme();
 
   //  -------------------------------------------------------
   //      LOGIC FOR THE COLOR OF THE CORRECT AND WRONG
   // --------------------------------------------------------
   const getBackgroundColor = (optionId) => {
-    if (correctAnswer.includes(optionId))
-      return 'rgb(237, 247, 237)';
+    if (correctAnswer.includes(optionId)) return 'rgb(237, 247, 237)';
 
-    if (userAnswer.includes(optionId))
-      return '#ffccd5';
+    if (userAnswer.includes(optionId)) return '#ffccd5';
 
     return theme.palette.background.default;
   };
@@ -31,7 +29,7 @@ const MCQMultiple = (props) => {
   return (
     <>
       <Typography variant='subtitle2' style={{ fontWeight: 'bold', color: theme.palette.primary.grey, letterSpacing: '0.6px' }}>
-        Your Answer
+        {userAnswer ? 'Your Answer' : 'Answer'}
       </Typography>
 
       <FormGroup>
@@ -39,7 +37,7 @@ const MCQMultiple = (props) => {
           <FormControlLabel
             control={<Checkbox checked={!!userAnswer ? userAnswer.includes(o.id) : false} sx={getRedTick(o.id)} />}
             label={o.data}
-            style={{ backgroundColor: getBackgroundColor(o.id), width: '46%', margin: '0.4rem 0', borderRadius: theme.shape.borderRadius }}
+            style={{ backgroundColor: getBackgroundColor(o.id), width: '50%', margin: '0.4rem 0', borderRadius: theme.shape.borderRadius }}
           />
         ))}
       </FormGroup>

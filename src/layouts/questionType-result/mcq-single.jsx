@@ -3,7 +3,7 @@ import { Radio, RadioGroup, FormControlLabel, FormControl, Typography } from '@m
 import { useTheme } from '@mui/styles';
 
 const MCQSingle = (props) => {
-  const { questionId, options, userAnswer, correctAnswer } = props;
+  const { questionId, options, userAnswer = '', correctAnswer } = props;
   const theme = useTheme();
 
   const getBackgroundColor = (optionId) => {
@@ -15,10 +15,10 @@ const MCQSingle = (props) => {
   return (
     <>
       <Typography variant='subtitle2' style={{ fontWeight: 'bold', color: theme.palette.primary.grey, letterSpacing: '0.6px' }}>
-        Your Answer
+        {userAnswer ? 'Your Answer' : 'Answer'}
       </Typography>
 
-      <FormControl component='fieldset' style={{ width: '46%' }}>
+      <FormControl component='fieldset' style={{ width: '50%' }}>
         <RadioGroup value={userAnswer ? userAnswer[0] : null}>
           {options.map((o) => (
             <FormControlLabel

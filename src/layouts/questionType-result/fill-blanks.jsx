@@ -32,19 +32,21 @@ const FillBlanks = (props) => {
           color: theme.palette.primary.grey,
           letterSpacing: '0.6px',
         }}>
-        Your Answer
+        {userAnswer ? 'Your Answer' : 'Answer'}
       </Typography>
 
-      <TextInputField
-        value={userAnswer || ''}
-        // disabled
-        variant='standard'
-        style={{ width: '36rem' }}
-        InputPropsStyle={getInputTextStyle(correctAnswer === userAnswer)}
-      />
+      {userAnswer && (
+        <TextInputField
+          value={userAnswer || ''}
+          // disabled
+          variant='standard'
+          style={{ width: '36rem' }}
+          InputPropsStyle={getInputTextStyle(correctAnswer === userAnswer)}
+        />
+      )}
 
-      {correctAnswer && correctAnswer !== userAnswer && (
-        <Alert severity='success' style={{ marginTop: '2rem', width: '46%' }}>
+      {correctAnswer && correctAnswer.toLowerCase() !== userAnswer.toLowerCase() && (
+        <Alert severity='success' style={{ marginTop: '2rem', width: '50%' }}>
           <AlertTitle> Correct Answer : {correctAnswer} </AlertTitle>
         </Alert>
       )}

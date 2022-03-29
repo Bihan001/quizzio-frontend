@@ -7,14 +7,9 @@ import MCQMultiple from 'layouts/questionType-result/mcq-multiple';
 import FillBlanks from 'layouts/questionType-result/fill-blanks';
 import DomPurify from 'dompurify';
 import '../../index.css';
+import commonStyle from '../../common-style.js';
 
-const useStyles = makeStyles((theme) => ({
-  heading: {
-    fontSize: '3.2rem',
-    textAlign: 'center',
-    marginBottom: '2rem',
-  },
-}));
+const useStyles = makeStyles((theme) => ({}));
 
 const Page3 = (props) => {
   const { questions, handleSubmitExamData } = props;
@@ -22,6 +17,7 @@ const Page3 = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
+  const classes2 = commonStyle();
 
   const handleSubmit = () => {
     dispatch(
@@ -40,8 +36,7 @@ const Page3 = (props) => {
 
   return (
     <div>
-      <Typography variant='p' marginRight={'3rem'}>{`Marks: ${3}`}</Typography>
-      <Typography variant='p'>{`Negative Marks: ${1}`}</Typography>
+      <Typography className={classes2.heading}> PREVIEW </Typography>
 
       {questions && questions.length > 0 && (
         <ol style={{ paddingLeft: '2rem' }}>
@@ -56,6 +51,9 @@ const Page3 = (props) => {
                       __html: DomPurify.sanitize(eachQues.question),
                     }}
                   />
+
+                  <Typography variant='body2' marginRight={'3rem'}>{`Marks: ${eachQues.marks}`}</Typography>
+                  <Typography variant='body2'>{`Negative Marks: ${eachQues.negMarks}`} </Typography>
 
                   <div style={{ marginTop: '1rem' }}>
                     {eachQues.type === 'multipleOptions' && (
@@ -75,9 +73,9 @@ const Page3 = (props) => {
         </ol>
       )}
 
-      <div style={{ display: 'flex', width: 'fit-content', marginLeft: 'auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Button variant='contained' style={{ marginRight: '1rem' }} onClick={() => handleSubmit()}>
-          Save
+          Submit
         </Button>
         <Button variant='contained' color='info'>
           Print
