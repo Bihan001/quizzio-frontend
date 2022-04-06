@@ -49,8 +49,7 @@ const Carousel = ({ data, type }) => {
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
-        className={classes.card}
-      >
+        className={classes.card}>
         {Cards[type]}
       </AutoPlaySwipeableViews>
 
