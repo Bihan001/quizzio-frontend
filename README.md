@@ -13,7 +13,7 @@ Install my-project with npm
 
 ## Demo
 
-https://exam-simulation-frontend.vercel.app
+https://quizzio.vercel.app
 
 ## Color Reference
 
