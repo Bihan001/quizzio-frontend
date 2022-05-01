@@ -1,4 +1,4 @@
-# Exam Simulation: Frontend
+# Quizzio: Frontend
 
 Frontend for the Exam Simulation project.
 
