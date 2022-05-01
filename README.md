@@ -26,3 +26,4 @@ https://quizzio.vercel.app
 ## Authors
 
 - [@Bihan001](https://www.github.com/Bihan001)
+- [@niharika2k00](https://github.com/niharika2k00)
