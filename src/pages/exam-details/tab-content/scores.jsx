@@ -75,7 +75,7 @@ const Scores = (props) => {
                 <Box style={{ marginRight: 'auto' }}>
                   <Typography variant='subtitle2'>RANK</Typography>
                   <Typography variant='subtitle2' style={{ fontWeight: 'bold', color: theme.palette.primary.main, fontSize: '1.6rem' }}>
-                    {examScoresDetails.rank !== null ? ` Position ${examScoresDetails.rank}` : '-'}
+                    {examScoresDetails.userRank !== null ? ` Position ${examScoresDetails.userRank}` : '-'}
                   </Typography>
                 </Box>
 
@@ -111,10 +111,10 @@ const Scores = (props) => {
             {examScoresDetails.topPerformers &&
               examScoresDetails.topPerformers.map((user) => (
                 <TableRow
-                  key={user.rank}
+                  key={user.userRank}
                   // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell align='center'> {user.rank} </TableCell>
+                  <TableCell align='center'> {user.userRank} </TableCell>
                   <TableCell align='center'> {user.name}</TableCell>
                   <TableCell align='center'> {user.totalScore}</TableCell>
                   <TableCell align='center'>

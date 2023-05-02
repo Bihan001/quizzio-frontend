@@ -5,5 +5,5 @@ export const getHeaders = () => {
 };
 
 export const axios = Axios.create({
-  baseURL: 'http://localhost:5001',
+  baseURL: '',
 });
