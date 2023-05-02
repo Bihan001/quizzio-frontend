@@ -5,5 +5,5 @@ export const getHeaders = () => {
 };
 
 export const axios = Axios.create({
-  baseURL: true || process.env.NODE_ENV === 'production' ? 'https://quizyfy.herokuapp.com' : 'http://localhost:5000',
+  baseURL: 'http://localhost:5001',
 });
