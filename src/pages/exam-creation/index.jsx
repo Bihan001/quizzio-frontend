@@ -65,7 +65,7 @@ const ExamCreation = () => {
       examData.duration = +new Date(examData.endTime) - +new Date(examData.startTime);
       examData.startTime = +new Date(examData.startTime);
       delete examData.endTime;
-
+      console.log('exam Is  : ', examData);
       examData.image = await handleUploadBannerImage();
       console.log(examData.image);
 

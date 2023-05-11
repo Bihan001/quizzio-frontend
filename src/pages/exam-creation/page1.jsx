@@ -11,7 +11,6 @@ import { getExamTags, getExamTypes } from 'api/exam';
 import { csvToJSON } from 'utilities/functions';
 
 const Page1 = (props) => {
-
   const { examDetails, handleDetailsChange } = props;
   const [selectedTags, setSelectedTags] = useState([]);
   const [tags, setTags] = useState([]);
@@ -82,23 +81,39 @@ const Page1 = (props) => {
               />
             </Grid>
             <Grid item lg={6}>
-              <DateTimePicker
+              {/* <DateTimePicker
                 fullWidth
                 label='Starts From'
                 required
                 name='startTime'
                 value={examDetails.startTime}
                 onChange={(newTime) => handleDetailsChange('startTime', newTime)}
+              /> */}
+              <TextInputField
+                name='startTime'
+                label='Starts From'
+                fullWidth
+                required
+                value={examDetails.startTime}
+                onChange={(e) => handleDetailsChange('startTime', e.target.value)}
               />
             </Grid>
             <Grid item lg={6}>
-              <DateTimePicker
+              {/* <DateTimePicker
                 fullWidth
                 label='Ends On'
                 required
                 name='endTime'
                 value={examDetails.endTime}
                 onChange={(newTime) => handleDetailsChange('endTime', newTime)}
+              /> */}
+              <TextInputField
+                name='endTime'
+                label='Ends On'
+                fullWidth
+                required
+                value={examDetails.endTime}
+                onChange={(e) => handleDetailsChange('endTime', e.target.value)}
               />
             </Grid>
             <Grid item lg={6}>
@@ -143,12 +158,7 @@ const Page1 = (props) => {
           <Typography variant='p' component='p' style={{ marginBottom: '0.5rem' }}>
             Description
           </Typography>
-          <TextEditor
-            width='100%'
-            height={295}
-            value={examDetails.description}
-            onChange={(value) => handleDetailsChange('description', value)}
-          />
+          <TextEditor width='100%' height={295} value={examDetails.description} onChange={(value) => handleDetailsChange('description', value)} />
         </Grid>
       </Grid>
     </>

@@ -59,6 +59,7 @@ const Register = () => {
     try {
       const body = JSON.parse(JSON.stringify(newUserData));
       body.dob = '2018-03-29T13:34:00.000';
+      console.log('user is : ', body);
       const res = await registerNewUser(body);
       console.log(res);
       dispatch(setUserAndToken({ user: res.data.data.user, token: res.data.data.token }));
@@ -122,13 +123,21 @@ const Register = () => {
             />
           </Grid>
           <Grid item xs={12} md={5} style={{ margin: 'auto' }}>
-            <DatePicker
+            {/* <DatePicker
               fullWidth
               label='Date of Birth'
               name='dob'
               required
               value={newUserData.dob}
               onChange={(newDate) => handleDataChange('dob', newDate)}
+            /> */}
+            <TextInputField
+              fullWidth
+              label='Date of Birth'
+              name='dob'
+              required
+              value={newUserData.dob}
+              onChange={(e) => handleDataChange('dob', e.target.value)}
             />
           </Grid>
           <Grid item xs={12} md={5} style={{ margin: 'auto' }}>
